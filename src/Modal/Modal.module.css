@@ -11,8 +11,8 @@
   .modal {
     position: fixed;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center;
+    align-items: center; */
     /* width: 300px; */
     top: 32vh;
     left: 40%;

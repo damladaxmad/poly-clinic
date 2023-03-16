@@ -9,7 +9,7 @@ module.exports = {
     "View Orders",
     "Update Customer",
     "Payment",
-    "Dashboard",
+    // "Dashboard",
     "Employees",
     "Add New Employees",
     "Give User",
@@ -37,7 +37,12 @@ module.exports = {
    "Disable User",
    "Add New Users",
    "View Customers",
-   "New Purchase"
+   "New Purchase",
+   "Products",
+   "Delete Product",
+   "Update Product",
+   "New Sale",
+   "Categories"
   ],
 };
 

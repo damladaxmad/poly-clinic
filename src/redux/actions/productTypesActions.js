@@ -1,8 +1,8 @@
 import { ActionTypes } from "../constants/action-types";
 
-export const setCustomers = (data) => {
+export const setProductTypes = (data) => {
   return {
-    type: ActionTypes.SET_CUSTOMERS,
+    type: ActionTypes.SET_PRODUCT_TYPES,
     payload: data,
   };
 };

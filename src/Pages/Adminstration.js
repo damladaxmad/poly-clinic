@@ -65,7 +65,7 @@ const Adminstration = () => {
   }
 
   const dispatch = useDispatch()
-  dispatch(setUsers(useFetch("users/users-with-transactions", change, "users")))
+  // dispatch(setUsers(useFetch("users/users-with-transactions", change, "users")))
   
   useEffect(() => {
     console.log(`chang is happening ${change}`)
@@ -91,7 +91,6 @@ const Adminstration = () => {
             textColor="black"
             indicatorColor="primary"
             aria-label="secondary tabs example"
-            disableFocusRipple = {true}
           >
             
        

@@ -58,6 +58,7 @@ const PriceBox = (props) => {
       </Typography>
       <input
         // value={name}
+        disabled = {true}
         type="number"
         style={{
           width: "150px",

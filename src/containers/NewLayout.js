@@ -27,6 +27,10 @@ import { FiMenu } from "react-icons/fi";
 import { HiOutlineDocumentReport } from "react-icons/hi";
 import { FaClipboardList } from "react-icons/fa"; 
 import { MdBorderColor } from "react-icons/md"; 
+import { MdPointOfSale } from "react-icons/md"; 
+import { MdOutlineCategory } from "react-icons/md"; 
+import { MdProductionQuantityLimits } from "react-icons/md"; 
+import { BiPurchaseTagAlt } from "react-icons/bi"; 
 import AppBarFile from './AppBarContainers/AppBar';
 import femaleProfile from "../assets/images/fitCasriLogo1.jpg";
 import { useSelector } from 'react-redux';
@@ -140,16 +144,32 @@ const menuItems = [
     },
  
     {
+      text: "Products",
+      icon: <MdProductionQuantityLimits style={{fontSize: "20px", color: "#130F26" }} />,
+      path: "/products",
+    },
+
+    {
+      text: "New Purchase",
+      icon: <BiPurchaseTagAlt style={{fontSize: "20px", color: "#130F26" }} />,
+      path: "/purchase",
+    },
+    {
+      text: "New Sale",
+      icon: <MdPointOfSale style={{fontSize: "20px", color: "#130F26" }} />,
+      path: "/sale",
+    },
+    {
+      text: "Categories",
+      icon: <MdOutlineCategory style={{fontSize: "20px", color: "#130F26" }} />,
+      path: "/categories",
+    },
+    
+    {
       text: "Adminstration",
       icon: <MdAdminPanelSettings style={{fontSize: "20px", color: "#130F26" }} />,
       path: "/adminstration",
     },
-    {
-      text: "New Purchase",
-      icon: <MdAdminPanelSettings style={{fontSize: "20px", color: "#130F26" }} />,
-      path: "/calculator",
-    },
-  
 
  
          
@@ -236,7 +256,7 @@ export default function NewLayout({children}) {
 
           <Typography  style = {{fontSize:"18px",
         color: "#19274B", fontWeight: "600", marginLeft: "12px"}}>
-         Kulmiye PolyClinic
+          PolyClinic System
             {/* {companyInfo ? companyInfo?.name?.substring(0, 13) : "Company Name"}{companyInfo ? companyInfo?.name?.length <= 12 ? null : "..." : null} */}
           </Typography>
          
@@ -272,7 +292,7 @@ export default function NewLayout({children}) {
             >
               <ListItemIcon>{item.icon}</ListItemIcon>
               <ListItemText primary={item.text} 
-              style = {{color: location.pathname == item.path ? "#171717;" : "#19274B"}}/>
+              style = {{color: location.pathname == item.path ? "#171717" : "#19274B"}}/>
             </ListItem>
             }
       })}

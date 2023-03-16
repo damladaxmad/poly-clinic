@@ -180,10 +180,16 @@ const Table = (props) => {
     })
     handleClose()
   }
+
+  const removeItem = () => {
+    setAnchorEl(null);
+    props.removeItem(instance.item)
+  }
   let state = props.state;
 
   return (
-    <div style={{ width: "98%",}}>
+    <div style={{ width: props.page == "New Purchase" ? "98%" : "95%", 
+    margin: props.page == "New Purchase" ? "none" : "auto" }}>
       
       {userShow && (
         <ResetUser
@@ -289,7 +295,7 @@ const Table = (props) => {
           </MenuItem>
         )}
 
-        {/* {props.name !== "Customer" && (
+       {props.name == "Product" && (
           <MenuItem
             onClick={() => {
               if (activeUser.privillages.includes(`Delete ${props.name}`))
@@ -299,11 +305,20 @@ const Table = (props) => {
           >
             Delete {props.name}
           </MenuItem>
-        )} */}
+        )} 
+       {props.name == "Purchase" && (
+          <MenuItem
+            onClick={() => {
+              if (activeUser.privillages.includes(`New Purchase`))
+                removeItem();
+              else alert("You have no access!");
+            }}
+          >
+            Remove Item
+          </MenuItem>
+        )} 
 
-        {(props.name == "Employee" ||
-          props.name == "Styles" ||
-          props.name == "Customer" || props.name == "Expense") && (
+        {props.name == "Product" && (
           <MenuItem
             onClick={() => {
               if (activeUser.privillages.includes(`Update ${props.name}`))
@@ -362,7 +377,7 @@ const Table = (props) => {
           showTextRowsSelected: false,
           toolbar: false,
           pageSizeOptions: [2, 5, 8, 10, 20, 25, 50, 100],
-          pageSize: 5,
+          pageSize: props.page == "New Purchase" ? 5 : 10,
         //   pageSize: props.data.length < 100 ? props.data.length < 8 ? 8 : props.data.length : 100,
           draggable: false,
           actionsColumnIndex: -1,
@@ -389,7 +404,7 @@ const Table = (props) => {
           },
         ]}
         style={{ borderRadius: "10px", boxShadow: "none",
-        border: "1px solid black" }}
+         border: props.page == "New Purchase" ? "1px solid black" : "none"}}
       />
     </div>
   );

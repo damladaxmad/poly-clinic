@@ -1,5 +1,4 @@
 import { Button } from "@material-ui/core";
-import { Alert } from "@mui/material";
 import { useState } from "react";
 import AdditionalInfo from "./AdditionalInfo";
 import PriceBox from "./PriceBox";
@@ -9,22 +8,21 @@ const PurchaseForm = (props) => {
 
   const [error, setError] = useState(false)
   const [disable, setDisable] = useState(false)
-  const [purchaseData, setPurchaseData] = useState({
+  const [saleData, setSaleData] = useState({
    item: null,
    unitPrice: null,
-   salePrice: null,
    quantity: null,
    type: null,
    refNumber: null,
    date: null
   });
 
-  console.log(purchaseData)
+  console.log(saleData)
 
   return (
     <div style={{ display: "flex", gap: "40px", flexDirection: "column" }}>
       <Selectors  item = {(data) => {
-            setPurchaseData((prevState) => {
+            setSaleData((prevState) => {
               return {
                 ...prevState,
                 item: data,
@@ -33,7 +31,7 @@ const PurchaseForm = (props) => {
           }} 
           
           type = {(data) => {
-            setPurchaseData((prevState) => {
+            setSaleData((prevState) => {
               return {
                 ...prevState,
                 type: data,
@@ -43,10 +41,10 @@ const PurchaseForm = (props) => {
 
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <PriceBox  
-         total = {purchaseData?.unitPrice * purchaseData?.quantity}
+         total = {saleData?.unitPrice * saleData?.quantity}
         
         unitPrice = {(data) => {
-            setPurchaseData((prevState) => {
+            setSaleData((prevState) => {
               return {
                 ...prevState,
                 unitPrice: parseFloat(data),
@@ -54,17 +52,8 @@ const PurchaseForm = (props) => {
             });
           }}
           
-          salePrice = {(data) => {
-            setPurchaseData((prevState) => {
-              return {
-                ...prevState,
-                salePrice: parseFloat(data),
-              };
-            });
-          }}
-          
           quantity = {(data) => {
-            setPurchaseData((prevState) => {
+            setSaleData((prevState) => {
               return {
                 ...prevState,
                 quantity: parseInt(data),
@@ -73,7 +62,7 @@ const PurchaseForm = (props) => {
           }}/>
 
         <AdditionalInfo  refNumber = {(data) => {
-            setPurchaseData((prevState) => {
+            setSaleData((prevState) => {
               return {
                 ...prevState,
                 refNumber: data,
@@ -82,7 +71,7 @@ const PurchaseForm = (props) => {
           }}
           
           date = {(data) => {
-            setPurchaseData((prevState) => {
+            setSaleData((prevState) => {
               return {
                 ...prevState,
                 date: data,
@@ -90,7 +79,7 @@ const PurchaseForm = (props) => {
             });
           }}
           
-          item = {purchaseData.item}/>
+          item = {saleData.item}/>
       </div>
 
       <div style={{ display: "flex", flexDirection: "row", gap: "30px" }}>
@@ -106,28 +95,28 @@ const PurchaseForm = (props) => {
           type="submit"
           variant="contained"
           onClick = {()=>  {
-            if (!purchaseData.item || !purchaseData.unitPrice || !purchaseData.salePrice
-              || !purchaseData.quantity || !purchaseData.refNumber || !purchaseData.date
-              || !purchaseData.type) {
+            if (!saleData.item || !saleData.unitPrice 
+              || !saleData.quantity || !saleData.refNumber || !saleData.date
+              || !saleData.type) {
                return setError(true)
               }
-            var exitLoop = false
-            props.data?.map(dictum => {
-              if (dictum.item == purchaseData.item) {
-                exitLoop = true
-              }
-            })
-            if (exitLoop) return alert("WTF, why are you doing duplicates? 🤞🤞")
+              var exitLoop = false
+              props.data?.map(dictum => {
+                if (dictum.item == saleData.item) {
+                  exitLoop = true
+                }
+              })
+              if (exitLoop) return alert("WTF, why are you doing duplicates? 🤞🤞")
+              
             setError(false)
             setDisable(true)
-            props.tableData(purchaseData)
+            props.tableData(saleData)
             props.products({
-              item: purchaseData.item,
-              unitPrice: purchaseData.unitPrice,
-              salePrice: purchaseData.salePrice,
-              quantity: purchaseData.quantity,
+              item: saleData.item,
+              unitPrice: saleData.unitPrice,
+              quantity: saleData.quantity,
             })
-            alert("Item added to the list 👍👍")
+            alert("Item added to the list!")
             setDisable(false)
           }}
         >

@@ -18,14 +18,14 @@ const CheckoutForm = (props) => {
 
   const completeHandler = () => {
     setDisable(true)
-    axios.post(`${constants.baseUrl}/purchases`, {
+    axios.post(`${constants.baseUrl}/sales`, {
       products: props.products,
       date: props.data[0]?.date,
       refNumber: props.data[0]?.refNumber,
       paymentType: "cash",
       discount: discount
     }).then((res) => {
-      alert("Succesfully created purchase!")
+      alert("Succesfully created sale!")
       setDisable(false)
     }).catch((err) => {
       alert(err.response?.data?.message)
@@ -147,6 +147,7 @@ const CheckoutForm = (props) => {
             color: "white",
             marginTop: "20px",
           }}
+          type="submit"
           variant="contained"
           onClick = {completeHandler}
         >

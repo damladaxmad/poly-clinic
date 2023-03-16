@@ -52,7 +52,7 @@ const SignupAndLogin = (props) => {
         {isConnected == "no connection" && <p style={{color: "red"}}> No Server Connection!</p>}
         <p style={{margin: "0px",
         fontSize:"28px", fontWeight: "700",
-        color: "#19274B",}}
+        color: "#5130DE",}}
         >Login</p>
         </div>
         

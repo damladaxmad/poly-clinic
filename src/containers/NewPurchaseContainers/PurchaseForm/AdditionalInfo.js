@@ -1,6 +1,18 @@
 import { Typography } from "@material-ui/core";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
-const AdditionalInfo = () => {
+const AdditionalInfo = (props) => {
+  const products = useSelector(state => state.products.products)
+  let remaining = 0
+  products?.map(product => {
+    if (product.name == props.item) remaining = product.quantity
+  })
+
+  // useEffect( () => {
+
+  // }, [remaining])
+
   return (
     <div
       style={{
@@ -17,28 +29,45 @@ const AdditionalInfo = () => {
         gap: "20px",
       }}
     >
-      <Item />
-      <Item />
-      <Item />
-      <Item />
-
+      <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "10px",
+      }}
+    >
+      <Typography style={{ fontWeight: "600", fontSize: "14px" }}>
+        {" "}
+        Remaining:
+      </Typography>
+      <input
+        value={remaining}
+        disabled = {true}
+        type="text"
+        style={{
+          width: "150px",
+          height: "40px",
+          padding: "10px",
+          fontSize: "16px",
+          borderRadius: "8px",
+          background: "white",
+          border: "1px solid black",
+        }}
+        // onChange={(e) => props.unitPrice(e.target.value)}
+      />
     </div>
-  );
-};
 
-const Item = () => {
-  return (
+
     <div
       style={{
         display: "flex",
         flexDirection: "column",
         gap: "10px",
-        // padding: "25px 40px",
       }}
     >
       <Typography style={{ fontWeight: "600", fontSize: "14px" }}>
         {" "}
-        Unit Cost:
+        Invoice Number:
       </Typography>
       <input
         // value={name}
@@ -52,10 +81,72 @@ const Item = () => {
           background: "white",
           border: "1px solid black",
         }}
-        // onChange={(e) => setName(e.target.value)}
+        onChange={(e) => props.refNumber(e.target.value)}
       />
+    </div>
+
+
+
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "10px",
+      }}
+    >
+      <Typography style={{ fontWeight: "600", fontSize: "14px" }}>
+        {" "}
+        Purchase Date:
+      </Typography>
+      <input
+        type="date"
+        style={{
+          width: "150px",
+          height: "40px",
+          padding: "10px",
+          fontSize: "16px",
+          borderRadius: "8px",
+          background: "white",
+          border: "1px solid black",
+        
+        }}
+        onChange={(e) => props.date(e.target.value)}
+      />
+    </div>
+
+
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "10px",
+      }}
+    >
+      <Typography style={{ fontWeight: "600", fontSize: "14px" }}>
+        {" "}
+        Expiry Date:
+      </Typography>
+      <input
+        // value={name}
+        type="date"
+        style={{
+          width: "150px",
+          height: "40px",
+          padding: "10px",
+          fontSize: "16px",
+          borderRadius: "8px",
+          background: "white",
+          border: "1px solid black",
+        }}
+        // onChange={(e) => props.quantity(e.target.value)}
+      />
+    </div>
+
+
     </div>
   );
 };
+
+
 
 export default AdditionalInfo;

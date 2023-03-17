@@ -1,4 +1,4 @@
-import { Button } from "@material-ui/core";
+import { Button, Snackbar } from "@material-ui/core";
 import { Alert } from "@mui/material";
 import { useState } from "react";
 import AdditionalInfo from "./AdditionalInfo";
@@ -9,6 +9,22 @@ const PurchaseForm = (props) => {
 
   const [error, setError] = useState(false)
   const [disable, setDisable] = useState(false)
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [reset, setReset] = useState(false)
+  const open = Boolean(anchorEl);
+
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
+
+  const handleClick = (
+    event: React.MouseEvent<HTMLButtonElement>,
+    instance
+  ) => {
+    setAnchorEl(event.currentTarget);
+    // setInstance(instance);
+  };
+
   const [purchaseData, setPurchaseData] = useState({
    item: null,
    unitPrice: null,
@@ -44,7 +60,7 @@ const PurchaseForm = (props) => {
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <PriceBox  
          total = {purchaseData?.unitPrice * purchaseData?.quantity}
-        
+         reset = {reset}
         unitPrice = {(data) => {
             setPurchaseData((prevState) => {
               return {
@@ -52,6 +68,7 @@ const PurchaseForm = (props) => {
                 unitPrice: parseFloat(data),
               };
             });
+            setReset(false)
           }}
           
           salePrice = {(data) => {
@@ -61,6 +78,7 @@ const PurchaseForm = (props) => {
                 salePrice: parseFloat(data),
               };
             });
+            setReset(false)
           }}
           
           quantity = {(data) => {
@@ -70,6 +88,7 @@ const PurchaseForm = (props) => {
                 quantity: parseInt(data),
               };
             });
+            setReset(false)
           }}/>
 
         <AdditionalInfo  refNumber = {(data) => {
@@ -108,7 +127,7 @@ const PurchaseForm = (props) => {
           onClick = {()=>  {
             if (!purchaseData.item || !purchaseData.unitPrice || !purchaseData.salePrice
               || !purchaseData.quantity || !purchaseData.refNumber || !purchaseData.date
-              || !purchaseData.type) {
+             ) {
                return setError(true)
               }
             var exitLoop = false
@@ -127,7 +146,16 @@ const PurchaseForm = (props) => {
               salePrice: purchaseData.salePrice,
               quantity: purchaseData.quantity,
             })
-            alert("Item added to the list 👍👍")
+            alert("Item Added To The List!")
+            setReset(true)
+            setPurchaseData((prevState) => {
+              return {
+                ...prevState,
+                quantity: null,
+                unitPrice: null,
+                salePrice: null
+              };
+            });
             setDisable(false)
           }}
         >
@@ -143,6 +171,7 @@ const PurchaseForm = (props) => {
           }}
           type="submit"
           variant="contained"
+          onClick = {handleClick}
         >
           Clear All
         </Button>
@@ -150,6 +179,12 @@ const PurchaseForm = (props) => {
     fontSize: "16px", alignSelf: "center"}}> Hey stupid, fill all the blanks 😁😁</p>}
       </div>
 
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success" sx={{ width: '300px',
+      background: "black", color: "white" }}>
+         Clear functionality is coming soon!
+        </Alert>
+      </Snackbar>
     </div>
   );
 };

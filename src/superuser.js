@@ -42,7 +42,9 @@ module.exports = {
    "Delete Product",
    "Update Product",
    "New Sale",
-   "Categories"
+   "Categories",
+   "Delete Category",
+   "Delete Type"
   ],
 };
 

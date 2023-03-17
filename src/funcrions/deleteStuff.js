@@ -18,7 +18,7 @@ export const deleteFunction = (title, name, url, fun) => {
           icon:"success", timer: "2000"})
           fun()
         }).catch((err) => {
-          swal({text: err.response.data.message,
+          swal({text: err.response?.data?.message,
       icon:"error", timer: "2000"})
         })
         

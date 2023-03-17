@@ -1,6 +1,20 @@
 import { Typography } from "@material-ui/core";
+import { useEffect, useState } from "react";
 
 const PriceBox = (props) => {
+
+  const [unitPrice, setUnitPrice] = useState()
+  const [salePrice, setSalePrice] = useState()
+  const [quantity, setQuantity] = useState()
+
+  useEffect(()=> {
+    if (props.reset) {
+      setUnitPrice("")
+      setSalePrice("")
+      setQuantity("")
+    }
+  }, [props.reset])
+
   return (
     <div
       style={{
@@ -29,7 +43,7 @@ const PriceBox = (props) => {
         Unit Price:
       </Typography>
       <input
-        // value={name}
+        value={unitPrice}
         type="number"
         style={{
           width: "150px",
@@ -40,7 +54,10 @@ const PriceBox = (props) => {
           background: "white",
           border: "1px solid black",
         }}
-        onChange={(e) => props.unitPrice(e.target.value)}
+        onChange={(e) => {
+          props.unitPrice(e.target.value)
+          setUnitPrice(e.target.value)
+        }}
       />
     </div>
 
@@ -57,7 +74,7 @@ const PriceBox = (props) => {
         Sale Price:
       </Typography>
       <input
-        // value={name}
+        value={salePrice}
         type="number"
         style={{
           width: "150px",
@@ -68,7 +85,10 @@ const PriceBox = (props) => {
           background: "white",
           border: "1px solid black",
         }}
-        onChange={(e) => props.salePrice(e.target.value)}
+        onChange={(e) => {
+          props.salePrice(e.target.value)
+          setSalePrice(e.target.value)
+        }}
       />
     </div>
 
@@ -86,6 +106,7 @@ const PriceBox = (props) => {
         Quantity:
       </Typography>
       <input
+        value={quantity}
         type="number"
         style={{
           width: "150px",
@@ -96,7 +117,10 @@ const PriceBox = (props) => {
           background: "white",
           border: "1px solid black",
         }}
-        onChange={(e) => props.quantity(e.target.value)}
+        onChange={(e) => {
+          props.quantity(e.target.value)
+          setQuantity(e.target.value)
+        }}
       />
     </div>
 

@@ -58,7 +58,11 @@ const Sale = () => {
             }
             data = {tableData}/>
       </div>
-        <CheckoutForm data = {tableData} products = {products}/>
+        <CheckoutForm data = {tableData} products = {products}
+        complete = {() => {
+          setTableData([])
+          setProducts([])
+        }}/>
         {tableData?.length > 0 && <TheTable data = {tableData} 
         removeItem = {(item) => removeItem(item)}/>}
     </div>

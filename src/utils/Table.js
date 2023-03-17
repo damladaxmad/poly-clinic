@@ -88,6 +88,7 @@ const Table = (props) => {
     setAnchorEl(event.currentTarget);
     setInstance(instance);
   };
+  
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -95,7 +96,8 @@ const Table = (props) => {
   const deleteInstance = () => {
     deleteFunction(
       `Delete ${props.name}`,
-      props.name == "Expense" ? instance.description : instance.name,
+      props.name == "Category" ? instance.categoryName : 
+      props.name == "Type" ? instance.typeName : instance.name,
       `${constants.baseUrl}/${props.url}/${instance._id}`,
       props.change
     );
@@ -295,7 +297,8 @@ const Table = (props) => {
           </MenuItem>
         )}
 
-       {props.name == "Product" && (
+       {(props.name == "Product" || props.name == "Category"
+       || props.name == "Type") && (
           <MenuItem
             onClick={() => {
               if (activeUser.privillages.includes(`Delete ${props.name}`))

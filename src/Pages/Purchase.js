@@ -16,7 +16,7 @@ const Purchase = () => {
     setProducts((current) =>
     current.filter((i) => i.item !== item)
   );
-  alert("Items removed successfully ✔✔")
+  alert("Item removed successfully ✔✔")
   }
 
   console.log(tableData)
@@ -59,7 +59,11 @@ const Purchase = () => {
             }
           data = {tableData}/>
       </div>
-        <CheckoutForm data = {tableData} products = {products}/>
+        <CheckoutForm data = {tableData} products = {products}
+        complete = {() => {
+          setTableData([])
+          setProducts([])
+        }}/>
         {tableData?.length > 0 && <TheTable data = {tableData} 
         removeItem = {(item) => removeItem(item)}/>}
     </div>

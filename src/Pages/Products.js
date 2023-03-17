@@ -126,7 +126,7 @@ const Products = () => {
 
   useEffect(() => {
     if (query != "" || status != "All") {
-      setState("No matching customers!");
+      setState("No matching products!");
     }
   }, [query, status]);
 

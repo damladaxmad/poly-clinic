@@ -1,4 +1,5 @@
-import { Button } from "@material-ui/core";
+import { Button, Snackbar } from "@material-ui/core";
+import { Alert } from "@mui/material";
 import { useState } from "react";
 import AdditionalInfo from "./AdditionalInfo";
 import PriceBox from "./PriceBox";
@@ -8,6 +9,7 @@ const PurchaseForm = (props) => {
 
   const [error, setError] = useState(false)
   const [disable, setDisable] = useState(false)
+  const [reset, setReset] = useState(false)
   const [saleData, setSaleData] = useState({
    item: null,
    unitPrice: null,
@@ -17,7 +19,20 @@ const PurchaseForm = (props) => {
    date: null
   });
 
-  console.log(saleData)
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
+
+  const handleClick = (
+    event: React.MouseEvent<HTMLButtonElement>,
+    instance
+  ) => {
+    setAnchorEl(event.currentTarget);
+    // setInstance(instance);
+  };
 
   return (
     <div style={{ display: "flex", gap: "40px", flexDirection: "column" }}>
@@ -42,7 +57,7 @@ const PurchaseForm = (props) => {
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <PriceBox  
          total = {saleData?.unitPrice * saleData?.quantity}
-        
+         reset = {reset}
         unitPrice = {(data) => {
             setSaleData((prevState) => {
               return {
@@ -50,6 +65,7 @@ const PurchaseForm = (props) => {
                 unitPrice: parseFloat(data),
               };
             });
+            setReset(false)
           }}
           
           quantity = {(data) => {
@@ -59,6 +75,7 @@ const PurchaseForm = (props) => {
                 quantity: parseInt(data),
               };
             });
+            setReset(false)
           }}/>
 
         <AdditionalInfo  refNumber = {(data) => {
@@ -117,6 +134,14 @@ const PurchaseForm = (props) => {
               quantity: saleData.quantity,
             })
             alert("Item added to the list!")
+            setReset(true)
+            setSaleData((prevState) => {
+              return {
+                ...prevState,
+                quantity: null,
+                unitPrice: null
+              };
+            });
             setDisable(false)
           }}
         >
@@ -132,12 +157,20 @@ const PurchaseForm = (props) => {
           }}
           type="submit"
           variant="contained"
+          onClick={handleClick}
         >
           Clear All
         </Button>
       {error && <p style = {{color: "red", marginLeft: "50px",
     fontSize: "16px", alignSelf: "center"}}> Hey stupid, fill all the blanks 😁😁</p>}
       </div>
+
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success" sx={{ width: '300px',
+      background: "black", color: "white" }}>
+         Clear functionality is coming soon!
+        </Alert>
+      </Snackbar>
 
     </div>
   );

@@ -17,6 +17,7 @@ const CheckoutForm = (props) => {
   console.log(`this is the total: ${total}`)
 
   const completeHandler = () => {
+    if (props.products?.length < 1) return alert("Add items to the list!")
     setDisable(true)
     axios.post(`${constants.baseUrl}/purchases`, {
       products: props.products,
@@ -27,6 +28,7 @@ const CheckoutForm = (props) => {
     }).then((res) => {
       alert("Succesfully created purchase!")
       setDisable(false)
+      props.complete()
     }).catch((err) => {
       alert(err.response?.data?.message)
       setDisable(false)

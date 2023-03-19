@@ -14,11 +14,15 @@ const Selectors = (props) => {
 
     return (
         <div style = {{display: "flex", gap: "40px", flexDirection: "row",
-        justifyContent: "start"}}>
+        justifyContent: "space-between"}}>
+
+          <div style = {{display: "flex", gap: "30px"}}>
            <Autocomplete
+           autoComplete = {false}
+           size="small"
            onChange={(event, value) => props.item(value.name)} 
             id="country-select-demo"
-            sx={{ width: 300 }}
+            sx={{ width: 200 }}
             options={medicine}
             autoHighlight
             getOptionLabel={(option) => option.name}
@@ -30,23 +34,23 @@ const Selectors = (props) => {
             )}
             renderInput={(params) => (
               <TextField
+              class = "myText"
                variant="outlined"
-               placeholder="Select medicine"
-               style = {{border: "1.5px solid black",
-              borderRadius: "10px"}}
+               placeholder="Select Medicine"
+               style = {{border: "1.5px solid #6E6E6E",
+              borderRadius: "8px"}}
                 {...params}
                 // label="Choose a country"
                 inputProps={{
                   ...params.inputProps,
-                  autoComplete: 'new-password', // disable autocomplete and autofill
-                }}
+                   }}
               />
             )}
           />
 
            <Autocomplete
             id="country-select-demo"
-            sx={{ width: 300 }}
+            sx={{ width: 200 }}
             options={medicine}
             autoHighlight
             getOptionLabel={(option) => option.name}
@@ -59,23 +63,24 @@ const Selectors = (props) => {
             renderInput={(params) => (
               <TextField
                variant="outlined"
-               placeholder="Select vendor"
-               style = {{border: "1.5px solid black",
-              borderRadius: "10px", }}
+               placeholder="Select Vendor"
+               style = {{border: "1.5px solid #6E6E6E",
+              borderRadius: "8px", }}
                 {...params}
                 // label="Choose a country"
                 inputProps={{
                   ...params.inputProps,
-                  autoComplete: 'new-password', // disable autocomplete and autofill
-                }}
+                  }}
               />
             )}
           />
-           <Autocomplete
-            onChange={(event, value) => props.type(value)}
+
+          </div>
+
+          <div style = {{display: "flex", gap: "30px"}}>
+          <Autocomplete
             id="country-select-demo"
-            style = {{marginLeft: "18%"}}
-            sx={{ width: 200 }}
+            sx={{ width: 140 }}
             options={types}
             autoHighlight
             getOptionLabel={(option) => option}
@@ -89,17 +94,34 @@ const Selectors = (props) => {
               <TextField
                variant="outlined"
                placeholder="Select Type"
-               style = {{border: "1.5px solid black",
-              borderRadius: "10px", }}
+               style = {{border: "1.5px solid #6E6E6E",
+              borderRadius: "8px", }}
                 {...params}
                 // label="Choose a country"
                 inputProps={{
                   ...params.inputProps,
-                  autoComplete: 'new-password', // disable autocomplete and autofill
-                }}
+                  }}
               />
             )}
           />
+
+      <input
+        // value={name}
+        type="date"
+        style={{
+          width: "140px",
+          height: "40px",
+          padding: "10px",
+          fontSize: "16px",
+          borderRadius: "8px",
+          background: "white",
+          border: "1px solid black",
+        }}
+        // onChange={(e) => props.quantity(e.target.value)}
+      />
+
+      </div>
+          
           </div>
     )
 }

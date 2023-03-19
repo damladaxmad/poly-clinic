@@ -10,4 +10,8 @@ body {
 .sweet-warning{
     background-color: #2F49D1;
 }
+
+.MuiInputBase-input {
+    height: 5px !important;
+  }
    

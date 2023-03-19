@@ -1,6 +1,8 @@
 import { Button, Snackbar } from "@material-ui/core";
 import { Alert } from "@mui/material";
 import { useState } from "react";
+import CheckoutForm from "../Checkout/CheckoutForm";
+import TheTable from "../TableItems/TheTable";
 import AdditionalInfo from "./AdditionalInfo";
 import PriceBox from "./PriceBox";
 import Selectors from "./Selectors";
@@ -57,7 +59,14 @@ const PurchaseForm = (props) => {
             });
           }}/>
 
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <div style = {{display: "flex", gap: "50px", alignItems: "flex-start",
+    justifyContent: "space-between"}}>
+
+      <div style={{ display: "flex", gap: "20px", 
+      flexDirection: "column"
+     }}>
+
+     <div style={{display: "flex", gap: "30px", alignItems: "flex-end"}}>
         <PriceBox  
          total = {purchaseData?.unitPrice * purchaseData?.quantity}
          reset = {reset}
@@ -91,42 +100,23 @@ const PurchaseForm = (props) => {
             setReset(false)
           }}/>
 
-        <AdditionalInfo  refNumber = {(data) => {
-            setPurchaseData((prevState) => {
-              return {
-                ...prevState,
-                refNumber: data,
-              };
-            });
-          }}
-          
-          date = {(data) => {
-            setPurchaseData((prevState) => {
-              return {
-                ...prevState,
-                date: data,
-              };
-            });
-          }}
-          
-          item = {purchaseData.item}/>
-      </div>
-
-      <div style={{ display: "flex", flexDirection: "row", gap: "30px" }}>
         <Button
           disabled = {disable}
           style={{
-            width: "150px",
-            fontSize: "16px",
+            width: "140px",
+            fontSize: "15px",
+            height: "40px",
+            borderRadius: "8px",
             fontWeight: "bold",
-            background: disable ? "lightGray" : "#4421DE",
+            background: disable ? "lightGray" : "black",
             color: "white",
           }}
           type="submit"
           variant="contained"
           onClick = {()=>  {
             if (!purchaseData.item || !purchaseData.unitPrice || !purchaseData.salePrice
-              || !purchaseData.quantity || !purchaseData.refNumber || !purchaseData.date
+              || !purchaseData.quantity 
+              // || !purchaseData.refNumber || !purchaseData.date
              ) {
                return setError(true)
               }
@@ -159,34 +149,34 @@ const PurchaseForm = (props) => {
             setDisable(false)
           }}
         >
-          Add List
+          Add Item
         </Button>
-        <Button
-          style={{
-            width: "150px",
-            fontSize: "16px",
-            fontWeight: "bold",
-            background: "#F22417",
-            color: "white",
-          }}
-          type="submit"
-          variant="contained"
-          onClick = {handleClick}
-        >
-          Clear All
-        </Button>
-      {error && <p style = {{color: "red", marginLeft: "50px",
+    </div>
+
+    {error && <p style = {{color: "red", marginLeft: "50px",
     fontSize: "16px", alignSelf: "center"}}> Hey stupid, fill all the blanks 😁😁</p>}
+        
+       <TheTable data = {purchaseData}/>
+      
       </div>
 
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success" sx={{ width: '300px',
-      background: "black", color: "white" }}>
-         Clear functionality is coming soon!
-        </Alert>
-      </Snackbar>
+    <CheckoutForm/>
+
+  
+
+      </div>
+    
     </div>
   );
 };
+
+
+
+{/* <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+<Alert onClose={handleClose} severity="success" sx={{ width: '300px',
+background: "black", color: "white" }}>
+ Clear functionality is coming soon!
+</Alert>
+</Snackbar> */}
 
 export default PurchaseForm;

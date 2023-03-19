@@ -16,6 +16,7 @@ import ResetUser from "../containers/AdminstrationContainers/UsersContainer/Rese
 import { useNavigate, useLocation } from "react-router-dom";
 import ChargeUser from "../containers/AdminstrationContainers/UsersContainer/ChargeUser";
 import Payment from "../containers/AdminstrationContainers/UsersContainer/Payment";
+import {MdClose} from "react-icons/md"
 
 const Table = (props) => {
   const tableIcons = {
@@ -375,16 +376,18 @@ const Table = (props) => {
         options={{
           rowStyle: {},
           showTitle: false,
+          paging: props.page == "New Purchase" ? false : true,
           exportButton: true,
           sorting: false,
           showTextRowsSelected: false,
           toolbar: false,
           pageSizeOptions: [2, 5, 8, 10, 20, 25, 50, 100],
-          pageSize: props.page == "New Purchase" ? 5 : 10,
+          pageSize: props.page == "New Purchase" ? 3 : 10,
         //   pageSize: props.data.length < 100 ? props.data.length < 8 ? 8 : props.data.length : 100,
           draggable: false,
           actionsColumnIndex: -1,
           headerStyle: { background: "#F6F6F6", fontSize: "13px",
+          fontWeight: "bold"
         // borderBottom: '1px solid black',
         // borderTop: '1px solid black' 
       },
@@ -392,7 +395,8 @@ const Table = (props) => {
         actions={[
           {
             icon: () => (
-              <BiDotsHorizontalRounded
+              <MdClose
+                style = {{color: "#E9356E", fontWeight: "bold", fontSize: "24px"}}
                 id="basic-button"
                 aria-controls={open ? "basic-menu" : undefined}
                 aria-haspopup="true"

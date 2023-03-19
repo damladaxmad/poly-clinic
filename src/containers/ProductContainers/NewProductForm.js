@@ -125,17 +125,19 @@ const NewProductForm = (props) => {
       >
         {fields?.map((a, index) => (
           <div style={{}}>
-            <TextField
+            <input
               autoComplete="off"
               variant="outlined"
               label={a.label}
               id={a.name}
+              placeholder = {a.label}
               name={a.name}
               type={a.type}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values[a.name]}
-              style={{ width: "280px", color: "black", borderRadius: "20px" }}
+              style={{ width: "280px", color: "black", borderRadius: "8px",
+              height: "55px", padding: "15px", border: "1.5px solid lightGray" }}
               key={index}
             />
             {formik.touched[a.name] && formik.errors[a.name] ? (
@@ -157,7 +159,7 @@ const NewProductForm = (props) => {
         >
           <TextField
             select
-            style={{ width: "100%", color: "black" }}
+            style={{ width: "100%", color: "black", height: "40px" }}
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             value={productType._id}

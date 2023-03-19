@@ -33,16 +33,16 @@ const Purchase = () => {
       }}
     >
 
-        <Typography style={{ fontWeight: "600", fontSize: "25px" }}>
+        {/* <Typography style={{ fontWeight: "600", fontSize: "25px" }}>
           New Purchase
-        </Typography>
+        </Typography> */}
      
 
       <div
         style={{
           width: "98%",
           background: "white",
-          height: "480px",
+          // height: "480px",
           borderRadius: "10px",
           boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
           padding: "40px",
@@ -59,13 +59,14 @@ const Purchase = () => {
             }
           data = {tableData}/>
       </div>
+{/*      
         <CheckoutForm data = {tableData} products = {products}
         complete = {() => {
           setTableData([])
           setProducts([])
         }}/>
         {tableData?.length > 0 && <TheTable data = {tableData} 
-        removeItem = {(item) => removeItem(item)}/>}
+        removeItem = {(item) => removeItem(item)}/>} */}
     </div>
   );
 };

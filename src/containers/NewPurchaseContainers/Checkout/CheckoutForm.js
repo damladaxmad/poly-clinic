@@ -36,40 +36,60 @@ const CheckoutForm = (props) => {
   }
 
     return (
-        <div
-        style={{
-            width: "98%",
-            background: "white",
-            boxShadow: "inset 2px 2px 4px 0 rgba(0, 0, 0, 0.2)",
-            height: "120px",
-            borderRadius: "10px",
-            padding: "10px 40px",
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: "50px",
-          }}>
-            <div style = {{display: "flex", gap: "45px"}}>
-            <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "10px",
-        }}
-      >
-        <Typography style={{ fontWeight: "600", fontSize: "14px" }}>
-          {" "}
-          Total:
+      <div style = {{width: "260px",  background: "#F6F6F6", 
+      marginTop: "28px", borderRadius: "8px", border: "1px solid #6E6E6E",
+      flexDirection: "column", display: "flex", alignItems: "center",
+      padding: "20px", gap: "15px"}}>
+
+
+        <Typography style = {{fontWeight: "bold", fontSize: "18px", 
+      marginBottom: "8px"}}>
+          Checkout Form
         </Typography>
+         
+
         <input
+          type="text"
+          placeholder="#Invoice Number"
+          style={{
+            width: "200px",
+            height: "45px",
+            padding: "10px",
+            fontSize: "14px",
+            borderRadius: "8px",
+            background: "white",
+            border: "1px solid black",
+          }}
+          onChange={(e) => setDiscount(e.target.value)}
+        />
+
+
+
+        <input
+          value = {`$${total - discount}`}
+          type="number"
+          placeholder="Enter Discount"
+          style={{
+            width: "200px",
+            height: "45px",
+            padding: "10px",
+            fontSize: "14px",
+            borderRadius: "8px",
+            background: "white",
+            border: "1px solid black",
+          }}
+          // onChange={(e) => setName(e.target.value)}
+        />
+            
+
+            <input
           value={`$${total}`}
           type="text"
           disabled = {true}
           style={{
-            width: "150px",
-            height: "40px",
-            padding: "10px",
+            width: "200px",
+            height: "45px",
+            padding: "14px",
             fontWeight: 'bold',
             fontSize: "16px",
             borderRadius: "8px",
@@ -77,65 +97,6 @@ const CheckoutForm = (props) => {
             border: "1px solid black",
           }}
         />
-      </div>
-
-
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "10px",
-        }}
-      >
-        <Typography style={{ fontWeight: "600", fontSize: "14px" }}>
-          {" "}
-          Discount:
-        </Typography>
-        <input
-          type="number"
-          style={{
-            width: "150px",
-            height: "40px",
-            padding: "10px",
-            fontSize: "16px",
-            borderRadius: "8px",
-            background: "white",
-            border: "1px solid black",
-          }}
-          onChange={(e) => setDiscount(e.target.value)}
-        />
-      </div>
-
-
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "10px",
-        }}
-      >
-        <Typography style={{ fontWeight: "600", fontSize: "14px" }}>
-          {" "}
-          Grand Total:
-        </Typography>
-        <input
-          value = {`$${total - discount}`}
-          disabled = {true}
-          type="text"
-          style={{
-            width: "150px",
-            fontWeight: "bold",
-            height: "40px",
-            padding: "10px",
-            fontSize: "16px",
-            borderRadius: "8px",
-            background: "white",
-            border: "1px solid black",
-          }}
-          // onChange={(e) => setName(e.target.value)}
-        />
-      </div>
-            </div>
 
 
             <Button
@@ -144,10 +105,10 @@ const CheckoutForm = (props) => {
             width: "200px",
             fontSize: "16px",
             fontWeight: "bold",
+            borderRadius: "8px",
             background: disable ? "lightGray" : "#4421DE",
-            height: "50px",
+            height: "45px",
             color: "white",
-            marginTop: "20px",
           }}
           variant="contained"
           onClick = {completeHandler}

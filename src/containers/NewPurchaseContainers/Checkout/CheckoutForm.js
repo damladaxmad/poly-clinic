@@ -18,7 +18,12 @@ const CheckoutForm = (props) => {
   console.log(`this is the total: ${total}`)
 
   const completeHandler = () => {
+
     if (props.products?.length < 1) return alert("Add items to the list!")
+    if (!props.data?.type) return alert("Please Enter Type")
+    if (!props.data?.date) return alert("Please Enter Date")
+    if (!refNumber) return alert("Please Enter Invoice Number")
+    
     setDisable(true)
     axios.post(`${constants.baseUrl}/purchases`, {
       products: props.products,

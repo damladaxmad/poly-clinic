@@ -1,3 +1,4 @@
+import MyTable from "../../../utils/MyTable"
 import Table from "../../../utils/Table"
 
 const columns = [
@@ -31,7 +32,7 @@ const TheTable = (props) => {
 
     return (
         <div style={{width: "102%", marginTop: "15px"}}>
-            <Table columns = {columns} data = {props.data} 
+            <MyTable columns = {columns} data = {props.data} 
             page = "New Purchase" name = "Purchase" 
             removeItem = {(item) => {
                 props.removeItem(item)

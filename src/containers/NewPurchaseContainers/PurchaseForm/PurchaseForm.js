@@ -1,6 +1,7 @@
 import { Button, Snackbar } from "@material-ui/core";
 import { Alert } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import CheckoutForm from "../Checkout/CheckoutForm";
 import TheTable from "../TableItems/TheTable";
 import AdditionalInfo from "./AdditionalInfo";
@@ -15,6 +16,9 @@ const PurchaseForm = (props) => {
   const [reset, setReset] = useState(false)
   const open = Boolean(anchorEl);
   const [autoReset, setAutoReset] = useState(1)
+
+  const productsD = useSelector(state => state.products.products)
+
 
   const handleClose = () => {
     setAnchorEl(null)
@@ -36,10 +40,20 @@ const PurchaseForm = (props) => {
   });
 
   const [purchaseInfo, setPurchaseInfo] = useState({
-    type: null,
+    type: "cash",
     vendor: null,
     date: null
   });
+
+  
+  let unitP = null
+  productsD?.map(product => {
+    if (product.name == purchaseData.item) unitP = product.unitPrice
+  })
+  let saleP = null
+  productsD?.map(product => {
+    if (product.name == purchaseData.item) saleP = product.salePrice
+  })
 
   const [tableData, setTableData] = useState([]);
   const [products, setProducts] = useState([]);
@@ -51,12 +65,18 @@ const PurchaseForm = (props) => {
     setProducts((current) =>
     current.filter((i) => i.item !== item)
   );
+  setPurchaseData((prevState) => {
+    return {
+      ...prevState,
+   item: null
+    };
+  });
   
   }
 
   useEffect(() => {
-
-  }, [tableData])
+    if (purchaseData) setError(false)
+  }, [tableData, purchaseData])
 
 
   return (
@@ -108,6 +128,8 @@ const PurchaseForm = (props) => {
 
      <div style={{display: "flex", gap: "30px", alignItems: "flex-end"}}>
         <PriceBox  
+         unitPriceD = {unitP}
+         salePriceD = {saleP}
          total = {purchaseData?.unitPrice * purchaseData?.quantity}
          reset = {reset}
         unitPrice = {(data) => {
@@ -162,12 +184,12 @@ const PurchaseForm = (props) => {
                return setError(true)
               }
             var exitLoop = false
-            props.data?.map(dictum => {
+            tableData?.map(dictum => {
               if (dictum.item == purchaseData.item) {
                 exitLoop = true
               }
             })
-            if (exitLoop) return alert("WTF, why are you doing duplicates? 🤞🤞")
+            if (exitLoop) return alert("Item-ka aad gelisay horay ayuu ujiray!")
             setError(false)
             setDisable(true)
             props.tableData(purchaseData)
@@ -181,7 +203,8 @@ const PurchaseForm = (props) => {
                 ...prevState,
                 quantity: null,
                 unitPrice: null,
-                salePrice: null
+                salePrice: null,
+                // item: null
               };
             });
             setDisable(false)
@@ -192,7 +215,11 @@ const PurchaseForm = (props) => {
     </div>
 
     {error && <p style = {{color: "red", marginLeft: "50px",
-    fontSize: "16px", alignSelf: "center"}}> Hey stupid, fill all the blanks 😁😁</p>}
+    fontSize: "16px", alignSelf: "center"}}> Please, enter 
+    {!purchaseData.item && " item,"}
+    {!purchaseData.quantity && " quantiy,"}
+    {!purchaseData.unitPrice && " unitPrice,"}
+    {!purchaseData.salePrice && " salePrice"}, </p>}
         
         {tableData?.length > 0 && <TheTable data = {tableData} 
         removeItem = {(item) => removeItem(item)}/>}
@@ -203,6 +230,16 @@ const PurchaseForm = (props) => {
     complete = {() => {
       setTableData([])
       setProducts([])
+      setPurchaseData((prevState) => {
+        return {
+          ...prevState,
+          quantity: null,
+          unitPrice: null,
+          salePrice: null,
+          item: null
+        };
+      });
+
     }}/>
 
   

@@ -14,7 +14,7 @@ const Selectors = (props) => {
   const [date, setDate] = useState(moment(new Date()).format("MM-DD-YYYY"))
 
     // const medicine = ["Emoxicilin Tablet", "Ampicilin Tablet", "Syrup Injection"];
-    const types = ["invoice", "cash"]
+    const types = [ "cash", "invoice"]
 
     return (
         <div style = {{display: "flex", gap: "40px", flexDirection: "row",
@@ -54,7 +54,7 @@ const Selectors = (props) => {
 
            <Autocomplete
             id="country-select-demo"
-            key={props.autoReset}
+            // key={props.autoReset}
             sx={{ width: 200 }}
             onChange={(event, value) => props.vendor(value?._id)} 
             options={vendors}
@@ -86,7 +86,8 @@ const Selectors = (props) => {
           <div style = {{display: "flex", gap: "30px"}}>
           <Autocomplete
             id="country-select-demo"
-            key={props.autoReset}
+            value = {types[0]}
+            // key={props.autoReset}
             onChange={(event, value) => props.type(value)} 
             sx={{ width: 140 }}
             options={types}

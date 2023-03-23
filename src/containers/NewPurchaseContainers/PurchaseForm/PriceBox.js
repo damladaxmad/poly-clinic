@@ -12,7 +12,7 @@ const PriceBox = (props) => {
 
   const [unitPrice, setUnitPrice] = useState()
   const [salePrice, setSalePrice] = useState()
-  const [quantity, setQuantity] = useState()
+  const [quantity, setQuantity] = useState(props.quantityD)
 
   useEffect(()=> {
     if (props.reset) {
@@ -21,6 +21,17 @@ const PriceBox = (props) => {
       setQuantity("")
     }
   }, [props.reset])
+
+  useEffect(() => {
+    setUnitPrice(props.unitPriceD)
+    setSalePrice(props.salePriceD)
+    props.unitPrice(props.unitPriceD)
+    props.salePrice(props.salePriceD)
+    if (props.salePriceD) {
+      setQuantity(1)
+      props.quantity(1)
+    }
+  }, [props.unitPriceD, props.salePriceD])
 
 
   return (

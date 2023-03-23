@@ -184,6 +184,7 @@ const Table = (props) => {
 
   const removeItem = () => {
     setInstance(instance);
+    setAnchorEl(null)
     props.removeItem(instance.item)
   }
   let state = props.state;
@@ -224,7 +225,7 @@ const Table = (props) => {
         }}
         style={{marginTop: "25px"}}
       >
-        {(props.name == "Customer") && (
+        {(props.name == "Customer" || props.name == "Vendor") && (
           <MenuItem
             onClick={() => {
               if (activeUser.privillages.includes("Payment")){
@@ -341,7 +342,7 @@ const Table = (props) => {
           }}>View Transactions</MenuItem>}
 
 
-        {props.name == "Customer" 
+        {(props.name == "Customer" || props.name == "Vendor" )
           &&  <MenuItem onClick={() => {
           if (activeUser.privillages.includes("View Orders"))
           showTransactionsFun()

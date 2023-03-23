@@ -1,6 +1,6 @@
 import { Button, Snackbar } from "@material-ui/core";
 import { Alert } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CheckoutForm from "../Checkout/CheckoutForm";
 import TheTable from "../TableItems/TheTable";
 import AdditionalInfo from "./AdditionalInfo";
@@ -14,6 +14,7 @@ const PurchaseForm = (props) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [reset, setReset] = useState(false)
   const open = Boolean(anchorEl);
+  const [autoReset, setAutoReset] = useState(1)
 
   const handleClose = () => {
     setAnchorEl(null)
@@ -32,12 +33,31 @@ const PurchaseForm = (props) => {
    unitPrice: null,
    salePrice: null,
    quantity: null,
-   type: null,
-   refNumber: null,
-   date: null
   });
 
-  console.log(purchaseData)
+  const [purchaseInfo, setPurchaseInfo] = useState({
+    type: null,
+    vendor: null,
+    date: null
+  });
+
+  const [tableData, setTableData] = useState([]);
+  const [products, setProducts] = useState([]);
+
+  const removeItem = (item) => {
+    setTableData((current) =>
+    current.filter((i) => i.item !== item)
+  );
+    setProducts((current) =>
+    current.filter((i) => i.item !== item)
+  );
+  
+  }
+
+  useEffect(() => {
+
+  }, [tableData])
+
 
   return (
     <div style={{ display: "flex", gap: "40px", flexDirection: "column" }}>
@@ -51,13 +71,33 @@ const PurchaseForm = (props) => {
           }} 
           
           type = {(data) => {
-            setPurchaseData((prevState) => {
+            setPurchaseInfo((prevState) => {
               return {
                 ...prevState,
                 type: data,
               };
             });
-          }}/>
+          }}
+
+          vendor = {(data) => {
+            setPurchaseInfo((prevState) => {
+              return {
+                ...prevState,
+                vendor: data,
+              };
+            });
+          }}
+
+          date = {(data) => {
+            setPurchaseInfo((prevState) => {
+              return {
+                ...prevState,
+                date: data,
+              };
+            });
+          }}
+          
+          autoReset = {autoReset}/>
 
       <div style = {{display: "flex", gap: "50px", alignItems: "flex-start",
     justifyContent: "space-between"}}>
@@ -98,7 +138,8 @@ const PurchaseForm = (props) => {
               };
             });
             setReset(false)
-          }}/>
+          }}
+          item = {purchaseData.item}/>
 
         <Button
           disabled = {disable}
@@ -130,14 +171,11 @@ const PurchaseForm = (props) => {
             setError(false)
             setDisable(true)
             props.tableData(purchaseData)
-            props.products({
-              item: purchaseData.item,
-              unitPrice: purchaseData.unitPrice,
-              salePrice: purchaseData.salePrice,
-              quantity: purchaseData.quantity,
-            })
-            alert("Item Added To The List!")
+            setTableData([...tableData, purchaseData])
+            setProducts([...products, purchaseData])
+            // alert("Item Added To The List!")
             setReset(true)
+            setAutoReset(state => state + 1)
             setPurchaseData((prevState) => {
               return {
                 ...prevState,
@@ -156,11 +194,16 @@ const PurchaseForm = (props) => {
     {error && <p style = {{color: "red", marginLeft: "50px",
     fontSize: "16px", alignSelf: "center"}}> Hey stupid, fill all the blanks 😁😁</p>}
         
-       <TheTable data = {purchaseData}/>
+        {tableData?.length > 0 && <TheTable data = {tableData} 
+        removeItem = {(item) => removeItem(item)}/>}
       
       </div>
 
-    <CheckoutForm/>
+    <CheckoutForm products = {products} data = {purchaseInfo}
+    complete = {() => {
+      setTableData([])
+      setProducts([])
+    }}/>
 
   
 

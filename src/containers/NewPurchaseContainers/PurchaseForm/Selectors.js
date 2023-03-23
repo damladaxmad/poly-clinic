@@ -4,10 +4,14 @@ import Box from '@mui/material/Box';
 // import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { useSelector } from "react-redux";
+import moment from "moment";
+import { DateRangeRounded } from "@material-ui/icons";
 
 const Selectors = (props) => {
 
   const medicine = useSelector(state => state.products.products)
+  const vendors = useSelector(state => state.vendors.vendors)
+  const [date, setDate] = useState(moment(new Date()).format("MM-DD-YYYY"))
 
     // const medicine = ["Emoxicilin Tablet", "Ampicilin Tablet", "Syrup Injection"];
     const types = ["invoice", "cash"]
@@ -19,8 +23,8 @@ const Selectors = (props) => {
           <div style = {{display: "flex", gap: "30px"}}>
            <Autocomplete
            autoComplete = {false}
-           size="small"
-           onChange={(event, value) => props.item(value.name)} 
+           onChange={(event, value) => props.item(value?.name)} 
+           key={`${props.autoReset}m`}
             id="country-select-demo"
             sx={{ width: 200 }}
             options={medicine}
@@ -50,8 +54,10 @@ const Selectors = (props) => {
 
            <Autocomplete
             id="country-select-demo"
+            key={props.autoReset}
             sx={{ width: 200 }}
-            options={medicine}
+            onChange={(event, value) => props.vendor(value?._id)} 
+            options={vendors}
             autoHighlight
             getOptionLabel={(option) => option.name}
             renderOption={(props, option) => (
@@ -80,6 +86,8 @@ const Selectors = (props) => {
           <div style = {{display: "flex", gap: "30px"}}>
           <Autocomplete
             id="country-select-demo"
+            key={props.autoReset}
+            onChange={(event, value) => props.type(value)} 
             sx={{ width: 140 }}
             options={types}
             autoHighlight
@@ -106,7 +114,7 @@ const Selectors = (props) => {
           />
 
       <input
-        // value={name}
+        // value= {moment(new Date(date)).format("MM-DD-YYYY")}
         type="date"
         style={{
           width: "140px",
@@ -117,7 +125,10 @@ const Selectors = (props) => {
           background: "white",
           border: "1px solid black",
         }}
-        // onChange={(e) => props.quantity(e.target.value)}
+        onChange={(e) => {
+          // setDate(e.target.value)
+          props.date(e.target.value)
+        }}
       />
 
       </div>

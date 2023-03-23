@@ -7,6 +7,7 @@ import { constants } from "../../../Helpers/constantsFile";
 const CheckoutForm = (props) => {
 
   const [discount, setDiscount] = useState(0)
+  const [refNumber, setRefnumber] = useState("")
   const [disable, setDisable] = useState(false)
 
   let total = 0
@@ -21,14 +22,17 @@ const CheckoutForm = (props) => {
     setDisable(true)
     axios.post(`${constants.baseUrl}/purchases`, {
       products: props.products,
-      date: props.data[0]?.date,
-      refNumber: props.data[0]?.refNumber,
-      paymentType: "cash",
-      discount: discount
+      date: props.data?.date,
+      refNumber: refNumber,
+      paymentType: props.data?.type,
+      discount: discount,
+      vendor: props.data?.type == "invoice" ? props.data?.vendor : null
     }).then((res) => {
       alert("Succesfully created purchase!")
       setDisable(false)
       props.complete()
+      setDiscount("")
+      setRefnumber("")
     }).catch((err) => {
       alert(err.response?.data?.message)
       setDisable(false)
@@ -50,7 +54,26 @@ const CheckoutForm = (props) => {
 
         <input
           type="text"
+          value = {refNumber}
           placeholder="#Invoice Number"
+          style={{
+            width: "200px",
+            height: "45px",
+            padding: "10px",
+            fontSize: "14px",
+            borderRadius: "8px",
+            background: "white",
+            border: "1px solid black",
+          }}
+          onChange={(e) => setRefnumber(e.target.value)}
+        />
+
+
+
+        <input
+          type="number"
+          value = {discount}
+          placeholder="Enter Discount"
           style={{
             width: "200px",
             height: "45px",
@@ -62,28 +85,10 @@ const CheckoutForm = (props) => {
           }}
           onChange={(e) => setDiscount(e.target.value)}
         />
-
-
-
-        <input
-          value = {`$${total - discount}`}
-          type="number"
-          placeholder="Enter Discount"
-          style={{
-            width: "200px",
-            height: "45px",
-            padding: "10px",
-            fontSize: "14px",
-            borderRadius: "8px",
-            background: "white",
-            border: "1px solid black",
-          }}
-          // onChange={(e) => setName(e.target.value)}
-        />
             
 
             <input
-          value={`$${total}`}
+          value={`$${total - discount}`}
           type="text"
           disabled = {true}
           style={{

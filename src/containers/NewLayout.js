@@ -150,6 +150,17 @@ const menuItems = [
     },
 
     {
+      text: "Customers",
+      icon: <GroupIcon style={{fontSize: "20px", color: "#130F26" }} />,
+      path: "/customers",
+    },
+    {
+      text: "Vendors",
+      icon: <VscPerson style={{fontSize: "20px", color: "#130F26" }} />,
+      path: "/vendors",
+    },
+
+    {
       text: "New Purchase",
       icon: <BiPurchaseTagAlt style={{fontSize: "20px", color: "#130F26" }} />,
       path: "/purchase",

@@ -21,7 +21,10 @@ import { setProducts } from "./redux/actions/productsActions";
 import Purchase from "./Pages/Purchase";
 import Sale from "./Pages/Sale";
 import Categories from "./Pages/Categories";
-
+import { setCustomers } from "./redux/actions/customersActions";
+import Customers from "./Pages/Customers";
+import { setVendors } from "./redux/actions/vendorsActions";
+import Vendors from "./Pages/Vendors";
 
 const pages = [
      <Route path= "/dashboard" element = {<Dashboard/>} />,
@@ -30,6 +33,8 @@ const pages = [
      <Route path= "/purchase" element = {<Purchase/>} />,  
      <Route path= "/sale" element = {<Sale/>} />,  
      <Route path= "/categories" element = {<Categories/>} />,  
+     <Route path= "/customers" element = {<Customers/>} />,  
+     <Route path= "/vendors" element = {<Vendors/>} />,  
 
 ]
 
@@ -47,6 +52,18 @@ function App() {
   dispatch(
     setProducts(
       useFetch("products", isLogin, "products")
+    )
+  );
+
+  dispatch(
+    setCustomers(
+      useFetch("customers", isLogin, "customers")
+    )
+  );
+
+  dispatch(
+    setVendors(
+      useFetch("vendors", isLogin, "vendors")
     )
   );
 

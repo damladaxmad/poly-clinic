@@ -5,9 +5,12 @@ module.exports = {
   privillages: [
     "Customers",
     "Add New Customers",
+    "Add New Vendors",
+    "Delete Vendor",
     "View Transactions",
     "View Orders",
     "Update Customer",
+    "Update Vendor",
     "Payment",
     // "Dashboard",
     "Employees",
@@ -44,7 +47,9 @@ module.exports = {
    "New Sale",
    "Categories",
    "Delete Category",
-   "Delete Type"
+   "Delete Type",
+    "Delete Customer",
+    "Vendors"
   ],
 };
 

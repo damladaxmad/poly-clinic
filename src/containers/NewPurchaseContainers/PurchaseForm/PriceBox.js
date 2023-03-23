@@ -1,7 +1,14 @@
 import { Typography } from "@material-ui/core";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 const PriceBox = (props) => {
+  const products = useSelector(state => state.products.products)
+
+  // let unitP = 0
+  // products?.map(product => {
+  //   if (product.name == props.item) unitP = product.unitPrice
+  // })
 
   const [unitPrice, setUnitPrice] = useState()
   const [salePrice, setSalePrice] = useState()
@@ -14,6 +21,7 @@ const PriceBox = (props) => {
       setQuantity("")
     }
   }, [props.reset])
+
 
   return (
     <div

@@ -1,6 +1,8 @@
 import { combineReducers } from "redux";
 import { dashboardReducer } from "./dashboardReducer";
 import { productsReducer } from "./productsReducer";
+import { customersReducer } from "./customersReducer";
+import { vendorsReducer } from "./vendorsReducer";
 import { productTypesReducer } from "./productTypesReducer";
 import { categoryReducer } from "./categoryReducer";
 import { ordersReducer } from "./ordersReducer";
@@ -16,6 +18,8 @@ import { isLoginReducer } from "./isLoginReducer";
 const reducers = combineReducers({
   dashboard: dashboardReducer,
   products: productsReducer,
+  customers: customersReducer,
+  vendors: vendorsReducer,
   productTypes: productTypesReducer,
   categories: categoryReducer,
   orders: ordersReducer,

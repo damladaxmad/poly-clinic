@@ -66,9 +66,6 @@ const Table = (props) => {
     setAnchorEl(null);
   };
 
-  const showOrders = () => {
-    props.showOrders(instance)
-  }
   const showTransactionsFun = () => {
     props.showTransactions(instance)
     handleClose()
@@ -86,6 +83,7 @@ const Table = (props) => {
     event: React.MouseEvent<HTMLButtonElement>,
     instance
   ) => {
+    
     setAnchorEl(event.currentTarget);
     setInstance(instance);
   };
@@ -185,7 +183,7 @@ const Table = (props) => {
   }
 
   const removeItem = () => {
-    setAnchorEl(null);
+    setInstance(instance);
     props.removeItem(instance.item)
   }
   let state = props.state;
@@ -226,12 +224,12 @@ const Table = (props) => {
         }}
         style={{marginTop: "25px"}}
       >
-        {(props.name == "User") && (
+        {(props.name == "Customer") && (
           <MenuItem
             onClick={() => {
               if (activeUser.privillages.includes("Payment")){
               handleClose()
-              setShowPaymentModal(true)
+              props.pay(instance)
               }
               else alert("You have no access!");
             }}
@@ -299,7 +297,7 @@ const Table = (props) => {
         )}
 
        {(props.name == "Product" || props.name == "Category"
-       || props.name == "Type") && (
+       || props.name == "Type" || props.name == "Customer") && (
           <MenuItem
             onClick={() => {
               if (activeUser.privillages.includes(`Delete ${props.name}`))
@@ -322,7 +320,8 @@ const Table = (props) => {
           </MenuItem>
         )} 
 
-        {props.name == "Product" && (
+        {(props.name == "Product" || props.name == "Customer"
+        || props.name == "Vendor" ) && (
           <MenuItem
             onClick={() => {
               if (activeUser.privillages.includes(`Update ${props.name}`))
@@ -341,26 +340,13 @@ const Table = (props) => {
           else alert("You have no access!")
           }}>View Transactions</MenuItem>}
 
-        {(props.name == "User")
-          &&  <MenuItem onClick={() => {
-          if (activeUser.privillages.includes("View Customers"))
-          showCustomersFun()
-          else alert("You have no access!")
-          }}>View Customers</MenuItem>}
-
-        {(props.name == "User")
-          &&  <MenuItem onClick={() => {
-          if (activeUser.privillages.includes("View Customers"))
-          showVendorsFun()
-          else alert("You have no access!")
-          }}>View Vendors</MenuItem>}
 
         {props.name == "Customer" 
           &&  <MenuItem onClick={() => {
           if (activeUser.privillages.includes("View Orders"))
-          showOrders()
+          showTransactionsFun()
           else alert("You have no access!")
-          }}>View Orders</MenuItem>}
+          }}>View Transactions</MenuItem>}
 
       </Menu>
 
@@ -395,8 +381,7 @@ const Table = (props) => {
         actions={[
           {
             icon: () => (
-              <MdClose
-                style = {{color: "#E9356E", fontWeight: "bold", fontSize: "24px"}}
+              <BiDotsHorizontalRounded
                 id="basic-button"
                 aria-controls={open ? "basic-menu" : undefined}
                 aria-haspopup="true"

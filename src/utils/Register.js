@@ -22,18 +22,15 @@ const Register = (props) => {
      if (!values.name) {
        errors.name = "Field is Required";
      }
-     if (!values.username) {
-       errors.username = "Field is Required";
-     }
+    //  if (!values.username) {
+    //    errors.username = "Field is Required";
+    //  }
      if (!values.phone) {
        errors.phone = "Field is Required";
      }
-     if (!values.fee) {
-       errors.fee = "Field is Required";
-     }
-     if (!values.password) {
-       errors.password = "Field is Required";
-     }
+    //  if (!values.password) {
+    //    errors.password = "Field is Required";
+    //  }
 
     return errors;
   };
@@ -42,17 +39,10 @@ const Register = (props) => {
     initialValues:{
         name: props.update ? props.instance.name : "",
         phone: props.update ? props.instance.phone : "",
-        username: props.update ? props.instance.username : "",
-        fee: props.update ? props.instance.fee : "",
-        password: props.update ? props.instance.password : ""
+        address: props.update ? props.instance.address : "",
     },
     validate,
     onSubmit: (values, { resetForm }) => {
-      if (props.name == "Styles" && !props.styleType) values.type = type
-      if (props.name == "Styles" && !values.description) values.description = values.name
-      if (props.name == "Styles" && props.styleType) values.type = props.styleType
-      values.passwordConfirm = values.password
-      values.phone = values.phone
       if (props.update){
         axios.patch(`${constants.baseUrl}/${props.url}/${props.instance._id}`, values).then((res) => {
           alert("Successfully Updated")
@@ -96,10 +86,12 @@ const Register = (props) => {
        <div
         style={{
           display: "flex",
+          width: "410px",
           justifyContent: "center",
           alignItems: "center",
           flexDirection: "column",
-          gap: "15px"
+          gap: "15px",
+          padding: "10px"
         }}
       >
         <h2>{props.update ? `${props.name} Update` : `${props.name} Creation`}</h2>
@@ -113,16 +105,19 @@ const Register = (props) => {
       >
         {props.fields?.map((a, index) => (
           <div>
-            <TextField
+           <input
+              autoComplete="off"
               variant="outlined"
               label={a.label}
               id={a.name}
+              placeholder = {a.label}
               name={a.name}
               type={a.type}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values[a.name]}
-              style={{ width: "290px", color: "black" }}
+              style={{ width: "290px", color: "black", borderRadius: "8px",
+              height: "50px", padding: "15px", border: "1.5px solid lightGray" }}
               key={index}
             />
             {formik.touched[a.name] && formik.errors[a.name] ? (

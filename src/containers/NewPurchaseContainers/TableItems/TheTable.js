@@ -27,9 +27,11 @@ const columns = [
 
 const TheTable = (props) => {
 
+    console.log(props.data)
+
     return (
         <div style={{width: "102%", marginTop: "15px"}}>
-            <Table columns = {columns} data = {[props.data]} 
+            <Table columns = {columns} data = {props.data} 
             page = "New Purchase" name = "Purchase" 
             removeItem = {(item) => {
                 props.removeItem(item)

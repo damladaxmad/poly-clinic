@@ -27,7 +27,7 @@ const PriceBox = (props) => {
     setSalePrice(props.salePriceD)
     props.unitPrice(props.unitPriceD)
     props.salePrice(props.salePriceD)
-    if (props.salePriceD) {
+    if (props.salePriceD || props.salePriceD == 0) {
       setQuantity(1)
       props.quantity(1)
     }

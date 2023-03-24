@@ -7,6 +7,7 @@ import { constants } from "../../../Helpers/constantsFile";
 const CheckoutForm = (props) => {
 
   const [discount, setDiscount] = useState(0)
+  const [date, setDate] = useState("")
   const [disable, setDisable] = useState(false)
 
   let total = 0
@@ -14,21 +15,24 @@ const CheckoutForm = (props) => {
     total += product.unitPrice * product.quantity
   })
 
-  console.log(`this is the total: ${total}`)
 
   const completeHandler = () => {
+
     if (props.products?.length < 1) return alert("Add items to the list!")
+    if (!props.data?.type) return alert("Please Enter Type")
+    
     setDisable(true)
     axios.post(`${constants.baseUrl}/sales`, {
       products: props.products,
-      date: props.data[0]?.date,
-      refNumber: props.data[0]?.refNumber,
-      paymentType: "cash",
-      discount: discount
+      date: date,
+      paymentType: props.data?.type,
+      discount: discount,
+      customer: props.data?.type == "invoice" ? props.data?.customer : null
     }).then((res) => {
       alert("Succesfully created sale!")
-      props.complete()
       setDisable(false)
+      props.complete()
+      setDiscount("")
     }).catch((err) => {
       alert(err.response?.data?.message)
       setDisable(false)
@@ -36,40 +40,60 @@ const CheckoutForm = (props) => {
   }
 
     return (
-        <div
-        style={{
-            width: "98%",
-            background: "white",
-            boxShadow: "inset 2px 2px 4px 0 rgba(0, 0, 0, 0.2)",
-            height: "120px",
-            borderRadius: "10px",
-            padding: "10px 40px",
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: "50px",
-          }}>
-            <div style = {{display: "flex", gap: "45px"}}>
-            <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "10px",
-        }}
-      >
-        <Typography style={{ fontWeight: "600", fontSize: "14px" }}>
-          {" "}
-          Total:
+      <div style = {{width: "260px",  background: "#F6F6F6", 
+      marginTop: "28px", borderRadius: "8px", border: "1px solid #6E6E6E",
+      flexDirection: "column", display: "flex", alignItems: "center",
+      padding: "20px", gap: "15px"}}>
+
+
+        <Typography style = {{fontWeight: "bold", fontSize: "18px", 
+      marginBottom: "8px"}}>
+          Checkout Form
         </Typography>
+         
+
         <input
-          value={`$${total}`}
+          type="date"
+          value = {date}
+          style={{
+            width: "200px",
+            height: "45px",
+            padding: "10px",
+            fontSize: "14px",
+            borderRadius: "8px",
+            background: "white",
+            border: "1px solid black",
+          }}
+          onChange={(e) => setDate(e.target.value)}
+        />
+
+
+
+        <input
+          type="number"
+          value = {discount}
+          placeholder="Enter Discount"
+          style={{
+            width: "200px",
+            height: "45px",
+            padding: "10px",
+            fontSize: "14px",
+            borderRadius: "8px",
+            background: "white",
+            border: "1px solid black",
+          }}
+          onChange={(e) => setDiscount(e.target.value)}
+        />
+            
+
+            <input
+          value={`$${total - discount}`}
           type="text"
           disabled = {true}
           style={{
-            width: "150px",
-            height: "40px",
-            padding: "10px",
+            width: "200px",
+            height: "45px",
+            padding: "14px",
             fontWeight: 'bold',
             fontSize: "16px",
             borderRadius: "8px",
@@ -77,65 +101,6 @@ const CheckoutForm = (props) => {
             border: "1px solid black",
           }}
         />
-      </div>
-
-
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "10px",
-        }}
-      >
-        <Typography style={{ fontWeight: "600", fontSize: "14px" }}>
-          {" "}
-          Discount:
-        </Typography>
-        <input
-          type="number"
-          style={{
-            width: "150px",
-            height: "40px",
-            padding: "10px",
-            fontSize: "16px",
-            borderRadius: "8px",
-            background: "white",
-            border: "1px solid black",
-          }}
-          onChange={(e) => setDiscount(e.target.value)}
-        />
-      </div>
-
-
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "10px",
-        }}
-      >
-        <Typography style={{ fontWeight: "600", fontSize: "14px" }}>
-          {" "}
-          Grand Total:
-        </Typography>
-        <input
-          value = {`$${total - discount}`}
-          disabled = {true}
-          type="text"
-          style={{
-            width: "150px",
-            fontWeight: "bold",
-            height: "40px",
-            padding: "10px",
-            fontSize: "16px",
-            borderRadius: "8px",
-            background: "white",
-            border: "1px solid black",
-          }}
-          // onChange={(e) => setName(e.target.value)}
-        />
-      </div>
-            </div>
 
 
             <Button
@@ -144,12 +109,11 @@ const CheckoutForm = (props) => {
             width: "200px",
             fontSize: "16px",
             fontWeight: "bold",
+            borderRadius: "8px",
             background: disable ? "lightGray" : "#4421DE",
-            height: "50px",
+            height: "45px",
             color: "white",
-            marginTop: "20px",
           }}
-          type="submit"
           variant="contained"
           onClick = {completeHandler}
         >

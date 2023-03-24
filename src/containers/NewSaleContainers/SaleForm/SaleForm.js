@@ -1,26 +1,24 @@
 import { Button, Snackbar } from "@material-ui/core";
 import { Alert } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import CheckoutForm from "../Checkout/CheckoutForm";
+import TheTable from "../TableItems/TheTable";
 import AdditionalInfo from "./AdditionalInfo";
 import PriceBox from "./PriceBox";
 import Selectors from "./Selectors";
 
-const PurchaseForm = (props) => {
+const SaleForm = (props) => {
 
   const [error, setError] = useState(false)
   const [disable, setDisable] = useState(false)
-  const [reset, setReset] = useState(false)
-  const [saleData, setSaleData] = useState({
-   item: null,
-   unitPrice: null,
-   quantity: null,
-   type: null,
-   refNumber: null,
-   date: null
-  });
-
   const [anchorEl, setAnchorEl] = useState(null);
+  const [reset, setReset] = useState(false)
   const open = Boolean(anchorEl);
+  const [autoReset, setAutoReset] = useState(1)
+
+  const productsD = useSelector(state => state.products.products)
+
 
   const handleClose = () => {
     setAnchorEl(null)
@@ -34,9 +32,53 @@ const PurchaseForm = (props) => {
     // setInstance(instance);
   };
 
+  const [saleData, setSaleData] = useState({
+   item: null,
+   unitPrice: null,
+   quantity: null,
+  });
+
+  const [saleInfo, setSaleInfo] = useState({
+    type: "cash",
+    customer: null,
+    date: null
+  });
+
+  
+  let unitP = null
+  productsD?.map(product => {
+    if (product.name == saleData.item) unitP = product.unitPrice
+  })
+
+  const [tableData, setTableData] = useState([]);
+  const [products, setProducts] = useState([]);
+
+  const removeItem = (item) => {
+    setTableData((current) =>
+    current.filter((i) => i.item !== item)
+  );
+    setProducts((current) =>
+    current.filter((i) => i.item !== item)
+  );
+  setSaleData((prevState) => {
+    return {
+      ...prevState,
+   item: null
+    };
+  });
+  
+  }
+
+  useEffect(() => {
+    if (saleData) setError(false)
+  }, [tableData, saleData])
+
+
   return (
     <div style={{ display: "flex", gap: "40px", flexDirection: "column" }}>
-      <Selectors  item = {(data) => {
+      <Selectors 
+         reset = {reset}
+         item = {(data) => {
             setSaleData((prevState) => {
               return {
                 ...prevState,
@@ -46,16 +88,45 @@ const PurchaseForm = (props) => {
           }} 
           
           type = {(data) => {
-            setSaleData((prevState) => {
+            setSaleInfo((prevState) => {
               return {
                 ...prevState,
                 type: data,
               };
             });
-          }}/>
+          }}
 
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
+          customer = {(data) => {
+            setSaleInfo((prevState) => {
+              return {
+                ...prevState,
+                customer: data,
+              };
+            });
+          }}
+
+          date = {(data) => {
+            setSaleInfo((prevState) => {
+              return {
+                ...prevState,
+                date: data,
+              };
+            });
+          }}
+          
+          autoReset = {autoReset}/>
+
+      <div style = {{display: "flex", gap: "50px", alignItems: "flex-start",
+    justifyContent: "space-between"}}>
+
+      <div style={{ display: "flex", gap: "20px", 
+      flexDirection: "column"
+     }}>
+
+     <div style={{display: "flex", gap: "30px", alignItems: "flex-end"}}>
         <PriceBox  
+         unitPriceD = {unitP}
+         itemD = {saleData.item}
          total = {saleData?.unitPrice * saleData?.quantity}
          reset = {reset}
         unitPrice = {(data) => {
@@ -68,6 +139,7 @@ const PurchaseForm = (props) => {
             setReset(false)
           }}
           
+          
           quantity = {(data) => {
             setSaleData((prevState) => {
               return {
@@ -76,104 +148,90 @@ const PurchaseForm = (props) => {
               };
             });
             setReset(false)
-          }}/>
-
-        <AdditionalInfo  refNumber = {(data) => {
-            setSaleData((prevState) => {
-              return {
-                ...prevState,
-                refNumber: data,
-              };
-            });
           }}
-          
-          date = {(data) => {
-            setSaleData((prevState) => {
-              return {
-                ...prevState,
-                date: data,
-              };
-            });
-          }}
-          
           item = {saleData.item}/>
-      </div>
 
-      <div style={{ display: "flex", flexDirection: "row", gap: "30px" }}>
         <Button
           disabled = {disable}
           style={{
-            width: "150px",
-            fontSize: "16px",
+            width: "140px",
+            fontSize: "15px",
+            height: "40px",
+            borderRadius: "8px",
             fontWeight: "bold",
-            background: disable ? "lightGray" : "#4421DE",
+            background: disable ? "lightGray" : "black",
             color: "white",
           }}
           type="submit"
           variant="contained"
           onClick = {()=>  {
-            if (!saleData.item || !saleData.unitPrice 
-              || !saleData.quantity || !saleData.refNumber || !saleData.date
-              || !saleData.type) {
+            if (!saleData.item || !saleData.unitPrice || !saleData.quantity 
+             ) {
                return setError(true)
               }
-              var exitLoop = false
-              props.data?.map(dictum => {
-                if (dictum.item == saleData.item) {
-                  exitLoop = true
-                }
-              })
-              if (exitLoop) return alert("WTF, why are you doing duplicates? 🤞🤞")
-              
+            var exitLoop = false
+            tableData?.map(dictum => {
+              if (dictum.item == saleData.item) {
+                exitLoop = true
+              }
+            })
+            if (exitLoop) return alert("Item-ka aad gelisay horay ayuu ujiray!")
             setError(false)
             setDisable(true)
             props.tableData(saleData)
-            props.products({
-              item: saleData.item,
-              unitPrice: saleData.unitPrice,
-              quantity: saleData.quantity,
-            })
-            alert("Item added to the list!")
+            setTableData([...tableData, saleData])
+            setProducts([...products, saleData])
+            // alert("Item Added To The List!")
             setReset(true)
+            setAutoReset(state => state + 1)
             setSaleData((prevState) => {
               return {
                 ...prevState,
                 quantity: null,
-                unitPrice: null
+                unitPrice: null,
+                // item: null
               };
             });
             setDisable(false)
           }}
         >
-          Add List
+          Add Item
         </Button>
-        <Button
-          style={{
-            width: "150px",
-            fontSize: "16px",
-            fontWeight: "bold",
-            background: "#F22417",
-            color: "white",
-          }}
-          type="submit"
-          variant="contained"
-          onClick={handleClick}
-        >
-          Clear All
-        </Button>
-      {error && <p style = {{color: "red", marginLeft: "50px",
-    fontSize: "16px", alignSelf: "center"}}> Hey stupid, fill all the blanks 😁😁</p>}
+    </div>
+
+    {error && <p style = {{color: "red", marginLeft: "50px",
+    fontSize: "16px", alignSelf: "center"}}> Please, enter 
+    {!saleData.item && " item,"}
+    {!saleData.quantity && " quantiy,"}
+    {!saleData.unitPrice && " unitPrice,"} </p>}
+        
+        {tableData?.length > 0 && <TheTable data = {tableData} 
+        removeItem = {(item) => removeItem(item)}/>}
+      
       </div>
 
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success" sx={{ width: '300px',
-      background: "black", color: "white" }}>
-         Clear functionality is coming soon!
-        </Alert>
-      </Snackbar>
+    <CheckoutForm products = {products} data = {saleInfo}
+    complete = {() => {
+      setTableData([])
+      setProducts([])
+      setSaleData((prevState) => {
+        return {
+          ...prevState,
+          quantity: null,
+          unitPrice: null,
+          item: null
+        };
+      });
 
+    }}/>
+
+  
+
+      </div>
+    
     </div>
   );
 };
 
-export default PurchaseForm;
+
+export default SaleForm;

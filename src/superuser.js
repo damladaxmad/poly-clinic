@@ -41,6 +41,8 @@ module.exports = {
    "Add New Users",
    "View Customers",
    "New Purchase",
+   "Purchase Report",
+   "Sale Report",
    "Products",
    "Delete Product",
    "Update Product",

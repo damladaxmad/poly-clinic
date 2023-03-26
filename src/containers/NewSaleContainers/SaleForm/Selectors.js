@@ -23,9 +23,8 @@ const Selectors = (props) => {
 
     console.log(productType)
 
-    useEffect(() => {
-
-    }, [productType])
+    // useEffect(() => {
+    // }, [productType]) 
 
     useEffect(() => {
       setProductType(null)

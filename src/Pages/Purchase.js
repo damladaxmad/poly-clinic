@@ -1,13 +1,21 @@
-import { Button, TextField, Typography } from "@material-ui/core";
+import { Box, Button, Tab, Tabs, TextField, Typography } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import PurchaseForm from "../containers/NewPurchaseContainers/PurchaseForm/PurchaseForm";
 import CheckoutForm from "../containers/NewPurchaseContainers/Checkout/CheckoutForm";
 import TheTable from "../containers/NewPurchaseContainers/TableItems/TheTable";
+import { useSelector } from "react-redux";
+import PurchasesReport from "../containers/Reports/PurchasesReport";
 
 const Purchase = () => {
 
   const [tableData, setTableData] = useState([]);
   const [products, setProducts] = useState([]);
+  const activeUser = useSelector(state => state.activeUser.activeUser)
+  const [value, setValue] = useState("newPurchase")
+
+  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+    setValue(newValue);
+  };
 
   const removeItem = (item) => {
     setTableData((current) =>
@@ -33,12 +41,32 @@ const Purchase = () => {
       }}
     >
 
-        {/* <Typography style={{ fontWeight: "600", fontSize: "25px" }}>
-          New Purchase
-        </Typography> */}
+<Box sx={{ width: "95%", margin: "auto" }}>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            textColor="black"
+            indicatorColor="primary"
+            aria-label="secondary tabs example"
+          >
+            
+       
+          {activeUser.privillages?.includes("New Purchase") && <Tab 
+            disableFocusRipple = {true}
+            disableRipple = {true}
+            value="newPurchase" label="New Pruchase"
+            style={{ fontSize: "16px", fontWeight: "700" }} />}
+
+          {activeUser.privillages.includes("Purchase Report") && <Tab
+            disableFocusRipple = {true}
+            disableRipple = {true}
+            value="purchaseReport" label="Purchase Report"
+            style={{ fontSize: "16px", fontWeight: "700" }} />}
+          </Tabs>
+        </Box>
      
 
-      <div
+      {value == "newPurchase" && <div
         style={{
           width: "98%",
           background: "white",
@@ -58,15 +86,9 @@ const Purchase = () => {
             setProducts([...products, data])
             }
           data = {tableData}/>
-      </div>
-{/*      
-        <CheckoutForm data = {tableData} products = {products}
-        complete = {() => {
-          setTableData([])
-          setProducts([])
-        }}/>
-        {tableData?.length > 0 && <TheTable data = {tableData} 
-        removeItem = {(item) => removeItem(item)}/>} */}
+      </div>}
+      
+      {value == "purchaseReport"  && <PurchasesReport/>}
     </div>
   );
 };

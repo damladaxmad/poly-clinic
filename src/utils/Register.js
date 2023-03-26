@@ -39,7 +39,7 @@ const Register = (props) => {
     initialValues:{
         name: props.update ? props.instance.name : "",
         phone: props.update ? props.instance.phone : "",
-        address: props.update ? props.instance.address : "",
+        district: props.update ? props.instance.district : "",
     },
     validate,
     onSubmit: (values, { resetForm }) => {

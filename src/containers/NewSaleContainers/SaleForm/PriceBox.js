@@ -18,10 +18,10 @@ const PriceBox = (props) => {
   }, [props.reset]);
 
   useEffect(() => {
-    setUnitPrice(props.unitPriceD);
-    props.unitPrice(props.unitPriceD);
+    setUnitPrice(props.salePriceP);
+    props.unitPrice(props.salePriceP);
     setItem(props.itemD)
-    if (props.unitPriceD || props.unitPriceD == 0) {
+    if (props.salePriceP || props.salePriceP == 0) {
       setQuantity(1);
       props.quantity(1);
     }

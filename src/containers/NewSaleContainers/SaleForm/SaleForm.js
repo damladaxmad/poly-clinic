@@ -45,9 +45,9 @@ const SaleForm = (props) => {
   });
 
   
-  let unitP = null
+  let saleP = null
   productsD?.map(product => {
-    if (product.name == saleData.item) unitP = product.unitPrice
+    if (product.name == saleData.item) saleP = product.salePrice
   })
 
   const [tableData, setTableData] = useState([]);
@@ -125,7 +125,7 @@ const SaleForm = (props) => {
 
      <div style={{display: "flex", gap: "30px", alignItems: "flex-end"}}>
         <PriceBox  
-         unitPriceD = {unitP}
+         salePriceP = {saleP}
          itemD = {saleData.item}
          total = {saleData?.unitPrice * saleData?.quantity}
          reset = {reset}

@@ -37,13 +37,13 @@ const Customers = () => {
     { title: "ID", field: "customerId" },
     { title: "Full Name", field: "name", width: "4%" },
     { title: "Phone Number", field: "phone" },
-    { title: "Address", field: "address" },
+    { title: "Address", field: "district" },
     { title: "Balance", field: "balance" },
   ];
   const fields = [
     { label: "Enter Name", type: "text", name: "name" },
     { label: "Enter Phone", type: "text", name: "phone" },
-    { label: "Enter Address", type: "text", name: "address" },
+    { label: "Enter Address", type: "text", name: "district" },
   ];
 
   const handleClick = (
@@ -262,7 +262,8 @@ const Customers = () => {
 
       {showTransactions && <Transactions instance={instance} name="customer" />}
     {showPayment && <Payment instance={instance} 
-    hideModal = {() => setShowPayment(false)}/>}
+    hideModal = {() => setShowPayment(false)} name = "customer"
+    change={changeHandler}/>}
        {!showTransactions && <Table
           data={handler(customers)}
           showTransactions={(instance) => {

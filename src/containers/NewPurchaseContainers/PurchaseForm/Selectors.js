@@ -11,7 +11,7 @@ const Selectors = (props) => {
 
   const medicine = useSelector(state => state.products.products)
   const vendors = useSelector(state => state.vendors.vendors)
-  const [date, setDate] = useState(moment(new Date()).format("MM-DD-YYYY"))
+  const [startDate, setStartDate] = useState(moment(new Date()).format("MM-DD-YYYY"))
 
     // const medicine = ["Emoxicilin Tablet", "Ampicilin Tablet", "Syrup Injection"];
     const types = [ "cash", "invoice"]
@@ -115,8 +115,10 @@ const Selectors = (props) => {
           />
 
       <input
-        // value= {moment(new Date(date)).format("MM-DD-YYYY")}
-        type="date"
+       variant="outlined"
+       type="date"
+       label = "Start Date"
+      //  value= {moment(new Date(startDate)).format("YYYY-MM-DD")}
         style={{
           width: "140px",
           height: "40px",

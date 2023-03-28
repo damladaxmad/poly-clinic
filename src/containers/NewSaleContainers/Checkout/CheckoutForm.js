@@ -1,5 +1,6 @@
 import { Button, Typography } from "@material-ui/core";
 import axios from "axios";
+import moment from "moment";
 import { useState } from "react";
 import { constants } from "../../../Helpers/constantsFile";
 
@@ -7,8 +8,9 @@ import { constants } from "../../../Helpers/constantsFile";
 const CheckoutForm = (props) => {
 
   const [discount, setDiscount] = useState(0)
-  const [date, setDate] = useState("")
   const [disable, setDisable] = useState(false)
+  const [date, setDate] = useState(moment(new Date()).format("MM-DD-YYYY"))
+
 
   let total = 0
   props.products?.map(product => {
@@ -54,7 +56,7 @@ const CheckoutForm = (props) => {
 
         <input
           type="date"
-          value = {date}
+          value= {moment(new Date(date)).format("YYYY-MM-DD")}
           style={{
             width: "200px",
             height: "45px",

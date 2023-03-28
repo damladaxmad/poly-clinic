@@ -5,8 +5,9 @@ import { TextField, Button, FormControl, MenuItem } from "@mui/material";
 import { AiOutlinePlus } from "react-icons/ai";
 import Modal from "../../Modal/Modal";
 import { constants } from "../../Helpers/constantsFile";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Typography } from "@material-ui/core";
+import { addProduct, setProducts, updateProduct } from "../../redux/actions/productsActions";
 
 const NewProductForm = (props) => {
 
@@ -28,6 +29,8 @@ const NewProductForm = (props) => {
   const categoryHandler = (e) => {
     setCategory(e.target.value);
   };
+
+  const dispatch = useDispatch()
 
   const fields = [
     { label: "Enter Name", type: "text", name: "name" },
@@ -72,6 +75,9 @@ const NewProductForm = (props) => {
             // props.reset();
             props.hideModal();
            props.change();
+           dispatch(
+            updateProduct(res.data?.data?.updatedProduct)
+          );
           })
           .catch((err) => {
             alert(err.response?.data?.message);
@@ -94,6 +100,10 @@ const NewProductForm = (props) => {
             resetForm();
             props.hideModal();
             props.change()
+            console.log(res.data?.data?.createdProduct)
+            dispatch(
+              addProduct(res.data?.data?.createdProduct)
+            );
           })
           .catch((err) => {
             alert(err.response?.data?.message);

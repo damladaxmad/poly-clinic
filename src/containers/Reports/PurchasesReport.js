@@ -7,7 +7,7 @@ import { setPurchases } from "../../redux/actions/purchasesActions"
 import Reports from "../../utils/Report"
 
 
-const PurchasesReport = () => {
+const PurchasesReport = (props) => {
 
     const [startDate, setStartDate] = useState(moment(new Date()).format("MM-DD-YYYY"))
     const [endDate, setEndDate] = useState(moment(new Date()).format("MM-DD-YYYY"))
@@ -27,7 +27,7 @@ const PurchasesReport = () => {
     dispatch(
         setPurchases(
           useFetch(
-            `purchases/bydate/03-01-2023/03-26-2023`,
+            `purchases/bydate/${startDate}/${endDate}`,
             view,
             "purchases"
           )

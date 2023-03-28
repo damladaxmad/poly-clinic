@@ -192,6 +192,7 @@ const Comp = (props) => {
         <Typography> RefNumber: {props.sale.refNumber}</Typography>
         <Typography> {moment(props.sale.date).format("MM/DD/YYYY")}</Typography>
         <Typography> Type: {props.sale.paymentType}</Typography>
+        <Typography> Discount: {props.sale.discount}</Typography>
         <Typography> Total: {constants.moneySign}{props.sale.total}</Typography>
       </div>
       <MaterialTable

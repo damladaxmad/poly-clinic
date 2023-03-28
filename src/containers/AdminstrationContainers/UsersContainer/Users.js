@@ -52,7 +52,7 @@ const Users = (props) => {
     setStatus(e.target.value)
   }
 
-  dispatch(setUsers(useFetch("users/users-with-transactions", force, "users")))
+  dispatch(setUsers(useFetch("users", force, "users")))
 
   const handler = (data) => { 
     if (data?.length > 0) {

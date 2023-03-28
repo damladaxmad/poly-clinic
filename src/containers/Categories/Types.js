@@ -7,35 +7,41 @@ import { constants } from "../../Helpers/constantsFile"
 import Table from "../../utils/Table"
 import { setCategory } from "../../redux/actions/categoryActions"
 import { setProductTypes } from "../../redux/actions/productTypesActions"
+import { setServiceTypes } from "../../redux/actions/serviceTypesActions"
 
 
 const Types = (props) => {
-    const [type, setType] = useState()
+    const [serviceName, setServiceName] = useState()
+    const [price, setPrice] = useState()
     const [query, setQuery] = useState("")
-    const productTypes = useSelector(state => state.productTypes.productTypes)
+    const serviceTypes = useSelector(state => state.serviceTypes.serviceTypes)
     const [del, setDel] = useState(1)
 
     const dispatch = useDispatch()
 
     dispatch(
-        setProductTypes(
-          useFetch("product-types", del, "productTypes")
+        setServiceTypes(
+          useFetch("service-types", del, "serviceTypes")
         )
       );
 
     const columns = [
-        {title: "Product Type", field: "typeName"}
+        {title: "Service Type", field: "name"},
+        {title: "Price", field: "price", 
+      render: (data) => <p> ${data?.price}</p>},
     ]
     const changeHandler = () => {
         setDel((state) => state + 1);
       };
 
     const addType = () => {
-        axios.post(`${constants.baseUrl}/product-types`, {
-            typeName: type
+        axios.post(`${constants.baseUrl}/service-types`, {
+            name: serviceName,
+            price: price
         }).then(res => {
             alert("Successfully added type")
-            setType("")
+            setServiceName("")
+            setPrice("")
             setQuery("")
             setDel((state) => state + 1);
         }).catch(err => {
@@ -47,7 +53,7 @@ const Types = (props) => {
         if (data?.length > 0) {
           return data.filter(
             (std) =>
-            std.typeName.toString().toLowerCase().includes(query)
+            std.name.toString().toLowerCase().includes(query)
           );
         } else {
           return
@@ -56,17 +62,17 @@ const Types = (props) => {
 
     return (
         <div style = {{display: "flex", flexDirection: "column",
-        gap: "20px", width: "320px"}}>
+        gap: "20px", width: "370px"}}>
 
             <div style = {{width: "100%", display: "flex",
-        flexDirectio: "row", alignItems: "center",
+        flexDirection: "row", alignItems: "center",
         justifyContent: "space-between"}}>
             <input
             value={query}
             type="text"
-            placeholder="Type Name"
+            placeholder="Service Name"
             style={{
-              width: "70%",
+              width: "75%",
               height: "45px",
               padding: "10px",
               fontSize: "16px",
@@ -75,10 +81,30 @@ const Types = (props) => {
               border: "1px solid black",
             }}
             onChange={(e) => {
-                setType(e.target.value)
+                setServiceName(e.target.value)
                 setQuery(e.target.value)
             }}
           />
+
+            <input
+            value = {price}
+            type="text"
+            placeholder="Price"
+            style={{
+              width: "30%",
+              height: "45px",
+              padding: "10px",
+              fontSize: "16px",
+              borderRadius: "8px",
+              background: "#EFF0F6",
+              border: "1px solid black",
+              marginLeft: "10px"
+            }}
+            onChange={(e) => {
+                setPrice(e.target.value)
+            }}
+          />
+
             <Button
           style={{
             width: "25%",
@@ -88,6 +114,7 @@ const Types = (props) => {
             borderRadius: "10px",
             height: "45px",
             color: "white",
+            marginLeft: "20px"
           }}
           onClick = {addType}
           variant="contained"
@@ -96,9 +123,9 @@ const Types = (props) => {
         </Button>
         </div>
 
-        <Table columns =  {columns} data = {handler(productTypes)} 
+        <Table columns =  {columns} data = {handler(serviceTypes)} 
         page = "New Purchase" name = "Type" 
-        url = "product-types" change = {changeHandler} />
+        url = "service-types" change = {changeHandler} />
 
         </div>
     )

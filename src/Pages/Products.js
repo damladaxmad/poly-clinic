@@ -73,11 +73,11 @@ const Products = () => {
   };
 
   const dispatch = useDispatch();
-  dispatch(
-    setProducts(
-      useFetch("products", del, "products")
-    )
-  );
+  // dispatch(
+  //   setProducts(
+  //     useFetch("products", del, "products")
+  //   )
+  // );
 
   const products = useSelector((state) => state.products.products);
 

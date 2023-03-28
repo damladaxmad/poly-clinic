@@ -17,6 +17,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import ChargeUser from "../containers/AdminstrationContainers/UsersContainer/ChargeUser";
 import Payment from "../containers/AdminstrationContainers/UsersContainer/Payment";
 import {MdClose} from "react-icons/md"
+import { deleteProduct } from "../redux/actions/productsActions";
 
 const Table = (props) => {
   const tableIcons = {
@@ -92,13 +93,18 @@ const Table = (props) => {
     setAnchorEl(null);
   };
 
-  const deleteInstance = () => {
-    deleteFunction(
+  const removeInstance = () => {
+    dispatch(
+      deleteProduct(instance)
+    )
+  }
+  const deleteInstance = async () => {
+    await deleteFunction(
       `Delete ${props.name}`,
       props.name == "Category" ? instance.categoryName : 
-      props.name == "Type" ? instance.typeName : instance.name,
+      props.name == "Type" ? instance.name : instance.name,
       `${constants.baseUrl}/${props.url}/${instance._id}`,
-      props.change
+      props.change, removeInstance
     );
     setAnchorEl(null);
     handleClose();

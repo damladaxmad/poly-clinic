@@ -1,5 +1,5 @@
 import { Button, TextField, Typography } from "@material-ui/core";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Box from '@mui/material/Box';
 // import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -11,10 +11,14 @@ const Selectors = (props) => {
 
   const medicine = useSelector(state => state.products.products)
   const vendors = useSelector(state => state.vendors.vendors)
-  const [startDate, setStartDate] = useState(moment(new Date()).format("MM-DD-YYYY"))
+  const [date, setDate] = useState(moment(new Date()).format("MM-DD-YYYY"))
 
     // const medicine = ["Emoxicilin Tablet", "Ampicilin Tablet", "Syrup Injection"];
     const types = [ "cash", "invoice"]
+
+    useEffect(() => {
+      props.date(date)
+    }, [date])
 
     return (
         <div style = {{display: "flex", gap: "40px", flexDirection: "row",
@@ -86,7 +90,7 @@ const Selectors = (props) => {
           <div style = {{display: "flex", gap: "30px"}}>
           <Autocomplete
             id="country-select-demo"
-            value = {types[0]}
+            defaultValue={types[0]}
             // key={props.autoReset}
             onChange={(event, value) => props.type(value)} 
             sx={{ width: 140 }}
@@ -113,26 +117,20 @@ const Selectors = (props) => {
               />
             )}
           />
-
-      <input
-       variant="outlined"
-       type="date"
-       label = "Start Date"
-      //  value= {moment(new Date(startDate)).format("YYYY-MM-DD")}
-        style={{
-          width: "140px",
-          height: "40px",
-          padding: "10px",
-          fontSize: "16px",
-          borderRadius: "8px",
-          background: "white",
-          border: "1px solid black",
-        }}
-        onChange={(e) => {
-          // setDate(e.target.value)
-          props.date(e.target.value)
-        }}
-      />
+        <input
+          type="date"
+          value= {moment(new Date(date)).format("YYYY-MM-DD")}
+          style={{
+            width: "140px",
+            height: "45px",
+            padding: "10px",
+            fontSize: "14px",
+            borderRadius: "8px",
+            background: "white",
+            border: "1px solid black",
+          }}
+          onChange={(e) => setDate(e.target.value)}
+        />
 
       </div>
           

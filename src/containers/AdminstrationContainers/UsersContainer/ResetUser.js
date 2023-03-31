@@ -15,7 +15,6 @@ const ResetUser = (props) => {
     { label: "Enter username", type: "text", name: "username" },
     { label: "Enter Phone", type: "number", name: "phone" },
     { label: "Enter Password", type: "password", name: "password" },
-    { label: "Enter Fee", type: "number", name: "fee" },
   ];
 
   const validate = (values) => {
@@ -66,10 +65,12 @@ const ResetUser = (props) => {
       <div
         style={{
           display: "flex",
+          width: "410px",
           justifyContent: "center",
           alignItems: "center",
           flexDirection: "column",
-          gap: "15px"
+          gap: "15px",
+          padding: "10px"
         }}
       >
         <h2>Reset User </h2>
@@ -82,17 +83,19 @@ const ResetUser = (props) => {
       >
         {arr.map((a, index) => (
           <div>
-            <TextField
-              disabled = {a.name == "name" ? true : null}
+         <input
+              autoComplete="off"
               variant="outlined"
               label={a.label}
               id={a.name}
+              placeholder = {a.label}
               name={a.name}
               type={a.type}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values[a.name]}
-              style={{ width: "290px", color: "black" }}
+              style={{ width: "290px", color: "black", borderRadius: "8px",
+              height: "50px", padding: "15px", border: "1.5px solid lightGray" }}
               key={index}
             />
             {formik.touched[a.name] && formik.errors[a.name] ? (

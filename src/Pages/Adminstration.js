@@ -22,7 +22,7 @@ const Adminstration = () => {
     { label: "Enter username", type: "text", name: "username" },
     { label: "Enter phone", type: "number", name: "phone" },
     { label: "Enter Password", type: "password", name: "password" },
-    { label: "Enter Fee", type: "number", name: "fee" },
+    { label: "Enter Role", type: "text", name: "role" },
   ];
 
   const statusArr = ["All", "Active", "Inactive"]
@@ -65,7 +65,7 @@ const Adminstration = () => {
   }
 
   const dispatch = useDispatch()
-  // dispatch(setUsers(useFetch("users/users-with-transactions", change, "users")))
+  dispatch(setUsers(useFetch("users/users-with-transactions", change, "users")))
   
   useEffect(() => {
     console.log(`chang is happening ${change}`)
@@ -91,6 +91,7 @@ const Adminstration = () => {
             textColor="black"
             indicatorColor="primary"
             aria-label="secondary tabs example"
+            disableFocusRipple = {true}
           >
             
        

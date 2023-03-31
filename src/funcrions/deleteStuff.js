@@ -1,5 +1,6 @@
 import axios from "axios";
 import swal from "sweetalert";
+import { constants } from "../Helpers/constantsFile";
 
 export const deleteFunction = (title, name, url, fun, removeInstance) => {
     swal({
@@ -13,7 +14,11 @@ export const deleteFunction = (title, name, url, fun, removeInstance) => {
 
     }).then((response) => {
       if (response) {
-        axios.delete(url).then(()=> {
+        axios.delete(url, {
+          headers: {
+            'authorization': constants.token
+           },
+        }).then(()=> {
           swal({text: `You have successfully deleted ${name}`,
           icon:"success", timer: "2000"})
           fun()

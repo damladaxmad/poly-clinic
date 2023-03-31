@@ -140,25 +140,7 @@ const Table = (props) => {
       props.change()
     })
   }
-  const dollarUser = () => {
-    handleClose()
-    axios.patch(`${constants.baseUrl}/users/${instance._id}`, {
-      currencyMark: "$"
-    }).then(res => {
-      alert("Succesfully Dollared User")
-      props.change()
-    })
-  }
 
-  const cashUser = () => {
-    handleClose()
-    axios.patch(`${constants.baseUrl}/users/${instance._id}`, {
-      currencyMark: "sh."
-    }).then(res => {
-      alert("Succesfully Cashed User")
-      props.change()
-    })
-  }
   const changePassword = () => {
     handleClose()
     axios.post(`${constants.baseUrl}/users/reset-password/${instance._id}`, {
@@ -256,20 +238,7 @@ const Table = (props) => {
             Reset User
           </MenuItem>
         )}
-        {props.name == "User" && (
-          <MenuItem
-            onClick={() => {
-              if (activeUser.privillages.includes("Reset User"))
-                {
-                  setShowChargeModal(true);
-                  handleClose()
-                }
-              else alert("You have no access");
-            }}
-          >
-            Charge User
-          </MenuItem>
-        )}
+       
         {props.name == "User" && (
           <MenuItem
             onClick={() => {
@@ -281,30 +250,10 @@ const Table = (props) => {
            {instance.status == "disabled" ? "Enable User" : "Disable User"}
           </MenuItem>
         )}
-        {props.name == "User" && (
-          <MenuItem
-            onClick={() => {
-             changePassword()
-            }}
-          >
-           Change Password
-          </MenuItem>
-        )}
-
-   
-     {props.name == "Employee" && (
-          <MenuItem
-            onClick={() => {
-              if (activeUser.privillages.includes("Give User")) showModal();
-              else alert("You have no access");
-            }}
-          >
-            Give User
-          </MenuItem>
-        )}
 
        {(props.name == "Product" || props.name == "Category"
-       || props.name == "Type" || props.name == "Customer") && (
+       || props.name == "Type" || props.name == "Customer" 
+       || props.name == "User") && (
           <MenuItem
             onClick={() => {
               if (activeUser.privillages.includes(`Delete ${props.name}`))
@@ -328,7 +277,7 @@ const Table = (props) => {
         )} 
 
         {(props.name == "Product" || props.name == "Customer"
-        || props.name == "Vendor" ) && (
+        || props.name == "Vendor") && (
           <MenuItem
             onClick={() => {
               if (activeUser.privillages.includes(`Update ${props.name}`))
@@ -339,14 +288,6 @@ const Table = (props) => {
             Update {props.name}
           </MenuItem>
         )}
-
-        {(props.name == "User")
-          &&  <MenuItem onClick={() => {
-          if (activeUser.privillages.includes("View Transactions"))
-          showTransactionsFun()
-          else alert("You have no access!")
-          }}>View Transactions</MenuItem>}
-
 
         {(props.name == "Customer" || props.name == "Vendor" )
           &&  <MenuItem onClick={() => {

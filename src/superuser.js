@@ -12,7 +12,7 @@ module.exports = {
     "Update Customer",
     "Update Vendor",
     "Payment",
-    // "Dashboard",
+    "Dashboard",
     "Employees",
     "Add New Employees",
     "Give User",
@@ -42,7 +42,6 @@ module.exports = {
    "View Customers",
    "New Purchase",
    "Purchase Report",
-   "Sale Report",
    "Products",
    "Delete Product",
    "Update Product",
@@ -51,7 +50,13 @@ module.exports = {
    "Delete Category",
    "Delete Type",
     "Delete Customer",
-    "Vendors"
+    "Vendors",
+    "Sale Report",
+    "New Sale",
+    "New Service",
+    "Service Report",
+    "Reports",
+    "Update User"
   ],
 };
 

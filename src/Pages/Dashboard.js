@@ -17,105 +17,80 @@ const Dashboard = () => {
 
   const dispatch = useDispatch()
   const [state, setState] = useState(1)
-  // dispatch(setDashboard(useFetch("dashboard", state, "dashboard")))
+  const products = useSelector(state => state.products.products)
+  const customers = useSelector(state => state.customers.customers)
+  const vendors = useSelector(state => state.vendors.vendors)
+  const sales = useSelector(state => state.sales.sales)
+  const services = useSelector(state => state.services.services)
+  const purchases = useSelector(state => state.purchases.purchases)
+
+  let salesMoney = 0
+  sales?.map(sale => {
+    salesMoney += sale.total
+  })
+
+  let purchasesMoney = 0
+  purchases?.map(purchase => {
+    purchasesMoney += purchase.total
+  })
+
+  let servicesMoney = 0
+  services?.map(service => {
+    servicesMoney += service.total
+  })
+
+  let recievable = 0
+  customers?.map(customer => {
+    recievable += customer.balance
+  })
+
+  let payble = 0
+  vendors?.map(vendor => {
+    payble += vendor.balance
+  })
 
   const myDate = [
-    {label: "total users", value: 100, isMoney: false},
-    {label: "recievable", value: 20, isMoney: false},
-    {label: "net profit", value: 400, isMoney: false},
-    {label: "total fee", value: 600, isMoney: false},
- 
+    {label: "total products", value: products?.length, isMoney: false},
+    {label: "total customers", value: customers?.length, isMoney: false},
+    {label: "total vendors", value: vendors?.length, isMoney: false},
+    {label: "sales revenue", value: salesMoney, isMoney: true},
+    {label: "purchase revenue", value: purchasesMoney, isMoney: true},
+    {label: "service revenue", value: servicesMoney, isMoney: true},
+    {label: "recievable", value: recievable, isMoney: true},
+    {label: "payable", value: payble, isMoney: true},
 ]
 
   return (
-          <Typography style={{ fontWeight: "600", fontSize: "25px",
-          padding: "0px 20px"}}>
+
+    <div
+      id="uni"
+      style={{
+        height: "100%",
+        width: "95%",
+        margin: "0px auto",
+        display: "flex",
+        gap: "32px",
+        flexDirection: "column",
+      }}
+    >
+      <Typography style={{ fontWeight: "600", fontSize: "25px" }}>
         {" "}
-        Dashboard is coming soon!!!
+        Dashboard{" "}
       </Typography>
-    // <div
-    //   id="uni"
-    //   style={{
-    //     height: "100%",
-    //     width: "95%",
-    //     margin: "0px auto",
-    //     display: "flex",
-    //     gap: "32px",
-    //     flexDirection: "column",
-    //   }}
-    // >
-    //   <Typography style={{ fontWeight: "600", fontSize: "25px" }}>
-    //     {" "}
-    //     Dashboard{" "}
-    //   </Typography>
-    //   <div
-    //     style={{
-    //       display: "flex",
-    //       gap: "20px",
-    //       width: "100%",
-    //       flexWrap: "wrap",
-    //     }}
-    //   >
-    //     {dashboard?.overview.map((d, index) => (
-    //       <StatCard value={d} key={index} type = "summary"/>
-    //     ))}
-    //     {/* {!dashboard?.overview.map((d, index) => (
-    //       <StatCard value={d} key={index} type = "summary"/>
-    //     ))} */}
+      <div
+        style={{
+          display: "flex",
+          gap: "20px",
+          width: "100%",
+          flexWrap: "wrap",
+        }}
+      >
+        {myDate.map((d, index) => (
+          <StatCard value={d} key={index} type = "summary"/>
+        ))}
+      </div>
 
-    //   </div>
-
-    //   <Typography
-    //     style={{
-    //       fontWeight: "600",
-    //       color: "#928E8E",
-    //       fontSize: "25px",
-    //       marginTop: "40px",
-    //     }}
-    //   >
-    //     Monthly Statistics
-    //   </Typography>
-
-    //   <div
-    //     style={{
-    //       display: "flex",
-    //       gap: "20px",
-    //       width: "100%",
-    //       flexWrap: "wrap",
-    //     }}
-    //   >
-    //     {dashboard?.thisMonth.map((d, index) => (
-    //       <StatCard value={d} key={index} type = "month"/>
-    //     ))}
-    //     {/* {!dashboard?.overview.map((d, index) => (
-    //       <StatCard value={d} key={index} type = "summary"/>
-    //     ))} */}
-
-    //   </div>
-
-    //   <Typography
-    //     style={{
-    //       fontWeight: "600",
-    //       color: "#928E8E",
-    //       fontSize: "25px",
-    //       marginTop: "40px",
-    //     }}
-    //   >
-    //     User Statistics
-    //   </Typography> 
-
-    //      <div
-    //     style={{
-    //       display: "flex",
-    //       width: "98.5%",
-    //       gap: "50px",
-    //       flexWrap: "wrap",
-    //     }}
-    //   >
-    //     <Top5DeenCustomers  /> 
-    //     <Top5OrderCustomers  /> 
-    //     </div>
-    // </div>
+    </div>
   );
 };
 

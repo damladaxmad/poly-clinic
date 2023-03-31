@@ -1,15 +1,15 @@
 import { Box, Button, Tab, Tabs, TextField, Typography } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import SaleForm from "../containers/NewSaleContainers/SaleForm/SaleForm"
+import ServiceForm from "../containers/NewServiceContainers/ServiceForm/ServiceForm"
 import PurchasesReport from "../containers/Reports/PurchasesReport";
 
-const Sale = () => {
+const Service = () => {
 
   const [tableData, setTableData] = useState([]);
   const [products, setProducts] = useState([]);
   const activeUser = useSelector(state => state.activeUser.activeUser)
-  const [value, setValue] = useState("newSale")
+  const [value, setValue] = useState("newService")
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
@@ -47,22 +47,22 @@ const Sale = () => {
           >
             
        
-          {activeUser.privillages?.includes("New Sale") && <Tab 
+          {activeUser.privillages?.includes("New Service") && <Tab 
             disableFocusRipple = {true}
             disableRipple = {true}
-            value="newSale" label="New Sale"
+            value="newService" label="New Service"
             style={{ fontSize: "16px", fontWeight: "700" }} />}
 
-          {activeUser.privillages.includes("Sale Report") && <Tab
+          {activeUser.privillages.includes("Service Report") && <Tab
             disableFocusRipple = {true}
             disableRipple = {true}
-            value="saleReport" label="Sale Report"
+            value="serviceReport" label="Service Report"
             style={{ fontSize: "16px", fontWeight: "700" }} />}
           </Tabs>
         </Box>
      
 
-      {value == "newSale" && <div
+      {value == "newService" && <div
         style={{
           width: "98%",
           background: "white",
@@ -75,7 +75,7 @@ const Sale = () => {
           gap: "50px",
         }}
       >
-        <SaleForm tableData = {(data) => 
+        <ServiceForm tableData = {(data) => 
           setTableData([...tableData, data])
           } 
           products = {(data) => 
@@ -84,10 +84,10 @@ const Sale = () => {
           data = {tableData}/>
       </div>}
       
-      {value == "saleReport"  && <PurchasesReport
-      name = "sales" type = "Sale"/>}
+      {value == "serviceReport"  && <PurchasesReport
+      name = "services" type = "Service"/>}
     </div>
   );
 };
 
-export default Sale;
+export default Service;

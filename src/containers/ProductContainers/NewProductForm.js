@@ -21,13 +21,14 @@ const NewProductForm = (props) => {
   const productTypeHandler = (e) => {
     setProductType(e.target.value);
   };
-  const categories = useSelector((state) => state.categories.categories);
-  console.log(categories)
-  const [category, setCategory] = useState(props.update ? 
-    props.instance?.category.categoryName : "");
+  const measurements = ["Piece", "Stripes"]
+  const [measurement, setMeasurement] = useState(measurements[0]);
+  const categories = useSelector(state => state.categories.categories)
 
-  const categoryHandler = (e) => {
-    setCategory(e.target.value);
+  const [category, setCategory] = useState(categories[0]?._id)
+
+  const measurementHandler = (e) => {
+    setMeasurement(e.target.value);
   };
 
   const dispatch = useDispatch()
@@ -35,7 +36,6 @@ const NewProductForm = (props) => {
   const fields = [
     { label: "Enter Name", type: "text", name: "name" },
     { label: "Enter Generic Name", type: "text", name: "genericName" },
-    { label: "Enter Measurement", type: "text", name: "unitMeasurment" },
     { label: "Enter Pack Size", type: "text", name: "packSize" },
     { label: "Enter Re-order Number", type: "text", name: "reOrderNumber" },
   ];
@@ -62,12 +62,17 @@ const NewProductForm = (props) => {
     onSubmit: (values, { resetForm }) => {
       setDisable(true)
       values.prodcutType = productType
+      values.unitMeasurment = measurement
       values.category = category
       // values.prodcutType = (props.update && productType == "" ) && props.instance?.prodcutType?._id
       // values.category = (props.update && category == "") && props.instance?.category?._id
       if (props.update) {
         axios
-          .patch(`${constants.baseUrl}/products/${props.instance._id}`, values)
+          .patch(`${constants.baseUrl}/products/${props.instance._id}`, values, {
+            headers: {
+              "authorization": constants.token
+            }
+          })
           .then((res) => {
             alert("Successfully Updated");
             setDisable(false)
@@ -75,8 +80,9 @@ const NewProductForm = (props) => {
             // props.reset();
             props.hideModal();
            props.change();
+           console.log(res.data?.data?.product)
            dispatch(
-            updateProduct(res.data?.data?.updatedProduct)
+            updateProduct(res.data?.data?.product)
           );
           })
           .catch((err) => {
@@ -87,7 +93,11 @@ const NewProductForm = (props) => {
       } else {
         axios
           .post(
-            `${constants.baseUrl}/products`, values
+            `${constants.baseUrl}/products`, values, {
+              headers: {
+                "authorization": constants.token
+              }
+            }
             // {
               // headers: {
               //   "authorization": constants.token
@@ -200,13 +210,13 @@ const NewProductForm = (props) => {
             style={{ width: "100%", color: "black" }}
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={category._id}
-            label="Select Category"
-            onChange={categoryHandler}
+            value={measurement}
+            label="Select Measurement"
+            onChange={measurementHandler}
           >
-            {categories?.map((category, index) => (
-              <MenuItem value={category._id} key={index}>
-                {category.categoryName}
+            {measurements?.map((measurement, index) => (
+              <MenuItem value={measurement} key={index}>
+                {measurement}
               </MenuItem>
             ))}
           </TextField>

@@ -27,9 +27,9 @@ const PurchasesReport = (props) => {
     dispatch(
         setPurchases(
           useFetch(
-            `purchases/bydate/${startDate}/${endDate}`,
+            `${props.name}/bydate/${startDate}/${endDate}`,
             view,
-            "purchases"
+            `${props.name}`
           )
         )
       );
@@ -80,7 +80,7 @@ const PurchasesReport = (props) => {
         width: "22%"}}>
                 <div style = {{display: "flex", gap: "30px", width: "100%", 
             justifyContent: "space-between"}}>
-                    <Typography style = {{fontSize: "16px"}}> Total Purchases:</Typography>
+                    <Typography style = {{fontSize: "16px"}}> Total {props.type}:</Typography>
                     <Typography style = {{fontWeight: "bold", fontSize: "16px"}}>{number}</Typography>
                 </div>
 
@@ -119,7 +119,7 @@ const PurchasesReport = (props) => {
           </div>
 
           <Reports startDate = {startDate} endDate = {endDate}
-          purchases = {purchases} name = "Purchase" type = "cash"/>
+          purchases = {purchases} name = {props.type} type = "cash"/>
        
         </div>
     )

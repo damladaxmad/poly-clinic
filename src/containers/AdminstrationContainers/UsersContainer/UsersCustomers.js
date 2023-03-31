@@ -160,7 +160,7 @@ const UsersCustomers = (props) => {
             </div>
             <div style={{ display: "flex", gap: "20px" }}>
               <p style={{ fontWeight: "700" }}> User Phone:</p>
-              <p> {props.instance.username}</p>
+              <p> {props.instance.phone}</p>
             </div>
           </div>
 

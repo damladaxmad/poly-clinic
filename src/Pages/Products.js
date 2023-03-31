@@ -39,7 +39,7 @@ const Products = () => {
     { title: "Product Name", field: "name", width: "4%" },
     { title: "Quantity", field: "quantity" },
     { title: "Measurement", field: "unitMeasurment" },
-    { title: "Product Type", field: "category", 
+    { title: "Product Type", field: "prodcutType", 
   render: (data) => <p> {data?.prodcutType.typeName}</p> },
     { title: "Unit Price", field: "unitPrice", 
   render: (data) => <p> ${data.unitPrice}</p> },
@@ -71,13 +71,6 @@ const Products = () => {
   const statusHandler = (e) => {
     setStatus(e.target.value);
   };
-
-  const dispatch = useDispatch();
-  // dispatch(
-  //   setProducts(
-  //     useFetch("products", del, "products")
-  //   )
-  // );
 
   const products = useSelector((state) => state.products.products);
 

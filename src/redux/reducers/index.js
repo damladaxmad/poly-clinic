@@ -4,6 +4,7 @@ import { productsReducer } from "./productsReducer";
 import { customersReducer } from "./customersReducer";
 import { purchasesReducer } from "./purchasesReducer";
 import { salesReducer } from "./salesReducer";
+import { servicesReducer } from "./servicesReducer";
 import { vendorsReducer } from "./vendorsReducer";
 import { productTypesReducer } from "./productTypesReducer";
 import { serviceTypesReducer } from "./serviceTypesReducer";
@@ -23,6 +24,7 @@ const reducers = combineReducers({
   products: productsReducer,
   purchases: purchasesReducer,
   sales: salesReducer,
+  services: servicesReducer,
   customers: customersReducer,
   vendors: vendorsReducer,
   productTypes: productTypesReducer,

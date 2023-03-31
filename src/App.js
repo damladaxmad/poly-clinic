@@ -25,6 +25,13 @@ import { setCustomers } from "./redux/actions/customersActions";
 import Customers from "./Pages/Customers";
 import { setVendors } from "./redux/actions/vendorsActions";
 import Vendors from "./Pages/Vendors";
+import Service from "./Pages/Service";
+import { setServiceTypes } from "./redux/actions/serviceTypesActions";
+import ReportsPage from "./Pages/ReportsPage";
+import { setUsers } from "./redux/actions/usersActions";
+import { setSales } from "./redux/actions/salesActions";
+import { setPurchases } from "./redux/actions/purchasesActions";
+import { setServices } from "./redux/actions/servicesActions";
 
 const pages = [
      <Route path= "/dashboard" element = {<Dashboard/>} />,
@@ -32,9 +39,11 @@ const pages = [
      <Route path= "/products" element = {<Products/>} />,  
      <Route path= "/purchase" element = {<Purchase/>} />,  
      <Route path= "/sale" element = {<Sale/>} />,  
+     <Route path= "/service" element = {<Service/>} />,  
      <Route path= "/categories" element = {<Categories/>} />,  
      <Route path= "/customers" element = {<Customers/>} />,  
      <Route path= "/vendors" element = {<Vendors/>} />,  
+     <Route path= "/reports" element = {<ReportsPage/>} />,  
 
 ]
 
@@ -57,21 +66,45 @@ function App() {
 
   dispatch(
     setCustomers(
-      useFetch("customers", isLogin, "customers")
+      useFetch("customers/customers-with-transactions", isLogin, "customers")
     )
   );
 
   dispatch(
     setVendors(
-      useFetch("vendors", isLogin, "vendors")
+      useFetch("vendors/vendors-with-transactions", isLogin, "vendors")
     )
   );
+  dispatch(
+    setSales(
+      useFetch("sales", isLogin, "sales")
+    )
+  );
+  dispatch(
+    setPurchases(
+      useFetch("purchases", isLogin, "purchases")
+    )
+  );
+  dispatch(
+    setServices(
+      useFetch("services", isLogin, "services")
+    )
+  );
+
+  dispatch(setUsers(useFetch("users", isLogin, "users")))
 
   dispatch(
     setProductTypes(
       useFetch("product-types", isLogin, "productTypes")
     )
   );
+
+  dispatch(
+    setServiceTypes(
+      useFetch("service-types", isLogin, "serviceTypes")
+    )
+  );
+
   dispatch(
     setCategory(
       useFetch("product-categories", isLogin, "categories")

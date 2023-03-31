@@ -27,14 +27,14 @@ const StatCard = (props) => {
       style={{
         minWidth: "23%",
         height: "95px",
-        background: props.type == "summary" ? "#19274B" : "white",
+        background:  "white",
         borderRadius: "10px",
         padding: "40px 5px",
         display: "flex",
         justifyContent: "start",
         alignItems: "center",
         gap: "12px",
-        color: 'white'
+        color: 'black'
         // boxShadow: "1px 1px 1px #9E9E9E"
       }}
     >
@@ -46,7 +46,7 @@ const StatCard = (props) => {
           style={{
             margin: "0px",
             fontSize: "20px",
-            color: props.type == "summary" ? "white" : "black",
+            color:  "black",
             fontWeight: "600",
           }}
         >

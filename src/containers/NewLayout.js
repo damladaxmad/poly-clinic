@@ -28,6 +28,8 @@ import { HiOutlineDocumentReport } from "react-icons/hi";
 import { FaClipboardList } from "react-icons/fa"; 
 import { MdBorderColor } from "react-icons/md"; 
 import { MdPointOfSale } from "react-icons/md"; 
+import { MdMedicalServices } from "react-icons/md"; 
+import { HiDocumentReport } from "react-icons/hi"; 
 import { MdOutlineCategory } from "react-icons/md"; 
 import { MdProductionQuantityLimits } from "react-icons/md"; 
 import { BiPurchaseTagAlt } from "react-icons/bi"; 
@@ -171,6 +173,11 @@ const menuItems = [
       path: "/sale",
     },
     {
+      text: "New Service",
+      icon: <MdMedicalServices style={{fontSize: "20px", color: "#130F26" }} />,
+      path: "/service",
+    },
+    {
       text: "Categories",
       icon: <MdOutlineCategory style={{fontSize: "20px", color: "#130F26" }} />,
       path: "/categories",
@@ -180,6 +187,11 @@ const menuItems = [
       text: "Adminstration",
       icon: <MdAdminPanelSettings style={{fontSize: "20px", color: "#130F26" }} />,
       path: "/adminstration",
+    },
+    {
+      text: "Reports",
+      icon: <HiDocumentReport style={{fontSize: "20px", color: "#130F26" }} />,
+      path: "/reports",
     },
 
  

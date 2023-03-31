@@ -58,14 +58,16 @@ const EditProfile = (props) => {
 
  
   return (
-    <Modal onClose = {()=> props.hideModal() } pwidth = "450px">
+    <Modal onClose = {()=> props.hideModal() } pwidth = "450px" top = "26%">
       <div
         style={{
           display: "flex",
+          width: "410px",
           justifyContent: "center",
           alignItems: "center",
           flexDirection: "column",
-          gap: "15px"
+          gap: "15px",
+          padding: "10px"
         }}
       >
         <h2>Reset User </h2>
@@ -78,17 +80,19 @@ const EditProfile = (props) => {
       >
         {arr.map((a, index) => (
           <div>
-            <TextField
-              disabled = {a.name == "name" ? true : null}
+            <input
+              autoComplete="off"
               variant="outlined"
               label={a.label}
               id={a.name}
+              placeholder = {a.label}
               name={a.name}
               type={a.type}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values[a.name]}
-              style={{ width: "290px", color: "black" }}
+              style={{ width: "290px", color: "black", borderRadius: "8px",
+              height: "50px", padding: "15px", border: "1.5px solid lightGray" }}
               key={index}
             />
             {formik.touched[a.name] && formik.errors[a.name] ? (
@@ -104,6 +108,7 @@ const EditProfile = (props) => {
             fontSize: "16px",
             backgroundColor: "#19274B",
             color: "white",
+            fontWeight: "bold"
           }}
           type="submit"
           variant="contained"

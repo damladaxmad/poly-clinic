@@ -12,7 +12,7 @@ import { constants } from "../Helpers/constantsFile";
 import useFetch from "../funcrions/DataFetchers";
 import Table from "../utils/Table";
 import Register from "../utils/Register";
-import { setCustomers } from "../redux/actions/customersActions";
+import { addCustomer, setCustomers } from "../redux/actions/customersActions";
 import Transactions from "../containers/CustomerContainers/Transactions."
 import Payment from "../containers/CustomerContainers/Payment";
 
@@ -57,8 +57,11 @@ const Customers = () => {
     setAnchorEl(null);
   };
 
-  const changeHandler = () => {
+  const changeHandler = (customer) => {
     setDel((state) => state + 1);
+    dispatch(
+      addCustomer(customer)
+    )
   };
 
   const statusHandler = (e) => {
@@ -67,11 +70,7 @@ const Customers = () => {
 
   const dispatch = useDispatch();
   const customers = useSelector((state) => state.customers.customers);
-  dispatch(
-    setCustomers(
-      useFetch("customers/customers-with-transactions", del, "customers")
-    )
-  );
+
   const [query, setQuery] = useState("");
   const [force, setForce] = useState(1);
 
@@ -299,7 +298,7 @@ const Customers = () => {
           fields={fields}
           url="customers"
           name="Customer"
-          change={changeHandler}
+          change={(customer) => changeHandler(customer)}
         />
       )}
     </div>

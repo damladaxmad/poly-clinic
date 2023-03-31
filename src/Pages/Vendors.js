@@ -69,11 +69,7 @@ const Vendors = () => {
 
   const dispatch = useDispatch();
   const vendors = useSelector((state) => state.vendors.vendors);
-  dispatch(
-    setVendors(
-      useFetch("vendors/vendors-with-transactions", del, "vendors")
-    )
-  );
+
   const [query, setQuery] = useState("");
   const [force, setForce] = useState(1);
 

@@ -27,8 +27,6 @@ const Purchase = () => {
   alert("Item removed successfully ✔✔")
   }
 
-  console.log(tableData)
-
   return (
     <div
       style={{
@@ -88,7 +86,8 @@ const Purchase = () => {
           data = {tableData}/>
       </div>}
       
-      {value == "purchaseReport"  && <PurchasesReport/>}
+      {value == "purchaseReport"  && <PurchasesReport name = "purchases"
+      type = "Purchase"/>}
     </div>
   );
 };

@@ -43,8 +43,13 @@ const Register = (props) => {
     },
     validate,
     onSubmit: (values, { resetForm }) => {
+      if (props.name == "User" ) values.passwordConfirm = values.password
       if (props.update){
-        axios.patch(`${constants.baseUrl}/${props.url}/${props.instance._id}`, values).then((res) => {
+        axios.patch(`${constants.baseUrl}/${props.url}/${props.instance._id}`, values, {
+          headers: {
+            "authorization": constants.token
+          }
+        }).then((res) => {
           alert("Successfully Updated")
           resetForm();
           props.reset()
@@ -66,7 +71,7 @@ const Register = (props) => {
           resetForm();
           // (props.name == "Customer" || props.name == "Vendor")&&props.reset()
           props.hideModal()
-          props.change()
+          props.change(res.data?.data?.createdCustomer)
         }).catch((err) => {
           alert(err.response.data.message);
           // props.reset()

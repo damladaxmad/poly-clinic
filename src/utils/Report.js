@@ -103,8 +103,7 @@ const Reports = (props) => {
         </div>
 
         {props.name == "Sales" ? props.sales?.map((sale) => {
-          if (sale.paymentType != props.type && props.type != "all") return;
-          else {
+          // if (sale.paymentType != props.type && props.type != "all") return;
             totalSales += sale.total;
             return (
               <>
@@ -112,19 +111,18 @@ const Reports = (props) => {
                 <Comp sale={sale} />
               </>
             );
-          }
         }) : 
         props.purchases?.map((sale) => {
-            if (sale.paymentType != props.type && props.type != "all") return;
-            else {
+            // if (sale.paymentType != props.type && props.type != "all") return;
+            // else {
               totalSales += sale.total;
               return (
                 <>
                   <div className="page-break"> </div>
-                  <Comp sale={sale} />
+                  <Comp sale={sale} name = {props.name}/>
                 </>
               );
-            }
+            // }
           })}
         <Divider orientation="horizantal" color="white" />
         {!props.purchases && <p> Loading...</p>}
@@ -174,6 +172,11 @@ const Comp = (props) => {
     },
   ];
 
+  console.log(props.sale.serviceItems)
+  console.log(props.name)
+
+  const [name, setName] = useState(props.name)
+
   return (
     <div class="saleComponent" style={{ width: "100%", marginTop: "0px" }}>
       <div
@@ -193,11 +196,11 @@ const Comp = (props) => {
         <Typography> {moment(props.sale.date).format("MM/DD/YYYY")}</Typography>
         <Typography> Type: {props.sale.paymentType}</Typography>
         <Typography> Discount: {props.sale.discount}</Typography>
-        <Typography> Total: {constants.moneySign}{props.sale.total}</Typography>
+        <Typography> Total: {constants.moneySign}{props.sale.total.toFixed(2)}</Typography>
       </div>
       <MaterialTable
         columns={columns}
-        data={props.sale.products}
+        data={props.name == "Service" ? props.sale.serviceItems : props.sale.products}
         options={{
           rowStyle: { height: "2px" },
           showTitle: false,
@@ -233,7 +236,7 @@ const Comp = (props) => {
               >
                 <p style={{ margin: "0px", width: "35%" }}>
                   {" "}
-                  {props.data.item}
+                  {name == "Service" ? props.data.name : props.data.item}
                 </p>
                 <p style={{ margin: "0px", width: "20%" }}>
                   {" "}
@@ -245,7 +248,7 @@ const Comp = (props) => {
                 </p>
                 <p style={{ margin: "0px", width: "25%", textAlign: "end" }}>
                   {" "}
-                  {constants.moneySign}{props.data.subtotal}
+                  {constants.moneySign}{props.data.subtotal.toFixed(2)}
                 </p>
               </div>
             );
@@ -275,7 +278,7 @@ const Comp = (props) => {
         >
           Total:
         </p>
-        <p style={{ padding: "5px 0px" }}> {constants.moneySign}{props.sale.total}</p>
+        <p style={{ padding: "5px 0px" }}> {constants.moneySign}{props.sale.total.toFixed(2)}</p>
       </div>
     </div>
   );

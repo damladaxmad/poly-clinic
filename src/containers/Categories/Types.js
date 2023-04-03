@@ -38,6 +38,10 @@ const Types = (props) => {
         axios.post(`${constants.baseUrl}/service-types`, {
             name: serviceName,
             price: price
+        },{
+          headers: {
+            "authorization": constants.token
+          }
         }).then(res => {
             alert("Successfully added type")
             setServiceName("")

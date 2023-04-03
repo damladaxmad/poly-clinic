@@ -32,7 +32,13 @@ const CheckoutForm = (props) => {
       paymentType: props.data?.type,
       discount: discount,
       vendor: props.data?.type == "invoice" ? props.data?.vendor : null
-    }).then((res) => {
+    },
+    {
+      headers: {
+        "authorization": constants.token
+      }
+    }
+    ).then((res) => {
       alert("Succesfully created purchase!")
       setDisable(false)
       props.complete()

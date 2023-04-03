@@ -57,11 +57,8 @@ const Customers = () => {
     setAnchorEl(null);
   };
 
-  const changeHandler = (customer) => {
-    setDel((state) => state + 1);
-    dispatch(
-      addCustomer(customer)
-    )
+  const changeHandler = () => {
+    // setDel((state) => state + 1);
   };
 
   const statusHandler = (e) => {
@@ -149,6 +146,13 @@ const Customers = () => {
   };
 
   const hideModal = () => {};
+
+  const addCus = (customer) => {
+    dispatch(
+      addCustomer(customer)
+    )
+    setDel(state => state + 1)
+  } 
 
   return (
     <div
@@ -298,7 +302,8 @@ const Customers = () => {
           fields={fields}
           url="customers"
           name="Customer"
-          change={(customer) => changeHandler(customer)}
+          change={() => changeHandler()}
+          addCus = {(customer) => addCus(customer)}
         />
       )}
     </div>

@@ -85,7 +85,7 @@ const Service = () => {
       </div>}
       
       {value == "serviceReport"  && <PurchasesReport
-      name = "services" type = "Service"/>}
+      name = "services" type = "Services"/>}
     </div>
   );
 };

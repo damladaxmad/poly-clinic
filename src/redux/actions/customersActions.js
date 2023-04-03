@@ -7,7 +7,12 @@ export const setCustomers = (data) => {
   };
 };
 
+
 export const addCustomer = (data) => {
+  data.balance = 0
+  data.debit = 0
+  data.credit = 0
+  data.transaction = []
   return {
     type: ActionTypes.ADD_CUSTOMER,
     payload: data,

@@ -86,7 +86,7 @@ const Access = () => {
      
    ];
 
-  const [currentUserPrivillages, setCurrentUserPrivillages] = useState();
+  const [currentUserPrivillages, setCurrentUserPrivillages] = useState([]);
   const [userAccess, setUserAccess] = useState([]);
   const [refresh, setRefresh] = useState(1)
 
@@ -103,7 +103,11 @@ const Access = () => {
 
   const fetchUsers = async () => {
     const response = await axios
-      .get(`${constants.baseUrl}/users`)
+      .get(`${constants.baseUrl}/users`, {
+        headers: {
+          'authorization': constants.token
+         },
+      })
       .catch((err) => {
         alert(err.response.data.message);
       });
@@ -178,6 +182,10 @@ const Access = () => {
     const response = await axios
       .patch(`${constants.baseUrl}/users/${user}`, {
         privillages: [...currentUserPrivillages, ...userAccess],
+      }, {
+        headers: {
+          'authorization': constants.token
+         },
       })
       .then(() => {
         alert("Successfully Given Access")

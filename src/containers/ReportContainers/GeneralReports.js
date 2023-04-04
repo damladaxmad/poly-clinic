@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux"
 import useFetch from "../../funcrions/DataFetchers"
 import { setPurchases } from "../../redux/actions/purchasesActions"
 import Reports from "../../utils/Report"
+import { setPurchases2 } from "../../redux/actions/purchases2Actions"
 
 
 const GeneralReport = (props) => {
@@ -13,7 +14,7 @@ const GeneralReport = (props) => {
     const [endDate, setEndDate] = useState(moment(new Date()).format("MM-DD-YYYY"))
     const [view, setView] = useState(1)
     const dispatch = useDispatch()
-    const purchases = useSelector((state) => state.purchases.purchases);
+    const purchases = useSelector((state) => state.purchases2.purchases2);
 
     // useEffect(() => {
 
@@ -25,7 +26,7 @@ const GeneralReport = (props) => {
     let invoiceMoney = 0
 
     dispatch(
-        setPurchases(
+        setPurchases2(
           useFetch(
             `${props.name}/bydate/${startDate}/${endDate}`,
             view,

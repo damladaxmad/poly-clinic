@@ -57,7 +57,7 @@ const PersonalReport = (props) => {
             <Typography style = {{
                     fontWeight: "bold",
                     fontSize: "20px"
-                }}> {props.name == "customers" ? customerTotal : vendorTotal}</Typography>
+                }}> ${props.name == "customers" ? customerTotal : vendorTotal}</Typography>
             </div>
            
            {props.name == "customers" && <MyTable columns = {columns} data = {realCustomers}

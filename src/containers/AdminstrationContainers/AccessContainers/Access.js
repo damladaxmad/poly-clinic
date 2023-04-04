@@ -179,9 +179,11 @@ const Access = () => {
   }, [user, tab, refresh]);
 
   const UpdateUserPrivillages = async (data) => {
+    console.log(user, userAccess, data, currentUserPrivillages)
+    setCurrentUserPrivillages([...currentUserPrivillages, ...userAccess])
     const response = await axios
       .patch(`${constants.baseUrl}/users/${user}`, {
-        privillages: [...currentUserPrivillages, ...userAccess],
+        privillages: currentUserPrivillages,
       }, {
         headers: {
           'authorization': constants.token

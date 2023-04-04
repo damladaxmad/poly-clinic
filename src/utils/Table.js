@@ -94,6 +94,7 @@ const Table = (props) => {
   };
 
   const removeInstance = () => {
+    if (props.name != "Product") return
     dispatch(
       deleteProduct(instance)
     )

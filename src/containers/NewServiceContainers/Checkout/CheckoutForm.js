@@ -3,6 +3,7 @@ import axios from "axios";
 import moment from "moment";
 import { useState } from "react";
 import { constants } from "../../../Helpers/constantsFile";
+import { useSelector } from "react-redux";
 
 
 const CheckoutForm = (props) => {
@@ -10,7 +11,7 @@ const CheckoutForm = (props) => {
   const [discount, setDiscount] = useState(0)
   const [disable, setDisable] = useState(false)
   const [date, setDate] = useState(moment(new Date()).format("MM-DD-YYYY"))
-
+  const activeUser = useSelector(state => state.activeUser.activeUser)
 
   let total = 0
   props.products?.map(product => {
@@ -29,6 +30,7 @@ const CheckoutForm = (props) => {
       date: date,
       paymentType: props.data?.type,
       discount: discount,
+      user: activeUser?.username,
       customer: props.data?.type == "invoice" ? props.data?.customer : null
     },
     {
@@ -89,7 +91,10 @@ const CheckoutForm = (props) => {
             background: "white",
             border: "1px solid black",
           }}
-          onChange={(e) => setDiscount(e.target.value)}
+          onChange={(e) => {
+            if (parseFloat(e.target.value) > parseFloat(total)) return alert("Discount-ka kama badan karo total-ka")
+            setDiscount(e.target.value)
+          }}
         />
             
 

@@ -56,7 +56,8 @@ module.exports = {
     "New Service",
     "Service Report",
     "Reports",
-    "Update User"
+    "Update User",
+    "Transactions"
   ],
 };
 

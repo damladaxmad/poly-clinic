@@ -13,6 +13,7 @@ const Selectors = (props) => {
   const customers = useSelector((state) => state.customers.customers);
   const [date, setDate] = useState(moment(new Date()).format("MM-DD-YYYY"));
   const [productType, setProductType] = useState(null);
+  const [disable, setDisable] = useState(true)
 
 
   let newMedicine = []
@@ -76,28 +77,27 @@ const Selectors = (props) => {
           )}
         />
 
-        <Autocomplete
+<Autocomplete
           id="country-select-demo"
-          // key={props.autoReset}
+          key={`${props.autoReset}t`}
+          onChange={(event, value) => setProductType(value)}
           sx={{ width: 200 }}
-          onChange={(event, value) => props.customer(value?._id)}
-          options={customers}
+          options={productTypes}
           autoHighlight
-          getOptionLabel={(option) => option.name}
+          getOptionLabel={(option) => option.typeName}
           renderOption={(props, option) => (
             <Box
               component="li"
               sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
               {...props}
             >
-              {option.name}
-              {/* ({option.code}) +{option.phone} */}
+              {option.typeName}
             </Box>
           )}
           renderInput={(params) => (
             <TextField
               variant="outlined"
-              placeholder="Select Customer"
+              placeholder="Category"
               style={{ border: "1.5px solid #6E6E6E", borderRadius: "8px" }}
               {...params}
               // label="Choose a country"
@@ -107,6 +107,7 @@ const Selectors = (props) => {
             />
           )}
         />
+
       </div>
 
       <div style={{ display: "flex", gap: "30px" }}>
@@ -114,7 +115,11 @@ const Selectors = (props) => {
           id="country-select-demo"
           defaultValue={types[0]}
           // key={props.autoReset}
-          onChange={(event, value) => props.type(value)}
+          onChange={(event, value) => {
+            if (value == "invoice") setDisable(false)
+            if (value == "cash") setDisable(true)
+            props.type(value)
+          }}
           sx={{ width: 150 }}
           options={types}
           autoHighlight
@@ -143,27 +148,29 @@ const Selectors = (props) => {
           )}
         />
 
-        <Autocomplete
+<Autocomplete
           id="country-select-demo"
-          key={`${props.autoReset}t`}
-          onChange={(event, value) => setProductType(value)}
+          // key={props.autoReset}
+          disabled = {disable}
           sx={{ width: 150 }}
-          options={productTypes}
+          onChange={(event, value) => props.customer(value?._id)}
+          options={customers}
           autoHighlight
-          getOptionLabel={(option) => option.typeName}
+          getOptionLabel={(option) => option.name}
           renderOption={(props, option) => (
             <Box
               component="li"
               sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
               {...props}
             >
-              {option.typeName}
+              {option.name}
+              {/* ({option.code}) +{option.phone} */}
             </Box>
           )}
           renderInput={(params) => (
             <TextField
               variant="outlined"
-              placeholder="Category"
+              placeholder="Select Customer"
               style={{ border: "1.5px solid #6E6E6E", borderRadius: "8px" }}
               {...params}
               // label="Choose a country"
@@ -173,6 +180,8 @@ const Selectors = (props) => {
             />
           )}
         />
+
+        
       </div>
     </div>
   );

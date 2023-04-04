@@ -8,7 +8,7 @@ const Top5DeenCustomers = (props) => {
     customers?.map(customer => {
         values.push(customer.balance)
     })
-    let topValues = customers.sort((a,b) => b.balance-a.balance).slice(0,5);
+    let topValues = customers?.sort((a,b) => b.balance-a.balance).slice(0,5);
     console.log(topValues)
 
 

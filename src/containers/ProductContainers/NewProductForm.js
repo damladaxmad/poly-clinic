@@ -165,34 +165,6 @@ const NewProductForm = (props) => {
             ) : null}
           </div>
         ))}
-
-        <FormControl
-          style={{
-            padding: "0px",
-            margin: "0px",
-            width: "280px",
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            gap: "8px",
-          }}
-        >
-          <TextField
-            select
-            style={{ width: "100%", color: "black", height: "40px" }}
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={productType._id}
-            label="Select Product Type"
-            onChange={productTypeHandler}
-          >
-            {productTypes?.map((productType, index) => (
-              <MenuItem value={productType._id} key={index}>
-                {productType.typeName}
-              </MenuItem>
-            ))}
-          </TextField>
-        </FormControl>
         
         <FormControl
           style={{
@@ -221,6 +193,36 @@ const NewProductForm = (props) => {
             ))}
           </TextField>
         </FormControl>
+
+        <FormControl
+          style={{
+            padding: "0px",
+            margin: "0px",
+            width: "280px",
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            gap: "8px",
+          }}
+        >
+          <TextField
+            select
+            style={{ width: "100%", color: "black",  }}
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={productType._id}
+            label="Select Category"
+            onChange={productTypeHandler}
+          >
+            {productTypes?.map((productType, index) => (
+              <MenuItem value={productType._id} key={index}>
+                {productType.typeName}
+              </MenuItem>
+            ))}
+          </TextField>
+        </FormControl>
+
+
         <Button
           disabled = {disable}
           style={{

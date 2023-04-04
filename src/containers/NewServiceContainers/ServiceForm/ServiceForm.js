@@ -54,11 +54,12 @@ const ServiceForm = (props) => {
   const [products, setProducts] = useState([]);
 
   const removeItem = (item) => {
+    console.log(item)
     setTableData((current) =>
-    current.filter((i) => i.item !== item)
+    current.filter((i) => i.name !== item)
   );
     setProducts((current) =>
-    current.filter((i) => i.item !== item)
+    current.filter((i) => i.name !== item)
   );
   setServiceData((prevState) => {
     return {

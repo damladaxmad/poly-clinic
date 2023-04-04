@@ -1,13 +1,13 @@
 import { Button } from "@material-ui/core"
 import axios from "axios"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import useFetch from "../../funcrions/DataFetchers"
 import { constants } from "../../Helpers/constantsFile"
 import Table from "../../utils/Table"
 import { setCategory } from "../../redux/actions/categoryActions"
 import { setProductTypes } from "../../redux/actions/productTypesActions"
-import { setServiceTypes } from "../../redux/actions/serviceTypesActions"
+import { addServiceTypes, deleteServiceTypes, setServiceTypes } from "../../redux/actions/serviceTypesActions"
 
 
 const Types = (props) => {
@@ -18,12 +18,6 @@ const Types = (props) => {
     const [del, setDel] = useState(1)
 
     const dispatch = useDispatch()
-
-    dispatch(
-        setServiceTypes(
-          useFetch("service-types", del, "serviceTypes")
-        )
-      );
 
     const columns = [
         {title: "Service Type", field: "name"},
@@ -47,6 +41,7 @@ const Types = (props) => {
             setServiceName("")
             setPrice("")
             setQuery("")
+            dispatch(addServiceTypes(res.data?.data?.createdServiceType))
             setDel((state) => state + 1);
         }).catch(err => {
             alert(err.response?.data?.message)
@@ -63,6 +58,10 @@ const Types = (props) => {
           return
         }  
       };
+
+      useEffect(() => {
+
+      }, [serviceTypes])
 
     return (
         <div style = {{display: "flex", flexDirection: "column",

@@ -12,6 +12,7 @@ const Selectors = (props) => {
   const medicine = useSelector(state => state.products.products)
   const vendors = useSelector(state => state.vendors.vendors)
   const [date, setDate] = useState(moment(new Date()).format("MM-DD-YYYY"))
+  const [disable, setDisable] = useState(true)
 
     // const medicine = ["Emoxicilin Tablet", "Ampicilin Tablet", "Syrup Injection"];
     const types = [ "cash", "invoice"]
@@ -59,6 +60,7 @@ const Selectors = (props) => {
            <Autocomplete
             id="country-select-demo"
             // key={props.autoReset}
+            disabled = {disable}
             sx={{ width: 200 }}
             onChange={(event, value) => props.vendor(value?._id)} 
             options={vendors}
@@ -92,7 +94,11 @@ const Selectors = (props) => {
             id="country-select-demo"
             defaultValue={types[0]}
             // key={props.autoReset}
-            onChange={(event, value) => props.type(value)} 
+            onChange={(event, value) => {
+              if (value == "invoice") setDisable(false)
+              if (value == "cash") setDisable(true)
+              props.type(value)
+            }} 
             sx={{ width: 140 }}
             options={types}
             autoHighlight

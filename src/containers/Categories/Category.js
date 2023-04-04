@@ -16,11 +16,6 @@ const Category = (props) => {
 
     const dispatch = useDispatch()
 
-    dispatch(
-        setCategory(
-          useFetch("product-categories", del, "categories")
-        )
-      );
 
     const columns = [
         {title: "Category Name", field: "categoryName"}

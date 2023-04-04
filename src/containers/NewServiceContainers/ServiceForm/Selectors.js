@@ -13,6 +13,7 @@ const Selectors = (props) => {
   const customers = useSelector((state) => state.customers.customers);
   const [date, setDate] = useState(moment(new Date()).format("MM-DD-YYYY"));
   const [productType, setProductType] = useState(null);
+  const [disable, setDisable] = useState(true)
 
 
     // useEffect(() => {
@@ -74,6 +75,7 @@ const Selectors = (props) => {
           id="country-select-demo"
           // key={props.autoReset}
           sx={{ width: 200 }}
+          disabled = {disable}
           onChange={(event, value) => props.customer(value?._id)}
           options={customers}
           autoHighlight
@@ -108,7 +110,11 @@ const Selectors = (props) => {
           id="country-select-demo"
           defaultValue={types[0]}
           // key={props.autoReset}
-          onChange={(event, value) => props.type(value)}
+          onChange={(event, value) =>{
+            if (value == "invoice") setDisable(false)
+            if (value == "cash") setDisable(true)
+             props.type(value)
+            }}
           sx={{ width: 150 }}
           options={types}
           autoHighlight

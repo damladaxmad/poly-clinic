@@ -46,24 +46,16 @@ const Transactions = (props) => {
       field: "transactionId",
       cellStyle: { border: "none" },
     },
-    // {
-    //   title: "Description",
-    //   field: "description",
-    //   width: "4%",
-    //   render: (data) => (
-    //     <p>
-    //       {" "}
-    //       {data.sale
-    //         ? `${data.description}#${data.sale.saleNumber}`
-    //         : data.description}
-    //     </p>
-    //   ),
-    //   cellStyle: { border: "none" },
-    // },
     {
-      title: "Type",
-      field: "transactionType",   
-      width: "4%",
+      title: "Description",
+      field: "description",
+      cellStyle: { border: "none" },
+    },
+    {
+      title: "Details",
+      field: "transactionId",
+      render: () => {
+      return <p style = {{color: "blue", cursor: "pointer"}}>Details</p>},
       
       cellStyle: { border: "none" },
     },

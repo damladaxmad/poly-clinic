@@ -27,8 +27,6 @@ const columns = [
 
 const TheTable = (props) => {
 
-    console.log(props.data)
-
     return (
         <div style={{width: "102%", marginTop: "15px"}}>
             <MyTable columns = {columns} data = {props.data} 

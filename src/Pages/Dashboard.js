@@ -20,6 +20,7 @@ const Dashboard = () => {
   const dispatch = useDispatch()
   const [state, setState] = useState(1)
   const products = useSelector(state => state.products.products)
+  const available = useSelector(state => state.available.available)
   const customers = useSelector(state => state.customers.customers)
   const vendors = useSelector(state => state.vendors.vendors)
   const sales = useSelector(state => state.sales.sales)
@@ -66,6 +67,11 @@ const Dashboard = () => {
     totalItems += product.quantity
   })
 
+  let inventory = 0
+  available?.map(a => {
+    inventory += a.totalCost
+  })
+
   const myDate = [
     {label: "total customers", value: customers?.length, isMoney: false},
     {label: "total vendors", value: vendors?.length, isMoney: false},
@@ -73,7 +79,7 @@ const Dashboard = () => {
     {label: "payable", value: payble, isMoney: true},
     {label: "total products", value: products?.length, isMoney: false},
     {label: "items number", value: totalItems, isMoney: false},
-    {label: "inventory", value: 5858, isMoney: true},
+    {label: "inventory", value: inventory, isMoney: true},
 ]
 
   const thisMonth = [

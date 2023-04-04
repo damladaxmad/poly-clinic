@@ -18,6 +18,7 @@ import ChargeUser from "../containers/AdminstrationContainers/UsersContainer/Cha
 import Payment from "../containers/AdminstrationContainers/UsersContainer/Payment";
 import {MdClose} from "react-icons/md"
 import { deleteProduct } from "../redux/actions/productsActions";
+import { deleteServiceTypes } from "../redux/actions/serviceTypesActions";
 
 const Table = (props) => {
   const tableIcons = {
@@ -94,9 +95,13 @@ const Table = (props) => {
   };
 
   const removeInstance = () => {
-    if (props.name != "Product") return
+    if (props.name == "Product")
     dispatch(
       deleteProduct(instance)
+    )
+    if (props.name == "Type")
+    dispatch(
+      deleteServiceTypes(instance)
     )
   }
   const deleteInstance = async () => {
@@ -165,6 +170,16 @@ const Table = (props) => {
     axios.post(`${constants.baseUrl}/${props.url}/restore/${instance._id}`).then((res)=> {
       props.change()
       alert("Successfully Restored")
+    }).catch((err)=> {
+      alert("something went wrong")
+    })
+    handleClose()
+  }
+
+  const cancelTransaction = () => {
+    axios.post(`${constants.baseUrl}/${props.url}/cancel/${instance._id}`).then((res)=> {
+      props.change()
+      alert("Successfully Canceled")
     }).catch((err)=> {
       alert("something went wrong")
     })
@@ -249,6 +264,18 @@ const Table = (props) => {
             }}
           >
            {instance.status == "disabled" ? "Enable User" : "Disable User"}
+          </MenuItem>
+        )}
+       
+        {props.type == "Transaction" && (
+          <MenuItem
+            onClick={() => {
+              if (activeUser.privillages.includes("Transactions"))
+                cancelTransaction()
+              else alert("You have no access");
+            }}
+          >
+           Cancel Transaction
           </MenuItem>
         )}
 

@@ -13,7 +13,7 @@ const MyTable = (props) => {
     instance
   ) => {
     setInstance(instance);
-    props.removeItem(instance.item)
+    props.removeItem(instance.name)
   };
 
   const removeItem = () => {

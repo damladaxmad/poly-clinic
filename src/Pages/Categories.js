@@ -25,21 +25,6 @@ const Categories = () => {
     { label: "Enter Phone", type: "text", name: "phone" },
   ];
 
-//   const handleClick = (
-//     event: React.MouseEvent<HTMLButtonElement>,
-//     customer
-//   ) => {
-//     setAnchorEl(event.currentTarget);
-//   };
-
-
-//   const dispatch = useDispatch();
-//   dispatch(
-//     setProducts(
-//       useFetch("products", del, "products")
-//     )
-//   );
-
   const handler = (data) => { 
     if (data?.length > 0) {
       return data

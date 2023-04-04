@@ -32,6 +32,9 @@ import { setUsers } from "./redux/actions/usersActions";
 import { setSales } from "./redux/actions/salesActions";
 import { setPurchases } from "./redux/actions/purchasesActions";
 import { setServices } from "./redux/actions/servicesActions";
+import Transactions from "./Pages/Transactions.js";
+import TransactionPage from "./Pages/Transactions.js";
+import { setAvailable } from "./redux/actions/availableActions";
 
 const pages = [
      <Route path= "/dashboard" element = {<Dashboard/>} />,
@@ -44,6 +47,7 @@ const pages = [
      <Route path= "/customers" element = {<Customers/>} />,  
      <Route path= "/vendors" element = {<Vendors/>} />,  
      <Route path= "/reports" element = {<ReportsPage/>} />,  
+     <Route path= "/transactions" element = {<TransactionPage/>} />,  
 
 ]
 
@@ -61,6 +65,12 @@ function App() {
   dispatch(
     setProducts(
       useFetch("products", isLogin, "products")
+    )
+  );
+
+  dispatch(
+    setAvailable(
+      useFetch("products/available", isLogin, "products")
     )
   );
 

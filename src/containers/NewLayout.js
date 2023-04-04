@@ -22,6 +22,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { useNavigate, useLocation } from "react-router-dom";
 import { MdMenuOpen } from "react-icons/md"; 
+import { GrTransaction } from "react-icons/gr"; 
 import { IoWalletOutline } from "react-icons/io5"; 
 import { FiMenu } from "react-icons/fi"; 
 import { HiOutlineDocumentReport } from "react-icons/hi";
@@ -188,6 +189,13 @@ const menuItems = [
       icon: <MdAdminPanelSettings style={{fontSize: "20px", color: "#130F26" }} />,
       path: "/adminstration",
     },
+
+    {
+      text: "Transactions",
+      icon: <GrTransaction style={{fontSize: "20px", color: "#130F26" }} />,
+      path: "/transactions",
+    },
+    
     {
       text: "Reports",
       icon: <HiDocumentReport style={{fontSize: "20px", color: "#130F26" }} />,

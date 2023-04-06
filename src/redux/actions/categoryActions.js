@@ -6,3 +6,10 @@ export const setCategory = (data) => {
     payload: data,
   };
 };
+
+export const addCategory = (data) => {
+  return {
+    type: ActionTypes.ADD_CATEGORY,
+    payload: data,
+  };
+};

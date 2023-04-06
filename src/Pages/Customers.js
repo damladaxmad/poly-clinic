@@ -263,7 +263,7 @@ const Customers = () => {
         </div>
       )}
 
-      {showTransactions && <Transactions instance={instance} name="customer" />}
+      {showTransactions && <Transactions instance={instance} name="Customer" />}
     {showPayment && <Payment instance={instance} 
     hideModal = {() => setShowPayment(false)} name = "customer"
     change={changeHandler}/>}

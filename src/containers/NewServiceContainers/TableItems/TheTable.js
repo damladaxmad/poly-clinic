@@ -30,7 +30,7 @@ const TheTable = (props) => {
     return (
         <div style={{width: "102%", marginTop: "15px"}}>
             <MyTable columns = {columns} data = {props.data} 
-            page = "New Purchase" name = "Purchase" 
+            page = "New Purchase" name = "Purchase"  way = "Service"
             removeItem = {(item) => {
                 props.removeItem(item)
             }}/>

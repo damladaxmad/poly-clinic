@@ -6,3 +6,10 @@ export const setPurchases = (data) => {
     payload: data,
   };
 };
+
+export const addPurchase = (data) => {
+  return {
+    type: ActionTypes.ADD_PURCHASE,
+    payload: data,
+  };
+};

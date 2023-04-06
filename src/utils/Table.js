@@ -19,6 +19,7 @@ import Payment from "../containers/AdminstrationContainers/UsersContainer/Paymen
 import {MdClose} from "react-icons/md"
 import { deleteProduct } from "../redux/actions/productsActions";
 import { deleteServiceTypes } from "../redux/actions/serviceTypesActions";
+import { deleteCustomer } from "../redux/actions/customersActions";
 
 const Table = (props) => {
   const tableIcons = {
@@ -103,6 +104,11 @@ const Table = (props) => {
     dispatch(
       deleteServiceTypes(instance)
     )
+
+    if (props.name == "Customer")
+    dispatch(
+      deleteCustomer(instance)
+    )
   }
   const deleteInstance = async () => {
     await deleteFunction(
@@ -167,21 +173,32 @@ const Table = (props) => {
 
 
   const restore = () => {
-    axios.post(`${constants.baseUrl}/${props.url}/restore/${instance._id}`).then((res)=> {
+    axios.post(`${constants.baseUrl}/${props.url}/restore/${instance._id}`, 
+    null, {
+      headers: {
+        "authorization": constants.token
+      }
+    }).then((res)=> {
       props.change()
       alert("Successfully Restored")
     }).catch((err)=> {
-      alert("something went wrong")
+      alert(err.response?.data?.message)
     })
     handleClose()
   }
 
   const cancelTransaction = () => {
-    axios.post(`${constants.baseUrl}/${props.url}/cancel/${instance._id}`).then((res)=> {
-      props.change()
+    console.log(props.url, instance._id,)
+    axios.post(`${constants.baseUrl}/${props.url}/cancel/${instance._id}`, 
+    null, {
+      headers: {
+        "authorization": constants.token
+      }
+    }).then((res)=> {
+      // props.change()
       alert("Successfully Canceled")
     }).catch((err)=> {
-      alert("something went wrong")
+      alert(err.response?.data?.message)
     })
     handleClose()
   }
@@ -276,6 +293,18 @@ const Table = (props) => {
             }}
           >
            Cancel Transaction
+          </MenuItem>
+        )}
+
+        {props.type == "Transaction" && (
+          <MenuItem
+            onClick={() => {
+              if (activeUser.privillages.includes("Transactions"))
+              restore()
+              else alert("You have no access");
+            }}
+          >
+           Restore Transaction
           </MenuItem>
         )}
 

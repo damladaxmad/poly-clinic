@@ -6,3 +6,10 @@ export const setServices = (data) => {
     payload: data,
   };
 };
+
+export const addService = (data) => {
+  return {
+    type: ActionTypes.ADD_SERVICE,
+    payload: data,
+  };
+};

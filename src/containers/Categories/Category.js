@@ -1,11 +1,11 @@
 import { Button } from "@material-ui/core"
 import axios from "axios"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import useFetch from "../../funcrions/DataFetchers"
 import { constants } from "../../Helpers/constantsFile"
 import Table from "../../utils/Table"
-import { setCategory } from "../../redux/actions/categoryActions"
+import { addCategory, setCategory } from "../../redux/actions/categoryActions"
 
 
 const Category = (props) => {
@@ -16,6 +16,10 @@ const Category = (props) => {
 
     const dispatch = useDispatch()
 
+    useEffect(() => {
+
+    }, [categories])
+
 
     const columns = [
         {title: "Category Name", field: "categoryName"}
@@ -24,13 +28,18 @@ const Category = (props) => {
         setDel((state) => state + 1);
       };
 
-    const addCategory = () => {
+    const addCategor = () => {
         axios.post(`${constants.baseUrl}/product-categories`, {
             categoryName: categor
+        },{
+          headers: {
+            "authorization": constants.token
+          }
         }).then(res => {
             alert("Successfully added category")
             setCategor("")
             setQuery("")
+            dispatch(addCategory(res.data?.data?.createdCategory))
             setDel((state) => state + 1);
         }).catch(err => {
             alert(err.response?.data?.message)
@@ -83,7 +92,7 @@ const Category = (props) => {
             height: "45px",
             color: "white",
           }}
-          onClick = {addCategory}
+          onClick = {addCategor}
           variant="contained"
         >
          Add

@@ -6,3 +6,10 @@ export const setSales = (data) => {
     payload: data,
   };
 };
+
+export const addSale = (data) => {
+  return {
+    type: ActionTypes.ADD_SALE,
+    payload: data,
+  };
+};

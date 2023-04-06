@@ -1,4 +1,4 @@
-import { TextField, Typography } from "@material-ui/core"
+import { FormControl, MenuItem, TextField, Typography } from "@material-ui/core"
 import moment from "moment"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
@@ -15,10 +15,7 @@ const PurchasesReport = (props) => {
     const [view, setView] = useState(1)
     const dispatch = useDispatch()
     const purchases = useSelector((state) => state.purchases2.purchases2);
-
-    // useEffect(() => {
-
-    // }, [view])
+   
 
     let number = 0
     let totalMoney = 0
@@ -70,6 +67,8 @@ const PurchasesReport = (props) => {
                 setView(state => state + 1)
             }}
           />
+
+
           </div>
 
           <div style={{width: "100%", background: "white", display: "flex",
@@ -99,6 +98,8 @@ const PurchasesReport = (props) => {
         <Typography style = {{ fontSize: "16px"}}>{startDate}</Typography>
         <Typography style = {{fontWeight: "bold", fontSize: "16px"}}>To</Typography>
         <Typography style = {{ fontSize: "16px"}}>{endDate}</Typography>
+
+        
     </div>
 
 

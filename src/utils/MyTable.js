@@ -7,13 +7,14 @@ const MyTable = (props) => {
 
   const columns = props.columns;
   const [instance, setInstance] = useState("");
+  const [way, setWay] = useState(props.way)
 
   const handleClick = (
     event: React.MouseEvent<HTMLButtonElement>,
     instance
   ) => {
     setInstance(instance);
-    props.removeItem(instance.name)
+   props.way == "Service" ? props.removeItem(instance.name) : props.removeItem(instance.item)
   };
 
   const removeItem = () => {
@@ -71,8 +72,8 @@ const MyTable = (props) => {
                   display: "flex",
                   width: "100%",
                   justifyContent:"space-between",
-                  // borderBottom: "0.5px solid grey",
-                  padding: "8px 0px",
+                  borderBottom: "0.5px solid #C1C1C1",
+                  padding: "6px 0px",
                   fontSize: 15,
                 }}
               >
@@ -81,13 +82,13 @@ const MyTable = (props) => {
                  {props.data.name}
                 </p>
                 <p style={{ margin: "0px", width: "25%", textAlign: "end" }}>
-                  {props.data.phone}
+                  {way == "summary" ? props.data.totalQuantity : props.data.phone}
                 </p>
                 <p style={{ margin: "0px", width: "25%", textAlign: "end" }}>
-                  {props.data.district}
+                  {way == "summary" ? props.data.avgUnitPrice?.toFixed(2) : props.data.district}
                 </p>
                 <p style={{ margin: "0px", width: "25%", textAlign: "end" }}>
-                  {constants.moneySign}{props.data.balance?.toFixed(2)}
+                  {constants.moneySign}{way == "summary" ? props.data.totalPrice?.toFixed(2) : props.data.balance?.toFixed(2)}
                 </p>
               </div>
             );

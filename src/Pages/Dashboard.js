@@ -41,14 +41,14 @@ const Dashboard = () => {
   })
 
   purchases?.map(purchase => {
-    if ( moment(purchase.date).format("MM") == startDate) {
-      moneyFromPurchases += purchase.total
+    if ( moment(purchase?.date).format("MM") == startDate) {
+      moneyFromPurchases += purchase?.total
     }
   })
 
   services?.map(service => {
-    if ( moment(service.date).format("MM") == startDate) {
-      moneyFromServices += service.total
+    if ( moment(service?.date).format("MM") == startDate) {
+      moneyFromServices += service?.total
     }
   })
 

@@ -54,6 +54,7 @@ const SaleForm = (props) => {
   const [products, setProducts] = useState([]);
 
   const removeItem = (item) => {
+    console.log(item)
     setTableData((current) =>
     current.filter((i) => i.item !== item)
   );

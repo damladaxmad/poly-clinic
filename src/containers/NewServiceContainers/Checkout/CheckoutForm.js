@@ -3,7 +3,8 @@ import axios from "axios";
 import moment from "moment";
 import { useState } from "react";
 import { constants } from "../../../Helpers/constantsFile";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addService } from "../../../redux/actions/servicesActions";
 
 
 const CheckoutForm = (props) => {
@@ -17,6 +18,8 @@ const CheckoutForm = (props) => {
   props.products?.map(product => {
     total += product.unitPrice * product.quantity
   })
+
+  const dispatch = useDispatch()
 
 
   const completeHandler = () => {
@@ -42,6 +45,7 @@ const CheckoutForm = (props) => {
       setDisable(false)
       props.complete()
       setDiscount("")
+      dispatch(addService(res.data?.data?.createService))
     }).catch((err) => {
       alert(err.response?.data?.message)
       setDisable(false)

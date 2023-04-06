@@ -36,7 +36,12 @@ const Payment = (props) => {
       values.user = activeUser.username
       setDisabled(true)
 
-      const res = await axios.post(`${constants.baseUrl}/transactions`, values).then(()=> {
+      const res = await axios.post(`${constants.baseUrl}/transactions`, values,
+      {
+        headers: {
+          "authorization": constants.token
+        }
+      }).then(()=> {
         props.hideModal()
         alert("Succesfully Paid")
         setDisabled(false)

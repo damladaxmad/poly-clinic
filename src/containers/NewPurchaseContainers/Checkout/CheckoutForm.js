@@ -2,7 +2,8 @@ import { Button, Typography } from "@material-ui/core";
 import axios from "axios";
 import { useState } from "react";
 import { constants } from "../../../Helpers/constantsFile";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addPurchase } from "../../../redux/actions/purchasesActions";
 
 
 const CheckoutForm = (props) => {
@@ -18,7 +19,7 @@ const CheckoutForm = (props) => {
     total += product.unitPrice * product.quantity
   })
 
-  console.log(`this is the total: ${total}`)
+  const dispatch = useDispatch()
 
   const completeHandler = () => {
 
@@ -48,6 +49,7 @@ const CheckoutForm = (props) => {
       props.complete()
       setDiscount("")
       setRefnumber("")
+      dispatch(addPurchase(res.data?.data?.createdSale))
     }).catch((err) => {
       alert(err.response?.data?.message)
       setDisable(false)

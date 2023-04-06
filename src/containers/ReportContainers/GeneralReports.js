@@ -1,4 +1,4 @@
-import { TextField, Typography } from "@material-ui/core"
+import { FormControl, MenuItem, TextField, Typography } from "@material-ui/core"
 import moment from "moment"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
@@ -6,6 +6,8 @@ import useFetch from "../../funcrions/DataFetchers"
 import { setPurchases } from "../../redux/actions/purchasesActions"
 import Reports from "../../utils/Report"
 import { setPurchases2 } from "../../redux/actions/purchases2Actions"
+import MyTable from "../../utils/MyTable"
+import SummaryReport from "./SummaryReport"
 
 
 const GeneralReport = (props) => {
@@ -15,6 +17,12 @@ const GeneralReport = (props) => {
     const [view, setView] = useState(1)
     const dispatch = useDispatch()
     const purchases = useSelector((state) => state.purchases2.purchases2);
+    const reportTypes = ["summery", "bydate"]
+    const [type, setType] = useState(reportTypes[0])
+
+    const typeHandler = (e) => {
+      setType(e.target.value)
+    }
 
     // useEffect(() => {
 
@@ -28,13 +36,14 @@ const GeneralReport = (props) => {
     dispatch(
         setPurchases2(
           useFetch(
-            `${props.name}/bydate/${startDate}/${endDate}`,
+            `${props.name}/summery/${startDate}/${endDate}`,
             view,
             `${props.name}`
           )
         )
       );
-
+          
+     console.log(purchases)
       purchases?.map(purchase => {
         number += 1
         totalMoney += purchase.total
@@ -85,22 +94,41 @@ const GeneralReport = (props) => {
             }}
           />
 
-            <div style = {{display: "flex", gap: "20px"}}>
-                    <Typography style = {{fontSize: "16px"}}> Total {`${props.name.charAt(0).toUpperCase()}${props.name.slice(1)}`}:</Typography>
-                    <Typography style = {{fontWeight: "bold", fontSize: "16px"}}>{number}</Typography>
-                </div>
 
-                <div style = {{display: "flex", gap: "20px"}}>
-                    <Typography style = {{fontSize: "16px"}}> Total Money:</Typography>
+          <TextField
+            variant="outlined"
+            size='small'
+            select
+            style={{ width: "20%", color: "black", }}
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={type}
+            // label="Select Type"
+            onChange={typeHandler}
+          >
+            {reportTypes?.map((type, index) => (
+              <MenuItem value={type} key={index}>
+                {type}
+              </MenuItem>
+            ))}
+          </TextField>
+            {type == "bydate" && <div style = {{display: "flex", gap: "20px"}}>
+                    <Typography style = {{fontSize: "16px"}}> {`${props.name.charAt(0).toUpperCase()}${props.name.slice(1)}`}:</Typography>
+                    <Typography style = {{fontWeight: "bold", fontSize: "16px"}}>{number}</Typography>
+                </div>}
+
+                {type == "bydate" &&  <div style = {{display: "flex", gap: "20px"}}>
+                    <Typography style = {{fontSize: "16px"}}> Total</Typography>
                     <Typography style = {{fontWeight: "bold", fontSize: "16px"}}>${totalMoney?.toFixed(2)}</Typography>
-                </div>
+                </div>}
       
           
     </div>
 
-          <Reports startDate = {startDate} endDate = {endDate}
+          {type == "bydate" && <Reports startDate = {startDate} endDate = {endDate}
           purchases = {purchases} name = {props.type} type = "cash"
-          kind = "Report"/>
+          kind = "Report"/>}
+          {(type == "summery" && purchases?.length > 0 ) && <SummaryReport type = {props.type} data = {purchases}/>}
        
         </div>
     )

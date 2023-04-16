@@ -66,7 +66,7 @@ const Selectors = (props) => {
             <TextField
               class="myText"
               variant="outlined"
-              placeholder="Select Medicine"
+              placeholder="Select Product"
               style={{ border: "1.5px solid #6E6E6E", borderRadius: "8px" }}
               {...params}
               // label="Choose a country"

@@ -80,7 +80,7 @@ const Categories = () => {
         }}
       >
         <Category/>
-        <Types/>
+        {/* <Types/> */}
 
         </div>
 

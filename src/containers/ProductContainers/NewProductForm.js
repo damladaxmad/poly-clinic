@@ -12,7 +12,7 @@ import { addProduct, setProducts, updateProduct } from "../../redux/actions/prod
 const NewProductForm = (props) => {
 
   const [disable, setDisable] = useState(false)
-  const productTypes = useSelector((state) => state.productTypes.productTypes);
+  const productTypes = useSelector((state) => state.categories.categories);
   const [productType, setProductType] = useState(props.update ? 
     props.instance?.prodcutType?._id : "");
 
@@ -61,9 +61,8 @@ const NewProductForm = (props) => {
     validate,
     onSubmit: (values, { resetForm }) => {
       setDisable(true)
-      values.prodcutType = productType
+      values.category = productType
       values.unitMeasurment = measurement
-      values.category = category
       // values.prodcutType = (props.update && productType == "" ) && props.instance?.prodcutType?._id
       // values.category = (props.update && category == "") && props.instance?.category?._id
       if (props.update) {
@@ -216,7 +215,7 @@ const NewProductForm = (props) => {
           >
             {productTypes?.map((productType, index) => (
               <MenuItem value={productType._id} key={index}>
-                {productType.typeName}
+                {productType.categoryName}
               </MenuItem>
             ))}
           </TextField>

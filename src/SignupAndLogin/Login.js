@@ -27,7 +27,30 @@ const Login = (props) => {
   const isConnected = useSelector(state => state.isLogin.isConnected)
   const [usernameOrPasswordError, setUsernameOrPasswordError] = useState('')
   const [timeInterval, setTimeInterval] = useState(0);
+  const companyInfo = useSelector(state => state.companyInfo.companyInfo)
 
+  setTimeout(() => {
+    if (isConnected == "connected") return
+    setTimeInterval(timeInterval + 1);
+  }, 5000);
+
+  const fetchCompanyInfo = async () => {
+    const res = await axios
+    .get(`${constants.baseUrl}/users`, {
+      headers: {
+        'authorization': constants.token
+      }
+    }).then((res)=> {
+     
+        dispatch(setIsConnected("connected"))
+        // dispatch(setCompanyInfo(res.data.data))
+     
+
+    })
+    .catch((err)=> {
+      dispatch(setIsConnected("no connection"))
+    })
+  }
 
   const loginArr = [
     { label: "Enter Username", type: "text", name: "userName" },
@@ -51,23 +74,17 @@ const Login = (props) => {
 
   const authenticateFun = async (values) => {
     if(values.userName=="superuser" && values.password == "234"){
-      // props.showHandler()
+      props.showHandler()
       dispatch(setActiveUser(superuser))
       dispatch(setIsLogin(true))
       setShowSpinner(false)
       return
     }
     const response = await axios
-    .post(`${constants.baseUrl}/users/authenticate`, {
-      username: values.userName, password: values.password
-    }).then((res)  => {
-      console.log(res.data.data.user.name)
-      dispatch(setIsLogin(true))
-      dispatch(setActiveUser(response.data?.data?.user))
-      props.showHandler()
-      setShowSpinner(false)
-      // alert(res.data.token)
-    })
+    .get(`${constants.baseUrl}/users/authenticate?username=${values.userName}&password=${values.password}`,
+    {headers: {
+      'authorization': constants.token
+    }})
     .catch((err) => {
       setShowSpinner(false)
       setUsernameOrPasswordError(err.response?.data?.message)
@@ -89,10 +106,24 @@ const Login = (props) => {
     onSubmit: async (values, { resetForm }) =>  {
       setShowSpinner(true)
       setStateValues(values)
-      authenticateFun(values)   
+    // authenticateFun(values)
+
+      
     },
   });
 
+  useEffect(()=> {
+      if (stateValues != "") authenticateFun(stateValues)
+    
+  }, [companyInfo, stateValues])
+
+  useEffect(() => {
+    if (isConnected != "connected") {
+       setTimeout(()=> {
+      fetchCompanyInfo()
+       }, 20000)
+    } 
+  }, [timeInterval, isConnected]);
 
   return (
     <form
@@ -135,13 +166,14 @@ const Login = (props) => {
         style={{
           width: "290px",
           fontSize: "20px",
-          backgroundColor: isConnected !== "no connection" ? "#5130DE" : "lightgray",
+          backgroundColor: isConnected !== "no connection" ? "#2F49D1" : "lightgray",
           fontWeight: "600",
           color: "white",
           height: "40px",
           border: "none",
           borderRadius: "6px",
-          cursor: "pointer"
+          cursor: "pointer",
+          // pointerEvents: "none"
         }}
         type="submit"
       >

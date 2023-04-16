@@ -73,6 +73,33 @@ const Details = (props) => {
           );
         })}
 
+{props.data?.service?.products?.map((product) => {
+          return (
+            <div
+              style={{
+                display: "flex",
+                width: "100%",
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}
+            >
+              <Typography style={{ width: "35%" }}> {product.name}</Typography>
+              <Typography style={{ width: "25%", textAlign: "end" }}>
+                {" "}
+                {product.quantity}
+              </Typography>
+              <Typography style={{ width: "25%", textAlign: "end" }}>
+                {" "}
+                ${product.unitPrice}
+              </Typography>
+              <Typography style={{ width: "25%", textAlign: "end" }}>
+                {" "}
+                ${product.subtotal}
+              </Typography>
+            </div>
+          );
+        })}
+
         <button
           style={{
             width: "120px",

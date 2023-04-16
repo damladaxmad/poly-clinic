@@ -8,6 +8,7 @@ import { forwardRef } from 'react';
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { Typography, Button, MenuItem, Menu, Avatar } from "@material-ui/core";
 import axios from "axios";
+import {TiArrowUnsorted} from "react-icons/ti"
 import swal from "sweetalert";
 import { useDispatch, useSelector } from "react-redux";
 import { constants } from "../Helpers/constantsFile";
@@ -28,6 +29,7 @@ const Table = (props) => {
     LastPage: forwardRef((props, ref) => <LastPage {...props} ref={ref} />),
     NextPage: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
     PreviousPage: forwardRef((props, ref) => <ChevronLeft {...props} ref={ref} />),
+    SortArrow: <TiArrowUnsorted/>
     
   };
   const [anchorEl, setAnchorEl] = useState(null);
@@ -369,7 +371,7 @@ const Table = (props) => {
           showTitle: false,
           paging: props.page == "New Purchase" ? false : true,
           exportButton: true,
-          sorting: false,
+          sorting: true,
           showTextRowsSelected: false,
           toolbar: false,
           pageSizeOptions: [2, 5, 8, 10, 20, 25, 50, 100],

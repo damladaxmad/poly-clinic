@@ -36,7 +36,7 @@ const GeneralReport = (props) => {
     dispatch(
         setPurchases2(
           useFetch(
-            `${props.name}/summery/${startDate}/${endDate}`,
+            `${props.name}/${type}/${startDate}/${endDate}`,
             view,
             `${props.name}`
           )

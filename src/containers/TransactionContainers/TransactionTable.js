@@ -91,7 +91,7 @@ const TransactionTable = (props) => {
 
   useEffect(() => {
     if (props.data?.length < 1) setState("Nothing found!");
-  }, [props.data]);
+  }, [props.data, startDate, endDate]);
 
   useEffect(() => {
     if (query != "") {

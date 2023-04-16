@@ -22,10 +22,9 @@ export const productsReducer = (state = intialState, { type, payload }) => {
         return {
             ...state, 
             products: state.products.map(product => {
-                if (product._id === payload._id) {
+                if (product._id == payload._id) {
                    return payload;
                 }
-    
                 return product;
             }),
         };

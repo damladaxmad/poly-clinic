@@ -35,6 +35,7 @@ import { setServices } from "./redux/actions/servicesActions";
 import Transactions from "./Pages/Transactions.js";
 import TransactionPage from "./Pages/Transactions.js";
 import { setAvailable } from "./redux/actions/availableActions";
+import ImportProducts from "./Pages/ImportProducts";
 
 const pages = [
      <Route path= "/dashboard" element = {<Dashboard/>} />,
@@ -48,6 +49,7 @@ const pages = [
      <Route path= "/vendors" element = {<Vendors/>} />,  
      <Route path= "/reports" element = {<ReportsPage/>} />,  
      <Route path= "/transactions" element = {<TransactionPage/>} />,  
+     <Route path= "/import" element = {<ImportProducts/>} />,  
 
 ]
 
@@ -85,6 +87,7 @@ function App() {
       useFetch("vendors/vendors-with-transactions", isLogin, "vendors")
     )
   );
+  
   dispatch(
     setSales(
       useFetch("sales", isLogin, "sales")

@@ -39,8 +39,8 @@ const Products = () => {
     { title: "Product Name", field: "name", width: "4%" },
     { title: "Quantity", field: "quantity" },
     { title: "Measurement", field: "unitMeasurment" },
-    { title: "Category", field: "prodcutType", 
-  render: (data) => <p> {data?.prodcutType.typeName}</p> },
+    { title: "Pack Size", field: "packSize" },
+    { title: "Category", field: "category"},
     { title: "Unit Price", field: "unitPrice", 
   render: (data) => <p> ${data.unitPrice}</p> },
     { title: "Sale Price", field: "salePrice", 
@@ -130,6 +130,8 @@ const Products = () => {
   };
 
   const hideModal = () => {};
+
+  console.log(products)
 
   return (
     <div

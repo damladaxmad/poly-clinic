@@ -18,6 +18,8 @@ import Payment from "../containers/CustomerContainers/Payment";
 import { setVendors } from "../redux/actions/vendorsActions";
 
 const Vendors = () => {
+  
+  const dispatch = useDispatch();
   const [newVendors, setNewVendors] = useState(false);
   const [buttonName, setButtonName] = useState("Add New Vendors");
   const [update, setUpdate] = useState(false);
@@ -48,6 +50,12 @@ const Vendors = () => {
     { label: "Enter Address", type: "text", name: "district" },
   ];
 
+  dispatch(
+    setVendors(
+      useFetch("vendors/vendors-with-transactions", del, "vendors")
+    )
+  );
+
   const handleClick = (
     event: React.MouseEvent<HTMLButtonElement>,
     customer
@@ -67,7 +75,6 @@ const Vendors = () => {
     setStatus(e.target.value);
   };
 
-  const dispatch = useDispatch();
   const vendors = useSelector((state) => state.vendors.vendors);
 
   const [query, setQuery] = useState("");

@@ -17,6 +17,8 @@ import Transactions from "../containers/CustomerContainers/Transactions."
 import Payment from "../containers/CustomerContainers/Payment";
 
 const Customers = () => {
+
+  const dispatch = useDispatch();
   const [newCustomers, setNewCustomers] = useState(false);
   const [buttonName, setButtonName] = useState("Add New Customers");
   const [update, setUpdate] = useState(false);
@@ -46,6 +48,13 @@ const Customers = () => {
     { label: "Enter Address", type: "text", name: "district" },
   ];
 
+  dispatch(
+    setCustomers(
+      useFetch("customers/customers-with-transactions", del, "customers")
+    )
+  );
+
+
   const handleClick = (
     event: React.MouseEvent<HTMLButtonElement>,
     customer
@@ -65,7 +74,6 @@ const Customers = () => {
     setStatus(e.target.value);
   };
 
-  const dispatch = useDispatch();
   const customers = useSelector((state) => state.customers.customers);
 
   const [query, setQuery] = useState("");

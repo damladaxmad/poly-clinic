@@ -61,7 +61,6 @@ const ImportProducts = () => {
       }
 
       const uploadHandler = () => {
-        console.log(excelData[0])
         axios.post(`${constants.baseUrl}/products`, excelData,
       {
         headers: {

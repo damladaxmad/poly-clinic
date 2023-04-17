@@ -35,7 +35,7 @@ const CheckoutForm = (props) => {
       refNumber: refNumber,
       paymentType: props.data?.type,
       discount: discount,
-      user: activeUser?.username,
+      user: activeUser?.name,
       vendor: props.data?.type == "invoice" ? props.data?.vendor : null
     },
     {

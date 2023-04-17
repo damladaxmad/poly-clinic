@@ -81,20 +81,29 @@ const Login = (props) => {
       return
     }
     const response = await axios
-    .get(`${constants.baseUrl}/users/authenticate?username=${values.userName}&password=${values.password}`,
+    .post(`${constants.baseUrl}/users/authenticate`, {
+      username: values.userName,
+      password: values.password
+    },
     {headers: {
       'authorization': constants.token
-    }})
+    }}
+    ).then(res => {
+      props.showHandler()
+      dispatch(setActiveUser(res.data?.data?.user))
+      dispatch(setIsLogin(true))
+      setShowSpinner(false)
+    })
     .catch((err) => {
       setShowSpinner(false)
       setUsernameOrPasswordError(err.response?.data?.message)
     });
-    if (response?.data?.authenticated == true) {
-      props.showHandler()
-      dispatch(setActiveUser(response.data.user))
-      dispatch(setIsLogin(true))
-      setShowSpinner(false)
-    }
+    // if (response?.data?.authenticated == true) {
+    //   props.showHandler()
+    //   dispatch(setActiveUser(response.data.user))
+    //   dispatch(setIsLogin(true))
+    //   setShowSpinner(false)
+    // }
   }
 
   const formik = useFormik({

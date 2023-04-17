@@ -114,12 +114,12 @@ const Access = () => {
     dispatch(setUsers(response.data.data.users));
   };
 
-  useEffect(() => {
-    fetchUsers()
-    users.map((u) => {
-      if (u._id == user) setCurrentUserPrivillages(u.privillages);
-    }, []);
-  }, [user, tab, refresh]);
+  // useEffect(() => {
+  //   fetchUsers()
+  //   users.map((u) => {
+  //     if (u._id == user) setCurrentUserPrivillages(u.privillages);
+  //   }, []);
+  // }, [user, tab, refresh]);
 
   const [selectAll, setSelectAll] = useState(false);
   const [engaged, setEngaged] = useState(false);

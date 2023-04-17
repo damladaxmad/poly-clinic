@@ -2,7 +2,7 @@ import React, { useState, useEffect, useReducer } from "react";
 import { Button } from "@material-ui/core";
 import { MdAdd } from "react-icons/md";
 import { FormControl, MenuItem, Menu } from "@material-ui/core";
-import { Select, Typography } from "@mui/material";
+import { Box, Select, Tab, Tabs, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { BiArrowBack } from "react-icons/bi";
@@ -16,6 +16,7 @@ import { setCustomers, setProducts } from "../redux/actions/productsActions";
 import NewProducts from "../containers/ProductContainers/NewProduct";
 import { setProductTypes } from "../redux/actions/productTypesActions";
 import { setCategory } from "../redux/actions/categoryActions";
+import Stock from "../containers/ProductContainers/Stock";
 
 
 const Products = () => {
@@ -34,6 +35,11 @@ const Products = () => {
   const [showTransactions, setShowTransactions] = useState(false);
   const [instance, setInstance] = useState();
   const activeUser = useSelector((state) => state.activeUser.activeUser);
+  const [value, setValue] = useState("products")
+
+  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+    setValue(newValue);
+  };
 
   const columns = [
     { title: "Product Name", field: "name", width: "4%" },
@@ -144,6 +150,7 @@ const Products = () => {
         backgroundColor: "#EFF0F6",
       }}
     >
+
       <div
         style={{
           display: "flex",
@@ -153,9 +160,31 @@ const Products = () => {
           margin: "auto",
         }}
       >
-        <Typography style={{ fontWeight: "600", fontSize: "25px" }}>
-          Products
-        </Typography>
+
+<Box sx={{ width: "95%", margin: "auto" }}>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            textColor="black"
+            indicatorColor="primary"
+            aria-label="secondary tabs example"
+          >
+            
+       
+          {activeUser.privillages?.includes("Products") && <Tab
+            disableFocusRipple = {true}
+            disableRipple = {true}
+            value="products" label="Products"
+            style={{ fontSize: "16px", fontWeight: "700" }} />}
+
+          {activeUser.privillages.includes("Products") && <Tab
+            disableFocusRipple = {true}
+            disableRipple = {true}
+            value="stock" label="Stock"
+            style={{ fontSize: "16px", fontWeight: "700" }} />}
+          </Tabs>
+        </Box>
+    
         <Button
           variant="contained"
           style={{
@@ -182,7 +211,7 @@ const Products = () => {
           Add New Products
         </Button>
       </div>
-      {!showOrders && !showTransactions && (
+      {value == "products" && (
         <div
           style={{
             display: "flex",
@@ -193,7 +222,7 @@ const Products = () => {
             background: "white",
             width: "95.3%",
             margin: "auto",
-            marginTop: "20px",
+            marginTop: "30px",
             borderRadius: "8px 8px 0px 0px",
           }}
         >
@@ -229,7 +258,7 @@ const Products = () => {
         </div>
       )}
 
-      {!showOrders && !showTransactions && (
+      {value == "products" && (
         <Table
           data={handler(products)}
           showTransactions={(instance) => {
@@ -254,6 +283,8 @@ const Products = () => {
        update = {update}
        instance={updatedCustomer}/>
       )}
+
+      {value == "stock" && <Stock/>}
     </div>
   );
 };

@@ -33,7 +33,7 @@ const CheckoutForm = (props) => {
       date: date,
       paymentType: props.data?.type,
       discount: discount,
-      user: activeUser?.usernamme,
+      user: activeUser?.name,
       customer: props.data?.type == "invoice" ? props.data?.customer : null
     },
     {

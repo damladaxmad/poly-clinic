@@ -243,8 +243,8 @@ const Transactions = (props) => {
           </p>
           <p>
             {props.instance.balance < 0
-              ? `-${constants.moneySign}${props.instance.balance * -1}`
-              : `${constants.moneySign}${props.instance.balance}`}
+              ? `-${constants.moneySign}${props.instance.balance?.toFixed(2) * -1}`
+              : `${constants.moneySign}${props.instance.balance.toFixed(2)}`}
           </p>
         </div>
       </div>

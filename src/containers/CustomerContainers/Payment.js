@@ -33,7 +33,7 @@ const Payment = (props) => {
     onSubmit: async (values, { resetForm }) =>  {
       values.transactionType = "Payment"
       values[props.name] = props.instance._id
-      values.user = activeUser.username
+      values.user = activeUser.name
       setDisabled(true)
 
       const res = await axios.post(`${constants.baseUrl}/transactions`, values,

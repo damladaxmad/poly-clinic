@@ -40,7 +40,7 @@ const Customers = () => {
     { title: "Full Name", field: "name", width: "4%" },
     { title: "Phone Number", field: "phone" },
     { title: "Address", field: "district" },
-    { title: "Balance", field: "balance" },
+    { title: "Balance", field: "balance", render: (data) => <p> {data?.balance.toFixed(2)}</p> },
   ];
   const fields = [
     { label: "Enter Name", type: "text", name: "name" },

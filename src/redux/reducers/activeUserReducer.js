@@ -2,7 +2,7 @@ import { ActionTypes } from "../constants/action-types";
 
 
 const initState = {
-  activeUser: ""
+  activeUser: {}
 };
 
 

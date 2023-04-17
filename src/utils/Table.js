@@ -4,6 +4,7 @@ import FirstPage from '@material-ui/icons/FirstPage';
 import LastPage from '@material-ui/icons/LastPage';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import ChevronRight from '@material-ui/icons/ChevronRight';
+// import ArrowDownwardIcon from '@material-ui/icons/ArrowDownwardIcon';
 import { forwardRef } from 'react';
 import { BiDotsHorizontalRounded } from "react-icons/bi";
 import { Typography, Button, MenuItem, Menu, Avatar } from "@material-ui/core";
@@ -29,7 +30,7 @@ const Table = (props) => {
     LastPage: forwardRef((props, ref) => <LastPage {...props} ref={ref} />),
     NextPage: forwardRef((props, ref) => <ChevronRight {...props} ref={ref} />),
     PreviousPage: forwardRef((props, ref) => <ChevronLeft {...props} ref={ref} />),
-    SortArrow: <TiArrowUnsorted/>
+    // SortArrow: forwardRef((props, ref) => <ArrowDownwardIcon{...props} ref={ref}/>)
     
   };
   const [anchorEl, setAnchorEl] = useState(null);

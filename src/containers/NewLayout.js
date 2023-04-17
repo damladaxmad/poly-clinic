@@ -173,11 +173,11 @@ const menuItems = [
       icon: <MdPointOfSale style={{fontSize: "20px", color: "#130F26" }} />,
       path: "/sale",
     },
-    // {
-    //   text: "New Service",
-    //   icon: <MdMedicalServices style={{fontSize: "20px", color: "#130F26" }} />,
-    //   path: "/service",
-    // },
+    {
+      text: "New Service",
+      icon: <MdMedicalServices style={{fontSize: "20px", color: "#130F26" }} />,
+      path: "/service",
+    },
     {
       text: "Categories",
       icon: <MdOutlineCategory style={{fontSize: "20px", color: "#130F26" }} />,
@@ -225,6 +225,8 @@ export default function NewLayout({children}) {
   const handleDrawerOpen = () => {
     setOpen(true);
   };
+
+  console.log(activeUser)
 
   const handleDrawerClose = () => {
     setOpen(false);
@@ -293,7 +295,7 @@ export default function NewLayout({children}) {
 
           <Typography  style = {{fontSize:"18px",
         color: "#19274B", fontWeight: "600", marginLeft: "12px"}}>
-          Construction Co.
+          PolyClinic System
             {/* {companyInfo ? companyInfo?.name?.substring(0, 13) : "Company Name"}{companyInfo ? companyInfo?.name?.length <= 12 ? null : "..." : null} */}
           </Typography>
          

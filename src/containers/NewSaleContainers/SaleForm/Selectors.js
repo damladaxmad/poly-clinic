@@ -9,7 +9,7 @@ import { DateRangeRounded } from "@material-ui/icons";
 
 const Selectors = (props) => {
   const medicine = useSelector((state) => state.products.products);
-  const productTypes = useSelector((state) => state.productTypes.productTypes);
+  const productTypes = ["INJECTION", "TAB", "SYRUP", "DROP", "CREAM", "SOLUTION", "SOUP", "GESAC", "INVENTORY", "GEL","SUMPOSTRY", "HERBAL", "SHAMPOO", "LIPIN",]
   const customers = useSelector((state) => state.customers.customers);
   const [date, setDate] = useState(moment(new Date()).format("MM-DD-YYYY"));
   const [productType, setProductType] = useState(null);
@@ -19,7 +19,7 @@ const Selectors = (props) => {
   let newMedicine = []
 
     medicine?.map(med => {
-      if (med.prodcutType?.typeName == productType?.typeName || productType == null) newMedicine.push(med)
+      if (med.category == productType || productType == null) newMedicine.push(med)
     }) 
 
     console.log(productType)
@@ -84,14 +84,14 @@ const Selectors = (props) => {
           sx={{ width: 200 }}
           options={productTypes}
           autoHighlight
-          getOptionLabel={(option) => option.typeName}
+          getOptionLabel={(option) => option}
           renderOption={(props, option) => (
             <Box
               component="li"
               sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
               {...props}
             >
-              {option.typeName}
+              {option}
             </Box>
           )}
           renderInput={(params) => (

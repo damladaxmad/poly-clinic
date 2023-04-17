@@ -77,6 +77,12 @@ function App() {
   );
 
   dispatch(
+    setAvailable(
+      useFetch("products/available", isLogin, "products")
+    )
+  );
+
+  dispatch(
     setCustomers(
       useFetch("customers/customers-with-transactions", isLogin, "customers")
     )

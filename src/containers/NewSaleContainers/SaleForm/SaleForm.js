@@ -13,8 +13,8 @@ const SaleForm = (props) => {
   const [error, setError] = useState(false)
   const [disable, setDisable] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null);
-  const [reset, setReset] = useState(false)
   const open = Boolean(anchorEl);
+  const [reset, setReset] = useState(false)
   const [autoReset, setAutoReset] = useState(1)
 
   const productsD = useSelector(state => state.products.products)
@@ -56,10 +56,10 @@ const SaleForm = (props) => {
   const removeItem = (item) => {
     console.log(item)
     setTableData((current) =>
-    current.filter((i) => i.item !== item)
+    current.filter((i) => i.item !== item.item)
   );
     setProducts((current) =>
-    current.filter((i) => i.item !== item)
+    current.filter((i) => i.item !== item.item)
   );
   setSaleData((prevState) => {
     return {
@@ -170,13 +170,13 @@ const SaleForm = (props) => {
              ) {
                return setError(true)
               }
-            var exitLoop = false
-            tableData?.map(dictum => {
-              if (dictum.item == saleData.item) {
-                exitLoop = true
-              }
-            })
-            if (exitLoop) return alert("Item-ka aad gelisay horay ayuu ujiray!")
+            // var exitLoop = false
+            // tableData?.map(dictum => {
+            //   if (dictum.item == saleData.item) {
+            //     exitLoop = true
+            //   }
+            // })
+            // if (exitLoop) return alert("Item-ka aad gelisay horay ayuu ujiray!")
             setError(false)
             setDisable(true)
             props.tableData(saleData)

@@ -5,20 +5,16 @@ import { memo, useEffect } from "react";
 
 const columns = [
     { title: "Product Name", field: "item", width: "40%" },
+    { title: "Category", field: "category" },
     { title: "Quantity", field: "quantity" },
-    { title: "Price", field: "unitPrice" },
-    // { title: "Sale Price", field: "salePrice" },
-    { title: "Total", field: "total", render: (data) => <p style = {{
-        fontWeight: "bold"
-    }}> 
-        ${data?.unitPrice * data?.quantity}</p> }, 
+   
   ]
 
 
 
 const TheTable = (props) => {
 
-    const tableData = useSelector(state => state.tableData.tableData)
+    const tableDalab = useSelector(state => state.tableDalab.tableDalab)
 
     const handler = (data) => { 
         if (data?.length > 0) {
@@ -28,17 +24,17 @@ const TheTable = (props) => {
         }  
       };
 
-      console.log(tableData)
+      console.log(tableDalab)
 
       useEffect(() => {
 
-      }, [tableData])
+      }, [tableDalab])
 
 
 
     return (
-        <div style={{width: "102%", marginTop: "15px"}}>
-            <MyTable columns = {columns} data = {handler(tableData)} 
+        <div style={{width: "85%", }}>
+            <MyTable columns = {columns} data = {handler(tableDalab)} 
             page = "New Purchase" name = "Purchase" 
             removeItem = {(item) => {
                 props.removeItem(item)

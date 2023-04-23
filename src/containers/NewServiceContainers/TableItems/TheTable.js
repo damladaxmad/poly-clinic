@@ -2,7 +2,7 @@ import MyTable from "../../../utils/MyTable"
 import Table from "../../../utils/Table"
 
 const columns = [
-    { title: "Service Name", field: "name", width: "4%" },
+    { title: "Service Name", field: "name", width: "40%" },
     { title: "Quantity", field: "quantity" },
     { title: "Unit Price", field: "unitPrice" },
     { title: "Total", field: "total", render: (data) => <p style = {{

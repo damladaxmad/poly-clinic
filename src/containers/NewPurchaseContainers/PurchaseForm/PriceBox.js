@@ -10,6 +10,8 @@ const PriceBox = (props) => {
   //   if (product.name == props.item) unitP = product.unitPrice
   // })
 
+  console.log("HAA HEEEY")
+
   const [unitPrice, setUnitPrice] = useState()
   const [salePrice, setSalePrice] = useState()
   const [quantity, setQuantity] = useState(props.quantityD)

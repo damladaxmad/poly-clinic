@@ -15,7 +15,7 @@
     "formik": "^2.2.9",
     "jspdf": "^2.5.1",
     "jspdf-invoice-template": "^1.4.3",
-    "material-table": "^1.69.2",
+    "material-table": "^1.67.0",
     "moment": "^2.29.3",
     "react": "^16.1.0",
     "react-dom": "^16.1.0",
@@ -94,5 +94,5 @@
   },
   "browser": {
     "original-fs": false
-}
+  }
 }

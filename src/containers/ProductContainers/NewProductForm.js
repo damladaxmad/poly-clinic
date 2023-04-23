@@ -12,7 +12,7 @@ import { addProduct, setProducts, updateProduct } from "../../redux/actions/prod
 const NewProductForm = (props) => {
 
   const [disable, setDisable] = useState(false)
-  const productTypes = useSelector((state) => state.categories.categories);
+  const productTypes = ["INJECTION", "TAB", "SYRUP", "DROP", "CREAM", "SOLUTION", "SOUP", "GESAC", "INVENTORY", "GEL", "MALAP", "SUMPOSTRY", "HERBAL", "SHAMPOO", "LIPIN",]
   const [productType, setProductType] = useState(props.update ? 
     props.instance?.prodcutType?._id : "");
 
@@ -21,7 +21,7 @@ const NewProductForm = (props) => {
   const productTypeHandler = (e) => {
     setProductType(e.target.value);
   };
-  const measurements = ["Piece", "Stripes"]
+  const measurements = ["PIECES", "STRIP"]
   const [measurement, setMeasurement] = useState(measurements[0]);
   const categories = useSelector(state => state.categories.categories)
 
@@ -209,13 +209,13 @@ const NewProductForm = (props) => {
             style={{ width: "100%", color: "black",  }}
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={productType._id}
+            value={productType}
             label="Select Category"
             onChange={productTypeHandler}
           >
             {productTypes?.map((productType, index) => (
-              <MenuItem value={productType._id} key={index}>
-                {productType.categoryName}
+              <MenuItem value={productType} key={index}>
+                {productType}
               </MenuItem>
             ))}
           </TextField>

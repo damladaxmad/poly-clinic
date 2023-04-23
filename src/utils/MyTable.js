@@ -14,7 +14,7 @@ const MyTable = (props) => {
     instance
   ) => {
     setInstance(instance);
-   props.way == "Service" ? props.removeItem(instance.name) : props.removeItem(instance.item)
+   props.way == "Service" ? props.removeItem(instance.name) : props.removeItem(instance)
   };
 
   const removeItem = () => {
@@ -78,16 +78,16 @@ const MyTable = (props) => {
                 }}
               >
                 
-                <p style={{ margin: "0px", width: "25%",  }}>
+                <p style={{ margin: "0px", width: "35%",  }}>
                  {props.data.name}
                 </p>
-                <p style={{ margin: "0px", width: "25%", textAlign: "end" }}>
+                <p style={{ margin: "0px", width: "21%", textAlign: "end" }}>
                   {way == "summary" ? props.data.totalQuantity : props.data.phone}
                 </p>
-                <p style={{ margin: "0px", width: "25%", textAlign: "end" }}>
+                <p style={{ margin: "0px", width: "21%", textAlign: "end" }}>
                   {way == "summary" ? props.data.avgUnitPrice?.toFixed(2) : props.data.district}
                 </p>
-                <p style={{ margin: "0px", width: "25%", textAlign: "end" }}>
+                <p style={{ margin: "0px", width: "21%", textAlign: "end" }}>
                   {constants.moneySign}{way == "summary" ? props.data.totalPrice?.toFixed(2) : props.data.balance?.toFixed(2)}
                 </p>
               </div>

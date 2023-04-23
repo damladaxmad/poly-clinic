@@ -29,28 +29,28 @@ const Login = (props) => {
   const [timeInterval, setTimeInterval] = useState(0);
   const companyInfo = useSelector(state => state.companyInfo.companyInfo)
 
-  setTimeout(() => {
-    if (isConnected == "connected") return
-    setTimeInterval(timeInterval + 1);
-  }, 5000);
+  // setTimeout(() => {
+  //   if (isConnected == "connected") return
+  //   setTimeInterval(timeInterval + 1);
+  // }, 5000);
 
-  const fetchCompanyInfo = async () => {
-    const res = await axios
-    .get(`${constants.baseUrl}/users`, {
-      headers: {
-        'authorization': constants.token
-      }
-    }).then((res)=> {
+  // const fetchCompanyInfo = async () => {
+  //   const res = await axios
+  //   .get(`${constants.baseUrl}/users`, {
+  //     headers: {
+  //       'authorization': constants.token
+  //     }
+  //   }).then((res)=> {
      
-        dispatch(setIsConnected("connected"))
-        // dispatch(setCompanyInfo(res.data.data))
+  //       dispatch(setIsConnected("connected"))
+  //       // dispatch(setCompanyInfo(res.data.data))
      
 
-    })
-    .catch((err)=> {
-      dispatch(setIsConnected("no connection"))
-    })
-  }
+  //   })
+  //   .catch((err)=> {
+  //     dispatch(setIsConnected("no connection"))
+  //   })
+  // }
 
   const loginArr = [
     { label: "Enter Username", type: "text", name: "userName" },
@@ -124,15 +124,15 @@ const Login = (props) => {
   useEffect(()=> {
       if (stateValues != "") authenticateFun(stateValues)
     
-  }, [companyInfo, stateValues])
+  }, [stateValues])
 
-  useEffect(() => {
-    if (isConnected != "connected") {
-       setTimeout(()=> {
-      fetchCompanyInfo()
-       }, 20000)
-    } 
-  }, [timeInterval, isConnected]);
+  // useEffect(() => {
+  //   if (isConnected != "connected") {
+  //      setTimeout(()=> {
+  //     fetchCompanyInfo()
+  //      }, 20000)
+  //   } 
+  // }, [timeInterval, isConnected]);
 
   return (
     <form

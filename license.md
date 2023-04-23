@@ -1,1 +1,1 @@
-This is the tailor system prepared by CASRIWARE team. All rights reserved.
+This is the poly clinic system prepared by CASRIWARE team. All rights reserved.

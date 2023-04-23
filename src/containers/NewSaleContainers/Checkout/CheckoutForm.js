@@ -5,6 +5,8 @@ import { useState } from "react";
 import { constants } from "../../../Helpers/constantsFile";
 import { useDispatch, useSelector } from "react-redux";
 import { addSale } from "../../../redux/actions/salesActions";
+import { setProducts } from "../../../redux/actions/productsActions";
+import useFetch from "../../../funcrions/DataFetchers";
 
 
 const CheckoutForm = (props) => {
@@ -18,6 +20,8 @@ const CheckoutForm = (props) => {
   props.products?.map(product => {
     total += product.unitPrice * product.quantity
   })
+
+  console.log(date)
 
   const dispatch = useDispatch()
 

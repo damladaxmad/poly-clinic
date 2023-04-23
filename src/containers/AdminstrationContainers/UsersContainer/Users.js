@@ -14,7 +14,7 @@ const Users = (props) => {
   const [state, setState] = useState('')
 
   const columns = [
-    { title: "User Name", field: "name", width: "4%" },
+    { title: "User Name", field: "name", width: "35%" },
     { title: "Username", field: "username" },
     { title: "Phone", field: "phone" },
     { title: "User Role", field: "role" },

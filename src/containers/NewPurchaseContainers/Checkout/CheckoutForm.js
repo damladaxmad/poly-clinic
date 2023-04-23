@@ -4,6 +4,9 @@ import { useState } from "react";
 import { constants } from "../../../Helpers/constantsFile";
 import { useDispatch, useSelector } from "react-redux";
 import { addPurchase } from "../../../redux/actions/purchasesActions";
+import { setTableData } from "../../../redux/actions/tableDataActions";
+import { setProducts } from "../../../redux/actions/productsActions";
+import useFetch from "../../../funcrions/DataFetchers";
 
 
 const CheckoutForm = (props) => {
@@ -50,6 +53,7 @@ const CheckoutForm = (props) => {
       setDiscount("")
       setRefnumber("")
       dispatch(addPurchase(res.data?.data?.createdSale))
+      dispatch(setTableData([]))
     }).catch((err) => {
       alert(err.response?.data?.message)
       setDisable(false)

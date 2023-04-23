@@ -1,12 +1,13 @@
 import { Button, Snackbar } from "@material-ui/core";
 import { Alert } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CheckoutForm from "../Checkout/CheckoutForm";
 import TheTable from "../TableItems/TheTable";
 import AdditionalInfo from "./AdditionalInfo";
 import PriceBox from "./PriceBox";
 import Selectors from "./Selectors";
+import { addTableData, deleteTableData } from "../../../redux/actions/tableDataActions";
 
 const PurchaseForm = (props) => {
   const [error, setError] = useState(false);
@@ -17,18 +18,8 @@ const PurchaseForm = (props) => {
   const [autoReset, setAutoReset] = useState(1);
 
   const productsD = useSelector((state) => state.products.products);
+  const dispach = useDispatch()
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleClick = (
-    event: React.MouseEvent<HTMLButtonElement>,
-    instance
-  ) => {
-    setAnchorEl(event.currentTarget);
-    // setInstance(instance);
-  };
 
   const [purchaseData, setPurchaseData] = useState({
     item: null,
@@ -52,12 +43,11 @@ const PurchaseForm = (props) => {
     if (product.name == purchaseData.item) saleP = product.salePrice;
   });
 
-  const [tableData, setTableData] = useState([]);
   const [products, setProducts] = useState([]);
 
   const removeItem = (item) => {
-    setTableData((current) => current.filter((i) => i.item !== item));
-    setProducts((current) => current.filter((i) => i.item !== item));
+    dispach(deleteTableData(item))
+    setProducts((current) => current.filter((i) => i.item !== item.item));
     setPurchaseData((prevState) => {
       return {
         ...prevState,
@@ -68,12 +58,13 @@ const PurchaseForm = (props) => {
 
   useEffect(() => {
     if (purchaseData) setError(false);
-  }, [tableData, purchaseData]);
+  }, [ purchaseData]);
 
-  useState(() => {
+  useEffect(() => {
     if (!purchaseData.item) setReset((state) => state + 1);
   }, [purchaseData]);
 
+  console.log("again and again")
   return (
     <div style={{ display: "flex", gap: "40px", flexDirection: "column" }}>
       <Selectors
@@ -180,18 +171,19 @@ const PurchaseForm = (props) => {
                 ) {
                   return setError(true);
                 }
-                var exitLoop = false;
-                tableData?.map((dictum) => {
-                  if (dictum.item == purchaseData.item) {
-                    exitLoop = true;
-                  }
-                });
-                if (exitLoop)
-                  return alert("Item-ka aad gelisay horay ayuu ujiray!");
+                // var exitLoop = false;
+                // tableData?.map((dictum) => {
+                //   if (dictum.item == purchaseData.item) {
+                //     exitLoop = true;
+                //   }
+                // });
+                // if (exitLoop)
+                //   return alert("Item-ka aad gelisay horay ayuu ujiray!");
                 setError(false);
                 setDisable(true);
-                props.tableData(purchaseData);
-                setTableData([...tableData, purchaseData]);
+                // props.tableData(purchaseData);
+                // setTableData([...tableData, purchaseData]);
+                dispach(addTableData(purchaseData))
                 setProducts([...products, purchaseData]);
                 // alert("Item Added To The List!")
                 setReset(true);
@@ -230,9 +222,8 @@ const PurchaseForm = (props) => {
             </p>
           )}
 
-          {tableData?.length > 0 && (
+          {true && (
             <TheTable
-              data={tableData}
               removeItem={(item) => removeItem(item)}
             />
           )}
@@ -242,7 +233,7 @@ const PurchaseForm = (props) => {
           products={products}
           data={purchaseInfo}
           complete={() => {
-            setTableData([]);
+            // setTableData([]);
             setProducts([]);
             setPurchaseData((prevState) => {
               return {

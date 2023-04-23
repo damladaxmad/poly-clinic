@@ -121,7 +121,8 @@ const PurchasesReport = (props) => {
           </div>
 
           <Reports startDate = {startDate} endDate = {endDate}
-          purchases = {purchases} name = {props.type} type = "cash"/>
+          purchases = {purchases} name = {props.type} type = "cash"
+          kind = "Report"/>
        
         </div>
     )

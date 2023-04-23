@@ -19,6 +19,7 @@ const Reports = (props) => {
   const componentRef = useRef();
   let totalSales = 0;
   const dispatch = useDispatch();
+  console.log(props.purchases)
 
   return (
     <>
@@ -193,7 +194,7 @@ const Comp = (props) => {
         }}
       >
         <Typography> RefNumber: {props.sale.refNumber}</Typography>
-        <Typography> {moment(props.sale.date).format("MM/DD/YYYY")}</Typography>
+        <Typography> {props.sale?.date?.slice(0, 10)}</Typography>
         <Typography> Type: {props.sale.paymentType}</Typography>
         <Typography> Discount: ${props.sale.discount}</Typography>
         <Typography> Total: {constants.moneySign}{props.sale.total?.toFixed(2)}</Typography>
@@ -234,7 +235,7 @@ const Comp = (props) => {
                   fontSize: 13,
                 }}
               >
-                <p style={{ margin: "0px", width: "35%" }}>
+                <p style={{ margin: "0px", width: "50%" }}>
                   {" "}
                   {name == "Services" ? props.data.name : props.data.item}
                 </p>
@@ -246,7 +247,7 @@ const Comp = (props) => {
                   {" "}
                   {constants.moneySign}{props.data.unitPrice}
                 </p>
-                <p style={{ margin: "0px", width: "25%", textAlign: "end" }}>
+                <p style={{ margin: "0px", width: "20%", textAlign: "end" }}>
                   {" "}
                   {constants.moneySign}{props.data.subtotal?.toFixed(2)}
                 </p>

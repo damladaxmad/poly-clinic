@@ -54,6 +54,7 @@ const SummaryReport = (props) => {
             kind = "Report" data = {props.data}  way = "summary"/>}
            {props.type == "Services" && <MyTable columns = {columns} 
             kind = "Report" data = {props.data}  way = "summary"/>}
+            
         </div>
     )
 }

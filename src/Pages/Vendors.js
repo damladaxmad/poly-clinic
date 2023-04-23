@@ -38,8 +38,8 @@ const Vendors = () => {
   const activeUser = useSelector((state) => state.activeUser.activeUser);
   
   const columns = [
-    { title: "ID", field: "vendorId" },
-    { title: "Full Name", field: "name", width: "4%" },
+    // { title: "ID", field: "vendorId" },
+    { title: "Full Name", field: "name", width: "24%" },
     { title: "Phone Number", field: "phone" },
     { title: "Address", field: "district" },
     { title: "Balance", field: "balance" },
@@ -50,11 +50,11 @@ const Vendors = () => {
     { label: "Enter Address", type: "text", name: "district" },
   ];
 
-  dispatch(
-    setVendors(
-      useFetch("vendors/vendors-with-transactions", del, "vendors")
-    )
-  );
+  // dispatch(
+  //   setVendors(
+  //     useFetch("vendors/vendors-with-transactions", del, "vendors")
+  //   )
+  // );
 
   const handleClick = (
     event: React.MouseEvent<HTMLButtonElement>,

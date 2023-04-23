@@ -36,8 +36,8 @@ const Customers = () => {
   const [instance, setInstance] = useState();
   const activeUser = useSelector((state) => state.activeUser.activeUser);
   const columns = [
-    { title: "ID", field: "customerId" },
-    { title: "Full Name", field: "name", width: "4%" },
+    // { title: "ID", field: "customerId" },
+    { title: "Full Name", field: "name", width: "24%" },
     { title: "Phone Number", field: "phone" },
     { title: "Address", field: "district" },
     { title: "Balance", field: "balance", render: (data) => <p> {data?.balance.toFixed(2)}</p> },
@@ -48,11 +48,11 @@ const Customers = () => {
     { label: "Enter Address", type: "text", name: "district" },
   ];
 
-  dispatch(
-    setCustomers(
-      useFetch("customers/customers-with-transactions", del, "customers")
-    )
-  );
+  // dispatch(
+  //   setCustomers(
+  //     useFetch("customers/customers-with-transactions", del, "customers")
+  //   )
+  // );
 
 
   const handleClick = (

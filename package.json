@@ -90,6 +90,7 @@
     "electron": "^11.2.1",
     "electron-builder": "^22.9.1",
     "prettier": "^2.2.1",
+    "react-error-overlay": "^6.0.9",
     "wait-on": "^5.2.1"
   },
   "browser": {

@@ -49,7 +49,7 @@ const CheckoutForm = (props) => {
       setDisable(false)
       props.complete()
       setDiscount("")
-      dispatch(addSale(res.data?.data?.createdSale))
+      dispatch(addSale(res.data?.data?.createdSale))   
     }).catch((err) => {
       alert(err.response?.data?.message)
       setDisable(false)

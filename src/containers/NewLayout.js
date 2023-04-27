@@ -201,11 +201,11 @@ const menuItems = [
       path: "/reports",
     },
 
-    // {
-    //   text: "Import Products",
-    //   icon: <HiDocumentReport style={{fontSize: "20px", color: "#130F26" }} />,
-    //   path: "/import",
-    // },
+    {
+      text: "Import Products",
+      icon: <HiDocumentReport style={{fontSize: "20px", color: "#130F26" }} />,
+      path: "/import",
+    },
 
  
   ];

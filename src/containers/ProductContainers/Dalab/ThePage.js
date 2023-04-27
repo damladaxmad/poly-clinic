@@ -90,20 +90,26 @@ const ThePage = (props) => {
               fontSize: 17,
             }}
           >
-            <div style = {{display: "flex", width: "35%", gap: "30px"}}>
-            <p style={{ margin: "0px"  }}>
-             {index+1}.
+            <div style = {{display: "flex", width: "35%", }}>
+            <p style={{ margin: "0px", width: "15%"  }}>
+             {index+1})
             </p>
-            <p style={{ margin: "0px",   }}>
+            <p style={{ margin: "0px",  width: "85%" }}>
              {data.item}
             </p>
             </div>
-            <p style={{ margin: "0px", width: "21%", textAlign: "end" }}>
-              [ {data.category} ]
+            <p style={{ margin: "0px", width: "19%", textAlign: "end" }}>
+              [ {data.category == "TAB" ? "KANIINI" : data.category} ]
             </p>
-            <p style={{ margin: "0px", width: "21%", textAlign: "end" }}>
+            <p style={{ margin: "0px", width: "10%", textAlign: "end" }}>
               {data.quantity}B
             </p>
+            <div style = {{
+              width: "35px", height: "25px", border: "1px solid black",
+              borderRadius: "8px" 
+            }}> 
+
+            </div>
           
           </div>
         })}

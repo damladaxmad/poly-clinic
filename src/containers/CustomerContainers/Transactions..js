@@ -25,6 +25,18 @@ const Transactions = (props) => {
     setShowDetails(true);
   };
 
+  let balances = []
+  let prevBalance = 0
+  let newStuff = ""
+
+  props.instance?.transactions?.map((t, index) => {
+    balances.push((t.debit - t.credit) + prevBalance)
+    prevBalance = balances[index]
+  })
+
+  // console.log(balances)
+  let myIndex = 0
+
   const materialOptions = {
     showTitle: false,
     exportButton: true,
@@ -46,14 +58,10 @@ const Transactions = (props) => {
   };
 
   const columns = [
-    {
-      title: "ID",
-      field: "transactionId",
-      cellStyle: { border: "none" },
-    },
+
     {
       title: "Description",
-      field: "description",
+      field: "description", width: "25%",
       render: (data) => {
         return (
           <p
@@ -100,8 +108,8 @@ const Transactions = (props) => {
         return (
           <p style={{ texAlign: "end" }}>
             {data.balance < 0
-              ? `-${constants.moneySign}${data.balance * -1}`
-              : `${constants.moneySign}${data.balance}`}
+              ? `-${constants.moneySign}${balances[data.tableData.id] * -1}`
+              : `${constants.moneySign}${balances[data.tableData.id]}`}
           </p>
         );
       },

@@ -22,7 +22,7 @@ function createWindow() {
       enableRemoteModule: true,
       // preload: path.join(__dirname, "../Tailor-Management-System/server.js"),
     },
-    devTools: false
+    devTools: true
   })
 
   win.loadURL(
@@ -31,7 +31,7 @@ function createWindow() {
       : `file://${path.join(__dirname, '../build/index.html')}`
   )
   win.maximize()
-  win.removeMenu(true)
+  // win.removeMenu(true)
 
 }
 

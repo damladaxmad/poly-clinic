@@ -99,31 +99,31 @@ function App() {
       useFetch("purchases", isLogin, "purchases")
     )
   );
-  // dispatch(
-  //   setServices(
-  //     useFetch("services", isLogin, "services")
-  //   )
-  // );
+  dispatch(
+    setServices(
+      useFetch("services", isLogin, "services")
+    )
+  );
 
-  // dispatch(setUsers(useFetch("users", isLogin, "users")))
+  dispatch(setUsers(useFetch("users", isLogin, "users")))
 
-  // dispatch(
-  //   setProductTypes(
-  //     useFetch("product-types", isLogin, "productTypes")
-  //   )
-  // );
+  dispatch(
+    setProductTypes(
+      useFetch("product-types", isLogin, "productTypes")
+    )
+  );
 
-  // dispatch(
-  //   setServiceTypes(
-  //     useFetch("service-types", isLogin, "serviceTypes")
-  //   )
-  // );
+  dispatch(
+    setServiceTypes(
+      useFetch("service-types", isLogin, "serviceTypes")
+    )
+  );
 
-  // dispatch(
-  //   setCategory(
-  //     useFetch("product-categories", isLogin, "categories")
-  //   )
-  // );
+  dispatch(
+    setCategory(
+      useFetch("product-categories", isLogin, "categories")
+    )
+  );
 
   const showHandler = () => {
     setShowLayout(true)

@@ -312,7 +312,7 @@ const Table = (props) => {
         )}
 
        {(props.name == "Product" || props.name == "Category"
-       || props.name == "Type" || props.name == "Customer" 
+       || props.name == "Type" 
        || props.name == "User") && (
           <MenuItem
             onClick={() => {
@@ -336,8 +336,7 @@ const Table = (props) => {
           </MenuItem>
         )} 
 
-        {(props.name == "Product" || props.name == "Customer"
-        || props.name == "Vendor") && (
+        {(props.name == "Product" ) && (
           <MenuItem
             onClick={() => {
               if (activeUser.privillages.includes(`Update ${props.name}`))

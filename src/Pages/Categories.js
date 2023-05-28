@@ -5,18 +5,18 @@ import Category from "../containers/Categories/Category";
 
 
 const Categories = () => {
-  
 
   const columns = [
+
     { title: "Product Name", field: "name", width: "4%" },
     { title: "Quantity", field: "quantity" },
     { title: "Measurement", field: "unitMeasurment" },
     { title: "Product Type", field: "category", 
-  render: (data) => <p> {data?.prodcutType.typeName}</p> },
+      render: (data) => <p> {data?.prodcutType.typeName}</p> },
     { title: "Unit Price", field: "unitPrice", 
-  render: (data) => <p> ${data.unitPrice}</p> },
+      render: (data) => <p> ${data.unitPrice} </p> },
     { title: "Sale Price", field: "salePrice", 
-  render: (data) => <p> ${data.salePrice}</p> },
+      render: (data) => <p> ${data.salePrice}</p> },
    
   ];
 

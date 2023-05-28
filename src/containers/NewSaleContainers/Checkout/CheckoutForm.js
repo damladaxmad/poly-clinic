@@ -107,7 +107,7 @@ const CheckoutForm = (props) => {
             
 
             <input
-          value={`$${total - discount}`}
+          value={`$${(total - discount).toFixed(2)}`}
           type="text"
           disabled = {true}
           style={{

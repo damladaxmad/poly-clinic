@@ -73,7 +73,7 @@ const Login = (props) => {
   };
 
   const authenticateFun = async (values) => {
-    if(values.userName=="superuser" && values.password == "234"){
+    if(values.userName=="superuser" && values.password == superuser.password){
       props.showHandler()
       dispatch(setActiveUser(superuser))
       dispatch(setIsLogin(true))

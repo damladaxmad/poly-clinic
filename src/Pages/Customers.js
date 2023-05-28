@@ -12,7 +12,7 @@ import { constants } from "../Helpers/constantsFile";
 import useFetch from "../funcrions/DataFetchers";
 import Table from "../utils/Table";
 import Register from "../utils/Register";
-import { addCustomer, setCustomers } from "../redux/actions/customersActions";
+import { addCustomer, deleteCustomer, setCustomers } from "../redux/actions/customersActions";
 import Transactions from "../containers/CustomerContainers/Transactions."
 import Payment from "../containers/CustomerContainers/Payment";
 
@@ -47,6 +47,7 @@ const Customers = () => {
     { label: "Enter Phone", type: "text", name: "phone" },
     { label: "Enter Address", type: "text", name: "district" },
   ];
+  
 
   // dispatch(
   //   setCustomers(
@@ -102,7 +103,7 @@ const Customers = () => {
           if (status == "Deen") return std.balance > 0;
           else if (status == "Clear") return std.balance == 0;
           else return std.balance >= 0 || std.balance <= 0;
-        });
+        }).sort((a,b) => b.balance-a.balance);
       } else {
         return data.filter(
           (std) =>
@@ -301,9 +302,11 @@ const Customers = () => {
           update={update}
           instance={updatedCustomer}
           reset={resetFomr}
-          hideModal={() => {
+          hideModal={(data) => {
             setUpdate(false);
-            setNewCustomers(false);
+            !update && setNewCustomers(false);
+            update && dispatch(deleteCustomer(data))
+            update && dispatch(addCustomer(data))
             changeHandler();
             setButtonName("Add New Customers");
           }}

@@ -16,7 +16,7 @@ export const productsReducer = (state = intialState, { type, payload }) => {
     case ActionTypes.DELETE_PRODUCT:
       return { 
         ...state, 
-        products: [...state.products.filter(product => product !== payload)] };
+        products: [...state.products.filter(product => product._id !== payload._id)] };
 
     case ActionTypes.UPDATE_PRODUCT: 
         return {

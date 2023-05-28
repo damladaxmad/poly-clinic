@@ -87,7 +87,7 @@ const PurchasesReport = (props) => {
                 <div style = {{display: "flex", gap: "30px", width: "100%", 
             justifyContent: "space-between"}}>
                     <Typography style = {{fontSize: "16px"}}> Total Money:</Typography>
-                    <Typography style = {{fontWeight: "bold", fontSize: "16px"}}>${totalMoney}</Typography>
+                    <Typography style = {{fontWeight: "bold", fontSize: "16px"}}>${totalMoney.toFixed(2)}</Typography>
                 </div>
             </div>
 
@@ -109,13 +109,13 @@ const PurchasesReport = (props) => {
                 <div style = {{display: "flex", gap: "30px", width: "100%", 
             justifyContent: "space-between"}}>
                     <Typography style = {{fontSize: "16px"}}> Cash Money:</Typography>
-                    <Typography style = {{fontWeight: "bold", fontSize: "16px"}}>${cashMoney}</Typography>
+                    <Typography style = {{fontWeight: "bold", fontSize: "16px"}}>${cashMoney.toFixed(2)}</Typography>
                 </div>
 
                 <div style = {{display: "flex", gap: "30px", width: "100%", 
             justifyContent: "space-between"}}>
                     <Typography style = {{fontSize: "16px"}}> Invoice Money:</Typography>
-                    <Typography style = {{fontWeight: "bold", fontSize: "16px"}}>${invoiceMoney}</Typography>
+                    <Typography style = {{fontWeight: "bold", fontSize: "16px"}}>${invoiceMoney.toFixed(2)}</Typography>
                 </div>
             </div>
           </div>

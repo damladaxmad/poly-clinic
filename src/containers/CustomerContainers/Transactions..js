@@ -82,7 +82,7 @@ const Transactions = (props) => {
               detailHandler(data)
             }}
           >
-            {data.description}
+            {(data?.purchase && data.purchase?.paymentType == "invoice") ? `${data.description} (${data.purchase?.refNumber})` : data.description}
           </p>
         );
       },
@@ -98,7 +98,7 @@ const Transactions = (props) => {
       },
       cellStyle: { border: "none" },
     },
-    { title: "User", field: "user", cellStyle: { border: "none" } },
+    { title: "User", field: "user", cellStyle: { border: "none" }, width: "20%" },
     { title: "Debit", field: "debit", cellStyle: { border: "none" } },
     { title: "Credit", field: "credit", cellStyle: { border: "none" } },
     {

@@ -2,19 +2,57 @@ import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import axios from "axios";
 import MyModal from "../../Modal/Modal"
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { constants } from "../../Helpers/constantsFile";
+import { setCustomers } from "../../redux/actions/customersActions";
+import useFetch from "../../funcrions/DataFetchers";
+import { setVendors } from "../../redux/actions/vendorsActions";
 
 const Payment = (props) => {
 
   const activeUser = useSelector(state => state.activeUser.activeUser)
   const [disabled, setDisabled] = useState(false)
+  const [ok, setOk] = useState("")
   const [usernameOrPasswordError, setUsernameOrPasswordError] = useState('')
   const arr = [
     { label: "Enter Amount", type: "number", name: "credit" },
   ];
 
   const errorStyle = { color: "red", marginLeft: "27px", fontSize: "16px"}
+
+  const dispatch = useDispatch()
+
+  useEffect( () => {
+    const fetchData = () => {
+      if (true) {
+        axios.get(`${constants.baseUrl}/customers/customers-with-transactions`, {
+          headers: {
+            "authorization": constants.token
+          }
+        }).then(res => {
+          alert("Fetched it!")
+          setCustomers(res.data?.data?.customers)
+        }).catch(err => {
+          alert(err.response?.data?.message)
+        })
+      }
+    }
+
+    fetchData()
+   
+  }, [ok])
+  // dispatch(
+  //   setCustomers(
+  //     useFetch("customers/customers-with-transactions", ok, "customers")
+  //   )
+  // );
+
+  // dispatch(
+  //   setVendors(
+  //     useFetch("vendors/vendors-with-transactions", ok, "vendors")
+  //   )
+  // );
+
 
   const validate = (values) => {
     const errors = {};
@@ -42,6 +80,7 @@ const Payment = (props) => {
           "authorization": constants.token
         }
       }).then(()=> {
+        setOk("ok")
         props.hideModal()
         alert("Succesfully Paid")
         setDisabled(false)

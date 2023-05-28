@@ -53,7 +53,7 @@ const Register = (props) => {
           alert("Successfully Updated")
           resetForm();
           props.reset()
-          props.hideModal()
+          props.hideModal(res.data?.data.customer)
           props.name == "Employee" && props.change()
         }).catch((err) => {
           alert(err.response?.data?.message);

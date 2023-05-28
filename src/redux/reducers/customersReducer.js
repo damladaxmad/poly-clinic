@@ -16,7 +16,7 @@ export const customersReducer = (state = intialState, { type, payload }) => {
       case ActionTypes.DELETE_CUSTOMER:
         return { 
           ...state, 
-          customers: [...state.customers.filter(customer => customer !== payload)] };
+          customers: [...state.customers.filter(customer => customer._id !== payload._id)] };
   
       case ActionTypes.UPDATE_CUSTOMER: 
           return {

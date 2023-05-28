@@ -7,7 +7,7 @@ import Modal from "../../Modal/Modal";
 import { constants } from "../../Helpers/constantsFile";
 import { useDispatch, useSelector } from "react-redux";
 import { Typography } from "@material-ui/core";
-import { addProduct, setProducts, updateProduct } from "../../redux/actions/productsActions";
+import { addProduct, deleteProduct, setProducts, updateProduct } from "../../redux/actions/productsActions";
 
 const NewProductForm = (props) => {
 
@@ -35,7 +35,7 @@ const NewProductForm = (props) => {
 
   const fields = [
     { label: "Enter Name", type: "text", name: "name" },
-    { label: "Enter Generic Name", type: "text", name: "genericName" },
+    { label: "Enter Quantity", type: "text", name: "quantity" },
     { label: "Enter Pack Size", type: "text", name: "packSize" },
     { label: "Enter Re-order Number", type: "text", name: "reOrderNumber" },
   ];
@@ -54,7 +54,7 @@ const NewProductForm = (props) => {
     initialValues: {
       name: props.update ? props.instance.name : "",
       unitMeasurment: props.update ? props.instance.unitMeasurment : "",
-      genericName: props.update ? props.instance.genericName : "",
+      quantity: props.update ? props.instance.quantity : "",
       packSize: props.update ? props.instance.packSize : "",
       reOrderNumber: props.update ? props.instance.reOrderNumber : "",
     },
@@ -79,9 +79,12 @@ const NewProductForm = (props) => {
             // props.reset();
             props.hideModal();
            props.change();
-           console.log(res.data?.data?.product)
+           console.log(res.data?.data)
            dispatch(
-            updateProduct(res.data?.data?.product)
+            deleteProduct(res.data?.data?.product)
+          );
+           dispatch(
+            addProduct(res.data?.data?.product)
           );
           })
           .catch((err) => {

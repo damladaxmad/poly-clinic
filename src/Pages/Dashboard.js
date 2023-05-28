@@ -15,9 +15,10 @@ import Top5DeenVendors from "../containers/DashboardContainers/Customer/Top5Orde
 import moment from "moment";
 
 const Dashboard = () => {
-  const dashboard = useSelector((state) => state.dashboard.dashboard);
 
+  const dashboard = useSelector((state) => state.dashboard.dashboard);
   const dispatch = useDispatch()
+
   const [state, setState] = useState(1)
   const products = useSelector(state => state.products.products)
   const available = useSelector(state => state.available.available)
@@ -80,7 +81,7 @@ const Dashboard = () => {
     {label: "total products", value: products?.length, isMoney: false},
     {label: "items number", value: totalItems, isMoney: false},
     {label: "inventory", value: inventory, isMoney: true},
-]
+  ]
 
   const thisMonth = [
     {label: "sales revenue", value: moneyFromSales, isMoney: true},
@@ -102,8 +103,7 @@ const Dashboard = () => {
       }}
     >
       <Typography style={{ fontWeight: "600", fontSize: "25px" }}>
-        {" "}
-        Dashboard{" "}
+        Dashboard
       </Typography>
       <div
         style={{

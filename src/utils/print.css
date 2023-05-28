@@ -12,6 +12,11 @@
     width: 200mm;
   }
 
+  html, body {
+    height: initial !important;
+    overflow: initial !important;
+  }
+
 
     .waryaa button{
       display: none;

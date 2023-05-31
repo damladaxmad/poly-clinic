@@ -55,9 +55,9 @@ const Products = () => {
     { title: "Measurement", field: "unitMeasurment" },
     { title: "Size", field: "packSize" },
     { title: "Category", field: "category"},
-    { title: "Cost", field: "unitPrice", 
+    { title: "Cost", field: "salePrice", 
   render: (data) => <p> ${data.unitPrice}</p> },
-    { title: "Price", field: "salePrice", 
+    { title: "Price", field: "unitPrice", 
   render: (data) => <p> ${data.salePrice}</p> },
    
   ];

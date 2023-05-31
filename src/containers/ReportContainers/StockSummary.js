@@ -15,6 +15,8 @@ const StockSummary = (props) => {
     totalItems += data.quantity
    })
 
+   
+
     const columns = [
         { title: "Product Name", field: "name", width: "4%" },
         { title: "Quantity", field: "quantity" },

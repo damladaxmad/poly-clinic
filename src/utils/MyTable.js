@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {MdClose} from "react-icons/md"
 import MaterialTable from "material-table";
 import { constants } from "../Helpers/constantsFile";
+import { useSelector } from "react-redux";
 
 const MyTable = (props) => {
 
@@ -22,6 +23,37 @@ const MyTable = (props) => {
     // setAnchorEl(null)
     props.removeItem(instance.item)
   }
+  const products = useSelector(state => state.products.products)
+
+  let cost = 0
+  let real = []
+  let unreal = []
+  let categories = []
+  const myFun = (item, quantity) => {
+    products?.map(p => {
+      if (p.name.includes(item.name)) {
+        cost += p.unitPrice * item.totalQuantity
+        real.push(item.name)
+        categories.push(p.category)
+      } 
+    })
+  }
+
+  let topValues = props.data?.sort((a,b) => b.totalPrice-a.totalPrice).slice(0,props.data?.length);
+  topValues.forEach(myFun)
+  
+  topValues?.map(t => {
+    if (real.includes(t.name)) return
+    unreal.push(t.name)
+  })
+
+  console.log(real)
+  console.log(unreal)
+  console.log(cost)
+  console.log(categories)
+  const counts = {};
+  categories?.forEach(function (x) { counts[x] = (counts[x] || 0) + 1; });
+  console.log(counts)
 
   return (
     <div style={{ width: props.page == "New Purchase" ? "98%" : 
@@ -31,7 +63,7 @@ const MyTable = (props) => {
       <MaterialTable
     //   icons={tableIcons}
         columns={columns}
-        data={props.data}
+        data={topValues}
         options={{
           rowStyle: {},
           showTitle: false,
@@ -79,7 +111,7 @@ const MyTable = (props) => {
               >
                 
                 <p style={{ margin: "0px", width: "35%",  }}>
-                 {props.data.name}
+                 {props.data.name} 
                 </p>
                 <p style={{ margin: "0px", width: "21%", textAlign: "end" }}>
                   {way == "summary" ? props.data.totalQuantity : props.data.phone}

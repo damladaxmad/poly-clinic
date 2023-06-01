@@ -77,9 +77,24 @@ const ImportProducts = () => {
   );
   let transactions = useFetch("customers/customers-with-transactions", view, "customers")
   console.log(transactions)
+  let mayDeen = 0
+  let tr = []
+  transactions?.map(t => {
+    tr.push(t.transactions)
+  })
+
+  tr.flat()?.map(t => {
+    if (new Date(t.date) >= new Date('05/01/2023')) {
+      mayDeen += t.credit
+      if (t.credit > 0)
+      console.log(t)
+    }
+  })
+
+  console.log(mayDeen)
 
   
-  let topValues = purchases?.sort((a,b) => b.totalPrice-a.totalPrice).slice(0,10);
+  let topValues = purchases?.sort((a,b) => b.totalPrice-a.totalPrice).slice(0,20);
   // let waqtiDheer = data?.sort((a,b)=> Date.parse(a)-Date.parse(b));
   let mostValues = purchases?.sort((a,b) => b.totalQuantity-a.totalQuantity).slice(0,10);
   let mostActive = transactions?.sort((a,b) => b.transactions.length-a.transactions.length).slice(0,10);
@@ -131,7 +146,7 @@ const ImportProducts = () => {
 
      <Typography style = {{
       fontSize: "20px", fontWeight: "bold", margin: "0px"
-     }}> 5. Dadka ugu dhaq-dhaqaaqa badan. 	</Typography>
+     }}> 4. Dadka ugu dhaq-dhaqaaqa badan. 	</Typography>
 
      <div>
       {mostActive?.map((value, index) => {
@@ -159,12 +174,14 @@ const ImportProducts = () => {
           <p> ${value.balance}</p>
         </div>)
         
-      }
-      )
-      }
+      })}
       </div>
 
-              
+           <Typography style = {{
+      fontSize: "20px", fontWeight: "bold", margin: "0px"
+     }}> 6. Bishaan inta deen lagaa qaatay. 	</Typography>
+
+           <p style = {{margin: "0px"}}> {mayDeen.toFixed(2)}</p>     
 
 
     </div>

@@ -45,7 +45,8 @@ module.exports = {
     "Reports",
     "Update User",
     "Transactions",
-    "Import Products"
+    "Import Products",
+    "Tests"
   ],
 };
 

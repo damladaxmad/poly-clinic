@@ -39,6 +39,7 @@ const Register = (props) => {
     initialValues:{
         name: props.update ? props.instance.name : "",
         phone: props.update ? props.instance.phone : "",
+        age: props.update ? props.instance.age : "",
         district: props.update ? props.instance.district : "",
     },
     validate,

@@ -39,18 +39,18 @@ const MyTable = (props) => {
     })
   }
 
-  let topValues = props.data?.sort((a,b) => b.totalPrice-a.totalPrice).slice(0,props.data?.length);
-  topValues.forEach(myFun)
+  let topValues = props.data?.sort((a,b) => b.balance-a.balance).slice(0,props.data?.length);
+  // topValues?.forEach(myFun)
   
   topValues?.map(t => {
     if (real.includes(t.name)) return
     unreal.push(t.name)
   })
 
-  console.log(real)
-  console.log(unreal)
-  console.log(cost)
-  console.log(categories)
+  // console.log(real)
+  // console.log(unreal)
+  // console.log(cost)
+  // console.log(categories)
   const counts = {};
   categories?.forEach(function (x) { counts[x] = (counts[x] || 0) + 1; });
   console.log(counts)

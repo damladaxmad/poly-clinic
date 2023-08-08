@@ -1,10 +1,13 @@
 import { combineReducers } from "redux";
 import { dashboardReducer } from "./dashboardReducer";
 import { productsReducer } from "./productsReducer";
+import { testsReducer } from "./testsReducer";
+import { patientsReducer } from "./patientsReducer";
 import { availableReducer } from "./availableReducer";
 import { customersReducer } from "./customersReducer";
 import { tableDataReducer } from "./tableDataReducer";
 import { tableDalabReducer } from "./tableDalabReducer";
+import { tableTestDataReducer } from "./tableTestDataReducer";
 import { purchasesReducer } from "./purchasesReducer";
 import { purchases2Reducer } from "./purchases2Reducer";
 import { salesReducer } from "./salesReducer";
@@ -22,10 +25,13 @@ import { employeesReducer } from "./employeesReducer";
 import { stylesReducer } from "./stylesReducer"; 
 import { employeeTitleReducer } from "./employeeTitleReducer"; 
 import { isLoginReducer } from "./isLoginReducer";
+import { tokenReducer } from "./tokenReducer";
 
 const reducers = combineReducers({
   dashboard: dashboardReducer,
   products: productsReducer,
+  tests: testsReducer,
+  patients: patientsReducer,
   available: availableReducer,
   purchases: purchasesReducer,
   purchases2: purchases2Reducer,
@@ -33,6 +39,7 @@ const reducers = combineReducers({
   services: servicesReducer,
   customers: customersReducer,
   tableData: tableDataReducer,
+  tableTestData: tableTestDataReducer,
   tableDalab: tableDalabReducer,
   vendors: vendorsReducer,
   productTypes: productTypesReducer,
@@ -47,6 +54,7 @@ const reducers = combineReducers({
   styles: stylesReducer,
   employeeTitle: employeeTitleReducer,
   isLogin: isLoginReducer,
+  token: tokenReducer,
 
 });
 export default reducers;

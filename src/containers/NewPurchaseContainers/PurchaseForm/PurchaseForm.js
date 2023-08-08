@@ -167,25 +167,14 @@ const PurchaseForm = (props) => {
                   !purchaseData.unitPrice ||
                   !purchaseData.salePrice ||
                   !purchaseData.quantity
-                  // || !purchaseData.refNumber || !purchaseData.date
                 ) {
                   return setError(true);
                 }
-                // var exitLoop = false;
-                // tableData?.map((dictum) => {
-                //   if (dictum.item == purchaseData.item) {
-                //     exitLoop = true;
-                //   }
-                // });
-                // if (exitLoop)
-                //   return alert("Item-ka aad gelisay horay ayuu ujiray!");
+              
                 setError(false);
                 setDisable(true);
-                // props.tableData(purchaseData);
-                // setTableData([...tableData, purchaseData]);
                 dispach(addTableData(purchaseData))
                 setProducts([...products, purchaseData]);
-                // alert("Item Added To The List!")
                 setReset(true);
                 setAutoReset((state) => state + 1);
                 setPurchaseData((prevState) => {
@@ -194,7 +183,6 @@ const PurchaseForm = (props) => {
                     quantity: null,
                     unitPrice: null,
                     salePrice: null,
-                    // item: null
                   };
                 });
                 setDisable(false);

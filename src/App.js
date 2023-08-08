@@ -36,6 +36,9 @@ import Transactions from "./Pages/Transactions.js";
 import TransactionPage from "./Pages/Transactions.js";
 import { setAvailable } from "./redux/actions/availableActions";
 import ImportProducts from "./Pages/ImportProducts";
+import Tests from "./Pages/Tests";
+import { setPatients } from "./redux/actions/patientsActions";
+import { setTests } from "./redux/actions/testsActions";
 
 const pages = [
      <Route path= "/dashboard" element = {<Dashboard/>} />,
@@ -48,7 +51,7 @@ const pages = [
      <Route path= "/customers" element = {<Customers/>} />,  
      <Route path= "/vendors" element = {<Vendors/>} />,  
      <Route path= "/reports" element = {<ReportsPage/>} />,  
-     <Route path= "/transactions" element = {<TransactionPage/>} />,  
+     <Route path= "/tests" element = {<Tests/>} />,  
      <Route path= "/import" element = {<ImportProducts/>} />,  
 
 ]
@@ -67,6 +70,16 @@ function App() {
   dispatch(
     setProducts(
       useFetch("products", isLogin, "products")
+    )
+  );
+  dispatch(
+    setPatients(
+      useFetch("patients", isLogin, "patients")
+    )
+  );
+  dispatch(
+    setTests(
+      useFetch("tests", isLogin, "tests")
     )
   );
 

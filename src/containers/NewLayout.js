@@ -190,9 +190,9 @@ const menuItems = [
     },
 
     {
-      text: "Transactions",
+      text: "Tests",
       icon: <GrTransaction style={{fontSize: "20px", color: "#130F26" }} />,
-      path: "/transactions",
+      path: "/tests",
     },
     
     {

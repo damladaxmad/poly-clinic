@@ -45,6 +45,7 @@ const Register = (props) => {
     validate,
     onSubmit: (values, { resetForm }) => {
       if (props.name == "User" ) values.passwordConfirm = values.password
+      if (props.name == "Patient" ) values.patientId = 5
       if (props.update){
         axios.patch(`${constants.baseUrl}/${props.url}/${props.instance._id}`, values, {
           headers: {
@@ -53,7 +54,7 @@ const Register = (props) => {
         }).then((res) => {
           alert("Successfully Updated")
           resetForm();
-          props.reset()
+          props.name != "Patient" && props.reset()
           props.hideModal(res.data?.data.customer)
           props.name == "Employee" && props.change()
         }).catch((err) => {

@@ -8,13 +8,13 @@
   @media print {
   
     @page {
-    margin: 1rem;
-    width: 200mm;
+    margin: 0rem;
+    width: auto;
   }
 
   html, body {
-    height: initial !important;
-    overflow: initial !important;
+    height: auto !important;
+    overflow: hidden !important;
   }
 
 

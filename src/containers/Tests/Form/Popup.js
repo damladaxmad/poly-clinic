@@ -73,6 +73,7 @@ const TestPopUp = (props) => {
     // if (props.products?.length < 1) return alert("Add items to the list!")
     
     // setDisable(true)
+    if (apiData?.length < 1) return alert("Add tests to the table!")
     axios.post(`${constants.baseUrl}/tests`, apiData,
     {
       headers: {
@@ -186,7 +187,7 @@ const TestPopUp = (props) => {
           </Typography>
         </div>
 
-        <div style = {{display: "flex", 
+        <div style = {{display: "flex", flexDirection: "row",
       alignItems: "end", gap: "30px"}}>
 
           <TestForm  
@@ -273,6 +274,7 @@ const TestPopUp = (props) => {
             //   reset={resetFomr}
             hideModal={(data) => {
               setNewPatient(false);
+              props.change()
             }}
             fields={fields}
             url="patients"

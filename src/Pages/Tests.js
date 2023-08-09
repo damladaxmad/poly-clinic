@@ -10,6 +10,7 @@ import TestPrint from "../containers/Tests/TestPrint";
 import { setPatients } from "../redux/actions/patientsActions";
 import useFetch from "../funcrions/DataFetchers";
 import { setTests } from "../redux/actions/testsActions";
+import { useEffect } from "react";
 
 const Tests = () => {
 
@@ -25,6 +26,13 @@ const Tests = () => {
     const [patientData, setPatientData] = useState()
     const [patientInfo, setPatientInfo] = useState()
     const [del, setDel] = useState(1)
+
+    const tests = useSelector(state => state.tests.tests)
+
+    useEffect( () => {
+      console.log(tests)
+    }, [tests])
+    
 
     const addTestHandler = () => {
       setQuery("");
@@ -62,6 +70,10 @@ const Tests = () => {
         useFetch("tests", del, "tests")
       )
     );
+
+    useEffect(() => {
+
+    }, [del])
   
 
     return (
@@ -161,13 +173,20 @@ const Tests = () => {
           setButtonName("Go To Tests")
           setPatientData(data)
         }}/> }
-        {testDetails && <TestDetails data = {patientData}/> }
+        {testDetails && <TestDetails data = {patientData} 
+        change = {(stuff) => {
+          if (stuff == "update") setTestDetails(false)
+          setDel(state => state + 1)
+        }}/> }
 
         {newTests && (
        <TestPopUp hideModal = { ()=> {
         setNewTests(false)
-
+        setDel(state => state + 1)
        }}  
+       change = {() => {
+        setDel(state => state + 1)
+      }}
        togglePrint = {(data, patientInfo)=> {
         setTestPrint(true)
         setApiData(data)

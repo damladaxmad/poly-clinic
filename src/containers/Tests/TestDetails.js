@@ -6,8 +6,10 @@ import axios from "axios"
 import { constants } from "../../Helpers/constantsFile"
 import {MdOutlineDelete} from "react-icons/md"
 import { deleteFunction } from "../../funcrions/deleteStuff"
-import { addTest, deleteTest, updateTest } from "../../redux/actions/testsActions"
+import { addTest, deleteTest, setTests, updateTest } from "../../redux/actions/testsActions"
 import Register from "../../utils/Register"
+import { useEffect } from "react"
+import useFetch from "../../funcrions/DataFetchers"
 
 
 const TestDetails = (props) => {
@@ -30,7 +32,7 @@ const TestDetails = (props) => {
     }
    })
 
-   console.log(tests)
+
 
     return (
         <div
@@ -97,6 +99,7 @@ const TestDetails = (props) => {
           }}
           hideModal={(data) => {
             setUpdatePatient(false);
+            props.change("update")
           //   !update && setNewCustomers(false);
           //  dispatch(deleteCustomer(data))
           //  dispatch(addCustomer(data))
@@ -111,7 +114,9 @@ const TestDetails = (props) => {
         />
       )}
             {myTests?.reverse().map(test => {
-              return <MyTests data = {test} />
+              return <MyTests data = {test} change = {() => {
+                props.change()
+              }} />
             })}
 
         </div>
@@ -138,6 +143,7 @@ const MyTests = (props) => {
       alert("Succesfully added response!")
       setResponse("")
       dispatch(updateTest(res.data?.data?.test.id))
+      props.change()
     }).catch((err) => {
       alert(err.response?.data?.message)
       // setDisable(false)
@@ -151,22 +157,9 @@ const MyTests = (props) => {
       dispatch(deleteTest(props.data))
     },
     () => {
-      
+      props.change()
     }
   )
-  //  axios.delete(`${constants.baseUrl}/tests/${props.data?.id}`,
-  //  {
-  //   headers: {
-  //     'authorization': constants.token
-  //    },
-  // }
-  //  ).then((res) => {
-  //   alert("Succesfully deleted test")
-  //   dispatch(deleteTest(props.data))
-  // }).catch((err) => {
-  //   alert(err.response?.data?.message)
-  //   // setDisable(false)
-  // })
   }
 
   return <div style = {{

@@ -8,6 +8,7 @@ import ReactToPrint from "react-to-print";
 import React, { useRef } from "react";
 import { AiFillPrinter } from "react-icons/ai";
 import printHeader from "../../assets/images/printHeader.jpg";
+import secondHeader from "../../assets/images/secondHeader.png";
 import kulmiyeLogo from "../../assets/images/kulmiyeLogo.jpg";
 
 const TestPrint = (props) => {
@@ -24,12 +25,12 @@ const TestPrint = (props) => {
             display: "flex",
             alignItems: "center",
             flexDirection: "column",
-            width: "800px",
+            width: "820px",
             marginBottom: "30px",
             background: "white",
             borderRadius: '8px',
             paddingBottom: "10px",
-            gap: "10px",
+            gap: "0px",
           }}
           class="waryaa"
           ref={componentRef}
@@ -74,14 +75,17 @@ const TestPrint = (props) => {
               src={printHeader}
               style={{
                 width: "100%",
-                height: "80%",
+                height: "100%",
               }}
             />
           </div>
 
           <div style = {{width: "90%", display: "flex",
-        flexDirection: "column", margin: "auto"}}>
+        flexDirection: "column", margin: "15px auto"}}>
 
+          <div style = {{width: "100%", display: "flex",
+        justifyContent: "space-between", alignItems: "start"}}>
+            <div>
           <div style = {{display: "flex", gap: "20px"}}>
               <Typography style = {{
                 fontSize: "20px",
@@ -109,6 +113,23 @@ const TestPrint = (props) => {
                 {props.patientInfo?.phone}
               </Typography>
             </div>
+            </div>
+
+            <div style = {{display: "flex", gap: "20px",
+          marginTop: "10px"}}>
+              <Typography style = {{
+                fontSize: "20px",
+              }}>
+                Age:
+              </Typography>
+              <Typography style = {{
+                fontSize: "20px",
+                fontWeight: "bold"
+              }}>
+                {props.patientInfo?.age}
+              </Typography>
+            </div>
+          </div>
 
           
 
@@ -116,15 +137,18 @@ const TestPrint = (props) => {
         alignItems: "center", justifyContent: "space-between",
         marginTop: "30px"}}>
               <Typography style = {{
-                fontSize: "22px",
+                fontSize: "24px",
               }}>
-                ____{data.name}:
+                ___{data.name}:
               </Typography>
 
-              <div style = {{width: "70%", height: "50px", background: "white",
-            border: "2px solid grey", borderRadius: "5px"}}>
+              <div style = {{width: "65%", height: "50px", background: "white",
+            border: "2px solid grey", borderRadius: "10px"}}>
               </div>
           </div>
+          <Typography>
+            [{data.note}] 
+          </Typography>
 
           <Typography style = {{
                 fontSize: "22px",
@@ -153,7 +177,8 @@ const TestPrint = (props) => {
           </div>
           <Typography style = {{
                 fontSize: "20px",
-                fontWeight: "bold"
+                fontWeight: "bold",
+                marginTop: "15px"
               }}>
                 Doctor Signature:   _________________
               </Typography>

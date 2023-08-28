@@ -3,7 +3,7 @@ export const constants = {
     baseUrl: 'https://polyclinic-api.onrender.com/api/v1',
     // baseUrl: 'https://casriware-inventory-api.herokuapp.com/api/v1',
     moneySign: "$",
-    token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYTJmYzY1ZTg0ZjliYzJmYWIyMTc1NyIsImlhdCI6MTY5MDc4Njk5OSwiZXhwIjoxNjkzMzc4OTk5fQ.2gC8SJ4CrJFPls5TCqnTqLP2nDzLYOVQihJHKWTFDDg"
+    token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYTJmYzY1ZTg0ZjliYzJmYWIyMTc1NyIsImlhdCI6MTY5MzI1NDAzNiwiZXhwIjoxNjk1ODQ2MDM2fQ.zwSLDhf-NyM5necP7Cwlwue7l3vB7Cg6GMSIzODGatc"
 }
 
 // https://deentire-api.onrender.com/api/v1
@@ -11,7 +11,7 @@ export const constants = {
 // poly token
 // token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYTJmYzY1ZTg0ZjliYzJmYWIyMTc1NyIsImlhdCI6MTY5MDE4NjA1MCwiZXhwIjoxNjk3OTYyMDUwfQ.SVm6_FAtaNLPujHggE6ucOrVcyjkleSEC7-N30CRRYg"
 // render token
-// Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0M2QwNGRjZjBiNTJhZjE1ZWEzOGNjNyIsImlhdCI6MTY4MzM1ODAzOSwiZXhwIjoxNjg1OTUwMDM5fQ.BW78YUiQdqwc53geIfyK4WL6a_HZBFXXOl0VBstcHKI
+// Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYTJmYzY1ZTg0ZjliYzJmYWIyMTc1NyIsImlhdCI6MTY5MzI1NDAzNiwiZXhwIjoxNjk1ODQ2MDM2fQ.zwSLDhf-NyM5necP7Cwlwue7l3vB7Cg6GMSIzODGatc
 
 // render poly url
 // https://polyclinic-api.onrender.com

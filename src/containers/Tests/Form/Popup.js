@@ -26,6 +26,7 @@ const TestPopUp = (props) => {
   const [patientInfo, setPatientInfo] = useState()
 
   const patients = useSelector(state => state.patients.patients)
+  const tableTestData = useSelector(state => state.tableTestData.tableTestData)
   console.log(patients)
 
   const addPatient = () => {
@@ -82,14 +83,9 @@ const TestPopUp = (props) => {
     }
     ).then((res) => {
       alert("Succesfully created test(s)!")
-      // setDisable(false)
-      // props.complete()
-      // setDiscount("")
-      // setRefnumber("")
-      // dispatch(addPurchase(res.data?.data?.createdSale))
-      dispach(setTableTestData([]))
       dispach(addTest(res.data?.data?.test))
-      props.togglePrint(apiData, patientInfo)
+      props.togglePrint(tableTestData)
+      dispach(setTableTestData([]))
       props.hideModal()
     }).catch((err) => {
       alert(err.response?.data?.message)
@@ -143,7 +139,7 @@ const TestPopUp = (props) => {
             setData((prevState) => {
               return {
                 ...prevState,
-                patient: value?.id,
+                patient: value,
               };
             });
           }}
@@ -188,7 +184,8 @@ const TestPopUp = (props) => {
         </div>
 
         <div style = {{display: "flex", flexDirection: "row",
-      alignItems: "end", gap: "30px"}}>
+        width: "100%",
+     alignItems: "flex-end", gap: "30px"}}>
 
           <TestForm  
           reset={reset}
@@ -211,6 +208,7 @@ const TestPopUp = (props) => {
           setReset(false);
         }}/>
 
+          <div>
           <Button
             // disabled = {disable}
             style={{
@@ -221,6 +219,7 @@ const TestPopUp = (props) => {
               fontWeight: "bold",
               background: "black",
               color: "white",
+              alignSelf: "end"
             }}
             onClick={() => {
               
@@ -228,7 +227,9 @@ const TestPopUp = (props) => {
               if (!data?.name || !data?.patient) {
                 return alert ("Please fill all the blanks")
               }
-              dispach(addTableTestData(data))
+              dispach(addTableTestData({
+                name: data.name, note: data.note, patient: data.patient
+              }))
               setData((prevState) => {
                 return {
                   ...prevState,
@@ -236,7 +237,9 @@ const TestPopUp = (props) => {
                   note: null,
                 };
               });
-              setApiData([...apiData, data]);
+              setApiData([...apiData, {
+                name: data.name, note: data.note, patient: data.patient?.id
+              }]);
               setReset(true)
             }}
          
@@ -244,6 +247,7 @@ const TestPopUp = (props) => {
           >
             Add TEST
           </Button>
+          </div>
         </div>
 
         <TestTable 

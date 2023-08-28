@@ -16,7 +16,7 @@ const PatientCard = (props) => {
             dispatch(deletePatient(props.data))
           },
           () => {
-            
+            props.change()
           }
         )
         }
@@ -42,7 +42,9 @@ const PatientCard = (props) => {
                 color: "#4421DE",
                 cursor:"pointer"
             }}
-            onClick = {()=> props.divClick(props.data)}> 00{props.data?.patientId}</Typography>
+            onClick = {()=> props.divClick(props.data)}> 
+            {props.data?.patientId >= 10 ? "0" : "00"}{props.data?.patientId}
+            </Typography>
             <MdOutlineDelete style = {{color: "#F22417", fontSize: "24px",
                 cursor: "pointer"}} onClick = {() => deleteTestFun()}/>
             </div>

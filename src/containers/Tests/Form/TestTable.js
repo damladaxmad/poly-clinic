@@ -4,8 +4,10 @@ import Table from "../../../utils/Table"
 import { memo, useEffect } from "react";
 
 const columns = [
-    { title: "Test Name", field: "name", width: "40%" },
-    { title: "Test Note", field: "note", width: "40%" },
+    { title: "Test Name", field: "name", width: "33%" },
+    { title: "Patient", field: "patient", width: "33%",
+  render: (data) => <p>{data?.patient?.name}</p> },
+    { title: "Test Note", field: "note", width: "33%" },
   ]
 
 

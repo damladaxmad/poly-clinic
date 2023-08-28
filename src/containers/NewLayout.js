@@ -178,16 +178,21 @@ const menuItems = [
       path: "/service",
     },
     {
+      text: "Visits",
+      icon: <MdMedicalServices style={{fontSize: "20px", color: "#130F26" }} />,
+      path: "/visits",
+    },
+    {
       text: "Categories",
       icon: <MdOutlineCategory style={{fontSize: "20px", color: "#130F26" }} />,
       path: "/categories",
     },
     
-    {
-      text: "Adminstration",
-      icon: <MdAdminPanelSettings style={{fontSize: "20px", color: "#130F26" }} />,
-      path: "/adminstration",
-    },
+    // {
+    //   text: "Adminstration",
+    //   icon: <MdAdminPanelSettings style={{fontSize: "20px", color: "#130F26" }} />,
+    //   path: "/adminstration",
+    // },
 
     {
       text: "Tests",
@@ -201,11 +206,11 @@ const menuItems = [
       path: "/reports",
     },
 
-    {
-      text: "Import Products",
-      icon: <HiDocumentReport style={{fontSize: "20px", color: "#130F26" }} />,
-      path: "/import",
-    },
+    // {
+    //   text: "Import Products",
+    //   icon: <HiDocumentReport style={{fontSize: "20px", color: "#130F26" }} />,
+    //   path: "/import",
+    // },
 
  
   ];

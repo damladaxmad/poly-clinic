@@ -20,7 +20,10 @@ const TestComponanats = (props) => {
             
             {props.data?.map(d => {
                return  <PatientCard data = {d} 
-               divClick = {(data) => props.divClick(data)}/>
+               divClick = {(data) => props.divClick(data)}
+               change = {() => {
+                props.change()
+               }}/>
             })}
         </div>
     )

@@ -96,7 +96,7 @@ const TestPrint = (props) => {
                 fontSize: "20px",
                 fontWeight: "bold"
               }}>
-                {props.patientInfo?.name}
+                {data.patient?.name}
               </Typography>
             </div>
             <div style = {{display: "flex", gap: "20px",
@@ -110,11 +110,11 @@ const TestPrint = (props) => {
                 fontSize: "20px",
                 fontWeight: "bold"
               }}>
-                {props.patientInfo?.phone}
+                {data.patient?.phone}
               </Typography>
             </div>
             </div>
-
+              <div>
             <div style = {{display: "flex", gap: "20px",
           marginTop: "10px"}}>
               <Typography style = {{
@@ -126,8 +126,23 @@ const TestPrint = (props) => {
                 fontSize: "20px",
                 fontWeight: "bold"
               }}>
-                {props.patientInfo?.age}
+                {data.patient?.age}
               </Typography>
+            </div>
+            <div style = {{display: "flex", gap: "20px",
+          marginTop: "10px"}}>
+              <Typography style = {{
+                fontSize: "20px",
+              }}>
+                ID:
+              </Typography>
+              <Typography style = {{
+                fontSize: "20px",
+                fontWeight: "bold"
+              }}>
+                {data.patient?.patientId >= 10 ? "0" : "00"}{data.patient?.patientId}
+              </Typography>
+            </div>
             </div>
           </div>
 
@@ -147,7 +162,7 @@ const TestPrint = (props) => {
               </div>
           </div>
           <Typography>
-            [{data.note}] 
+            {data.note}
           </Typography>
 
           <Typography style = {{

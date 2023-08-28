@@ -45,7 +45,6 @@ const Register = (props) => {
     validate,
     onSubmit: (values, { resetForm }) => {
       if (props.name == "User" ) values.passwordConfirm = values.password
-      if (props.name == "Patient" ) values.patientId = 5
       if (props.update){
         axios.patch(`${constants.baseUrl}/${props.url}/${props.instance._id}`, values, {
           headers: {
@@ -73,7 +72,7 @@ const Register = (props) => {
           resetForm();
           // (props.name == "Customer" || props.name == "Vendor")&&props.reset()
           props.hideModal()
-          props.change()
+          props.name != "Patient" && props.change()
           console.log(res.data?.data?.customer)
           props.name == "Customer" && props.addCus(res.data?.data?.customer)
         }).catch((err) => {

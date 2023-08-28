@@ -172,6 +172,9 @@ const Tests = () => {
           setTestDetails(true)
           setButtonName("Go To Tests")
           setPatientData(data)
+        }}
+        change = {() => {
+          setDel(state => state + 1)
         }}/> }
         {testDetails && <TestDetails data = {patientData} 
         change = {(stuff) => {
@@ -187,10 +190,9 @@ const Tests = () => {
        change = {() => {
         setDel(state => state + 1)
       }}
-       togglePrint = {(data, patientInfo)=> {
+       togglePrint = {(data)=> {
         setTestPrint(true)
         setApiData(data)
-        setPatientInfo(patientInfo)
        }}
       //  change={changeHandler} 
       //  update = {update}

@@ -1,4 +1,5 @@
 import { Button, TextField, TextareaAutosize, Typography } from "@material-ui/core"
+import {MdOutlineDelete} from "react-icons/md"
 
 const VisitDetail = (props) => {
     return <div style={{
@@ -152,10 +153,137 @@ const VisitDetail = (props) => {
                 fontWeight: "600",
                 fontSize: "26px",
                 marginTop: "20px"
-    }}> Requested Tests</Typography>  
+    }}> Requested Tests</Typography> 
 
+    <div style = {{display: "flex", gap: "20px", width: "100%"}}>
+        <div style = {{display: "flex", gap: "20px", width: "65%",
+    flexWrap: "wrap"}}>
+    <RequestedTests/>
+    <RequestedTests/>
+    <RequestedTests/>
+    </div>
+
+    <div style = {{height: "183px", width: "2px", background: "lightGray"}}> </div> 
+
+    <div style = {{display: "flex", flexDirection: "column", width: "30%",
+gap: "20px"}}>
+    <Button
+          style={{
+            width: "80%",
+            fontSize: "16px",
+            fontWeight: "bold",
+            height: "50px",
+            backgroundColor: "#5130DE",
+            color: "white",
+          }}
+          type="submit"
+          variant="contained"
+        >
+         Print Tests Invoice
+        </Button>
+
+        <Button
+          style={{
+            width: "80%",
+            fontSize: "16px",
+            fontWeight: "bold",
+            height: "50px",
+            backgroundColor: "#5130DE",
+            color: "white",
+          }}
+          type="submit"
+          variant="contained"
+        >
+         Print Tests Result
+        </Button>
+        </div>
+    </div> 
 
     </div>
+}
+
+const RequestedTests = () => {
+
+    return <div style = {{
+        width: "45%",
+        background: "white",
+        borderRadius: "10px",
+        padding: "20px",
+        display: "flex",
+        flexDirection: "column",
+        gap: "25px",
+        alignItems: "center"
+    
+      }}>
+        <div style = {{width: "100%", display: "flex",
+      flexDirection: "column", gap: "4px"}}>
+        <div style = {{display: "flex", 
+        width: "100%", alignItems: "center",
+      justifyContent: "space-between"}}>
+          <Typography style = {{
+            fontSize: "16px",
+            fontWeight: "bold"
+          }}>
+            HIV
+          </Typography>
+    
+          {/* <Typography style = {{
+            fontSize: "16px",
+            color: "#737373"
+          }}>
+            {moment(props.data?.date).format("YYYY-MM-DD")}
+          </Typography> */}
+    
+          <MdOutlineDelete style = {{color: "red", fontSize: "20px",
+        cursor: "pointer"}} 
+        // onClick = {() => deleteTestFun()}
+        />
+        </div>
+    
+        <div style = {{height: "1px", background: "lightGrey", width: "100%"}}> </div>
+        </div>
+    
+        <Typography>
+          Negative
+        </Typography>
+    
+        <div style = {{display: "flex", width: "100%",
+      flexDirection: "row", gap: "12px", justifyContent: "space-between"}}>
+      
+        <Button
+              //   disabled = {disable}
+              style={{
+                width: "45%",
+                fontSize: "16px",
+                backgroundColor: "white",
+                color: "black",
+                height: "40px",
+                fontWeight: "bold",
+              }}
+              variant="contained"
+            //   onClick={() => responseHandler()}
+            >
+              Print
+            </Button>
+        <Button
+              //   disabled = {disable}
+              style={{
+                width: "45%",
+                fontSize: "16px",
+                backgroundColor: "white",
+                color: "red",
+                height: "40px",
+                fontWeight: "bold",
+              }}
+              variant="contained"
+            //   onClick={() => responseHandler()}
+            >
+             Delete
+            </Button>
+    
+            </div>
+        
+      </div>
 }
 
 export default VisitDetail

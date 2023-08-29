@@ -40,6 +40,7 @@ import Tests from "./Pages/Tests";
 import { setPatients } from "./redux/actions/patientsActions";
 import { setTests } from "./redux/actions/testsActions";
 import Visits from "./Pages/Visits";
+import Laboratory from "./Pages/Laboratory";
 
 const pages = [
      <Route path= "/dashboard" element = {<Dashboard/>} />,
@@ -49,6 +50,7 @@ const pages = [
      <Route path= "/sale" element = {<Sale/>} />,  
      <Route path= "/service" element = {<Service/>} />,  
      <Route path= "/visits" element = {<Visits/>} />,  
+     <Route path= "/laboratory" element = {<Laboratory/>} />,  
      <Route path= "/categories" element = {<Categories/>} />,  
      <Route path= "/customers" element = {<Customers/>} />,  
      <Route path= "/vendors" element = {<Vendors/>} />,  

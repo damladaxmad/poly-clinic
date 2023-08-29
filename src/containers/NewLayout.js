@@ -183,6 +183,11 @@ const menuItems = [
       path: "/visits",
     },
     {
+      text: "Laboratory",
+      icon: <MdMedicalServices style={{fontSize: "20px", color: "#130F26" }} />,
+      path: "/laboratory",
+    },
+    {
       text: "Categories",
       icon: <MdOutlineCategory style={{fontSize: "20px", color: "#130F26" }} />,
       path: "/categories",

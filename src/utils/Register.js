@@ -25,9 +25,9 @@ const Register = (props) => {
     //  if (!values.username) {
     //    errors.username = "Field is Required";
     //  }
-     if (!values.phone) {
-       errors.phone = "Field is Required";
-     }
+    //  if (!values.phone) {
+    //    errors.phone = "Field is Required";
+    //  }
     //  if (!values.password) {
     //    errors.password = "Field is Required";
     //  }

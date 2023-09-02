@@ -1,7 +1,36 @@
 import { Button, TextField, TextareaAutosize, Typography } from "@material-ui/core"
+import { useState } from "react"
 import {MdOutlineDelete} from "react-icons/md"
+import { constants } from "../../Helpers/constantsFile"
+import axios from "axios"
 
 const VisitDetail = (props) => {
+
+    const [history, setHistory] = useState()
+    const [diagnosis, setDiagnosis] = useState()
+
+    console.log(history, diagnosis)
+    
+    const updateHandler = () => {
+      axios.patch(`${constants.baseUrl}/visitors/${props.data.id}`, {
+        history: history,
+        diagnosis: diagnosis
+      },
+    {
+      headers: {
+        "authorization": constants.token
+      }
+    }
+    ).then((res) => {
+      alert("Succesfully Updated!")
+      // dispach(addTest(res.data?.data?.test))
+      // props.togglePrint(tableTestData)
+      // dispach(setTableTestData([]))
+      // props.hideModal()
+    }).catch((err) => {
+      alert(err.response?.data?.message)
+    })
+    }
     return <div style={{
         display: "flex",
         flexDirection: "column",
@@ -21,6 +50,7 @@ const VisitDetail = (props) => {
             color: "white",
             fontWeight: "bold",
           }}
+          onClick={updateHandler}
           type="submit"
           variant="contained"
         >
@@ -122,10 +152,12 @@ const VisitDetail = (props) => {
             }}> History Taken</Typography>
             <div style = {{height: "1px", background: "lightGray", width: "100%"}}> </div>
             <TextareaAutosize
+                
                 style = {{   padding: "15px 20px", fontSize: "20px",
                     border: "none"}}
                 id="standard-textarea" 
-                  defaultValue="Last time, you were not good"
+                onChange={e => { setHistory(e.target?.value) }}
+                  defaultValue= {props.data?.history}
                 placeholder="Empty"
             />
             </div>
@@ -142,7 +174,8 @@ const VisitDetail = (props) => {
                 style = {{   padding: "15px 20px", fontSize: "20px",
                     border: "none"}}
                 id="standard-textarea" 
-                  defaultValue="Last time, you were not good"
+                  defaultValue={props.data?.diagnosis}
+                  onChange={e => { setDiagnosis(e.target?.value) }}
                 placeholder="Empty"
             />
             </div>

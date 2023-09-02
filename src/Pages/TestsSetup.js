@@ -18,13 +18,12 @@ import Payment from "../containers/CustomerContainers/Payment";
 import VisitDetail from "../containers/Visits/VisitDetail";
 import VisitTable from "../containers/Visits/VisitTable";
 import VisitPopUp from "../containers/Visits/VisitPopUp";
-import moment from "moment";
 
-const Visits = () => {
+const TestsSetup = () => {
 
   const dispatch = useDispatch();
   const [newCustomers, setNewCustomers] = useState(false);
-  const [buttonName, setButtonName] = useState("Add New Visits");
+  const [buttonName, setButtonName] = useState("Add New Tests");
   const [update, setUpdate] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -41,18 +40,17 @@ const Visits = () => {
   const activeUser = useSelector((state) => state.activeUser.activeUser);
   const columns = [
     // { title: "ID", field: "customerId" },
-    { title: "Patient Name", field: "name", width: "24%" },
-    { title: "Visit Date", field: "date", render: (data) => <p> 
-      {moment(data?.date).format("YYYY-MM-DD")}
-    </p> },
-    { title: "Phone Number", field: "phone" },
-    { title: "Age", field: "age" },
-    { title: "Address", field: "address" },
+    { title: "Test Name", field: "name", width: "24%" },
+    { title: "Test Price", field: "price" },
+    { title: "Test Category", field: "category" },
+    { title: "Test Type", field: "type" },
+    { title: "P.Outcomes", field: "possibleOutcome" },
   ];
   const fields = [
     { label: "Enter Name", type: "text", name: "name" },
-    { label: "Enter Phone", type: "text", name: "phone" },
-    { label: "Enter Address", type: "text", name: "district" },
+    { label: "Enter Price", type: "number", name: "price" },
+    { label: "Enter Type", type: "text", name: "type" },
+    { label: "Enter P.Outomes", type: "text", name: "possibleOutcome" },
   ];
   
 
@@ -84,8 +82,7 @@ const Visits = () => {
 
   const customers = useSelector((state) => state.customers.customers);
   
-  const visits = useSelector(state => state.visitors.visitors)
-  console.log(visits)
+  const tests = useSelector(state => state.tests.tests)
 
   const [query, setQuery] = useState("");
   const [force, setForce] = useState(1);
@@ -95,17 +92,17 @@ const Visits = () => {
 
   const addCustomerHandler = () => {
     setQuery("");
-    if (buttonName == "Add New Visits") {
-      // setNewCustomers(true);
+    if (buttonName == "Add New Tests") {
+      setNewCustomers(true);
       // setButtonName("Go To Visits");
-      setShowPopUp(true)
+    //   setShowPopUp(true)
       return;
-    } else if (buttonName == "Go To Visits") {
+    } else if (buttonName == "Go To Tests") {
       setShowVisitDetails(false)
       setShowOrders(false);
       setShowTransactions(false);
       setNewCustomers(false);
-      setButtonName("Add New Visits");
+      setButtonName("Add New Tests");
       setUpdate(false);
     }
   };
@@ -114,7 +111,7 @@ const Visits = () => {
     console.log(data)
     if (data?.length > 0) {
         return data.filter((std) =>
-            (std.date?.toString().toLowerCase().includes(query) )
+            (std.name.toLowerCase().includes(query))
         );
 
     } else {
@@ -124,7 +121,7 @@ const Visits = () => {
 
   const updateHandler = (customer) => {
     setNewCustomers(true);
-    setButtonName("Go To Visits");
+    setButtonName("Go To Tests");
     setUpdate(true);
     setUpdatedCustomer(customer);
   };
@@ -138,20 +135,20 @@ const Visits = () => {
   }, [force]);
 
   useEffect(() => {
-    if (customers?.length < 1) setState("No visits found!");
+    if (customers?.length < 1) setState("No tests found!");
   }, [customers]);
 
   useEffect(() => {}, [del]);
 
   useEffect(() => {
     if (query != "" || status != "All") {
-      setState("No matching visits!");
+      setState("No matching tests!");
     }
   }, [query, status]);
 
   const showOrdersHandler = (customer) => {
     setShowOrders(true);
-    setButtonName("Go To Visits");
+    setButtonName("Go To Tests");
     setCustomerInfo(customer);
   };
 
@@ -187,12 +184,12 @@ const Visits = () => {
         <Typography style={{ fontWeight: "600", fontSize: "25px" }}>
           {" "}
           {newCustomers
-            ? "Create New Visits"
+            ? "Create New Tests"
             : showVisitDetails
-            ? "Visit Details"
+            ? "Test Details"
             : showTransactions
-            ? "Visit Transactions"
-            : "Visits"}
+            ? "Test Transactions"
+            : "Tests"}
         </Typography>
         <Button
           variant="contained"
@@ -203,7 +200,7 @@ const Visits = () => {
             fontWeight: "bold"
           }}
           onClick={() => {
-            if (activeUser.privillages.includes("Visits"))
+            if (activeUser.privillages.includes("Tests Setup"))
               addCustomerHandler();
             else alert("You have no access!");
           }}
@@ -273,20 +270,20 @@ const Visits = () => {
         </div>
       )}
 
-      {showTransactions && <Transactions instance={instance} name="Visits" />}
+      {showTransactions && <Transactions instance={instance} name="Tests" />}
     {showPayment && <Payment instance={instance} 
     hideModal = {() => setShowPayment(false)} name = "visit"
     change={changeHandler}/>}
 
-       {!showVisitDetails && <VisitTable
-          showVisitDetails = {(data) => {
-            setButtonName("Go To Visits");
-            setShowVisitDetails(true)
-            setVisitDetails(data)
-          }}
-          data={handler(visits)}
-          state={state}
-          columns={columns}
+       {!showVisitDetails && <Table
+         data={handler(tests)}
+         change={changeHandler}
+         update={updateHandler}
+        //  showOrders={(vendor) => showOrdersHandler(vendor)}
+         state={state}
+         columns={columns}
+         url="test-items"
+         name="Test"
         /> }
 
         {showVisitDetails && <VisitDetail data = {visitDetails}/>}
@@ -308,11 +305,11 @@ const Visits = () => {
             update && dispatch(deleteCustomer(data))
             update && dispatch(addCustomer(data))
             changeHandler();
-            setButtonName("Add New Visits");
+            setButtonName("Add New Tests");
           }}
           fields={fields}
-          url="visits"
-          name="Visit"
+          url="test-items"
+          name="Test"
           change={() => changeHandler()}
           addCus = {(customer) => addCus(customer)}
         />
@@ -321,4 +318,4 @@ const Visits = () => {
   );
 };
 
-export default Visits;
+export default TestsSetup;

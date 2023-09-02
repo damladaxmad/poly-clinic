@@ -336,7 +336,7 @@ const Table = (props) => {
           </MenuItem>
         )} 
 
-        {(props.name == "Product" ) && (
+        {(props.name == "Product" || props.name == "Test" ) && (
           <MenuItem
             onClick={() => {
               if (activeUser.privillages.includes(`Update ${props.name}`))

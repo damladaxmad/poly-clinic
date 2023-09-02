@@ -26,11 +26,13 @@ import { stylesReducer } from "./stylesReducer";
 import { employeeTitleReducer } from "./employeeTitleReducer"; 
 import { isLoginReducer } from "./isLoginReducer";
 import { tokenReducer } from "./tokenReducer";
+import {visitorsReducer} from "./visitorsReducer"
 
 const reducers = combineReducers({
   dashboard: dashboardReducer,
   products: productsReducer,
   tests: testsReducer,
+  visitors: visitorsReducer,
   patients: patientsReducer,
   available: availableReducer,
   purchases: purchasesReducer,

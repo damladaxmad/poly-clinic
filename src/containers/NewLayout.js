@@ -188,6 +188,16 @@ const menuItems = [
       path: "/laboratory",
     },
     {
+      text: "Tests Setup",
+      icon: <MdMedicalServices style={{fontSize: "20px", color: "#130F26" }} />,
+      path: "/tests-setup",
+    },
+    {
+      text: "Patients",
+      icon: <GrTransaction style={{fontSize: "20px", color: "#130F26" }} />,
+      path: "/tests",
+    },
+    {
       text: "Categories",
       icon: <MdOutlineCategory style={{fontSize: "20px", color: "#130F26" }} />,
       path: "/categories",
@@ -198,12 +208,6 @@ const menuItems = [
     //   icon: <MdAdminPanelSettings style={{fontSize: "20px", color: "#130F26" }} />,
     //   path: "/adminstration",
     // },
-
-    {
-      text: "Tests",
-      icon: <GrTransaction style={{fontSize: "20px", color: "#130F26" }} />,
-      path: "/tests",
-    },
     
     {
       text: "Reports",

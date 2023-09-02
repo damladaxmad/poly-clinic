@@ -48,7 +48,9 @@ module.exports = {
     "Import Products",
     "Tests",
     "Visits",
-    "Laboratory"
+    "Laboratory",
+    "Patients",
+    "Tests Setup"
   ],
 };
 

@@ -1,4 +1,5 @@
 import { Button, Typography } from "@material-ui/core";
+import test from "../../src/assets/images/test.png"
 
 const Laboratory = () => {
   return (
@@ -30,7 +31,8 @@ const Laboratory = () => {
           alignItems: "center"
         }}
       >
-        <div style = {{height: "100px", background: "blue", width: "90px",
+        <div style = {{height: "100px", 
+        backgroundImage: `url(${test})`, backgroundSize: "cover", width: "90px",
     borderRadius: "10px"}}> </div>
 
         <div style = {{display: "flex", flexDirection: "column"}}>

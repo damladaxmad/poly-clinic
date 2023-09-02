@@ -11,6 +11,7 @@ import { setPatients } from "../redux/actions/patientsActions";
 import useFetch from "../funcrions/DataFetchers";
 import { setTests } from "../redux/actions/testsActions";
 import { useEffect } from "react";
+import Register from "../utils/Register";
 
 const Tests = () => {
 
@@ -26,6 +27,13 @@ const Tests = () => {
     const [patientData, setPatientData] = useState()
     const [patientInfo, setPatientInfo] = useState()
     const [del, setDel] = useState(1)
+    const [newPatient, setNewPatient] = useState(false)
+
+    const fields = [
+      { label: "Enter Name", type: "text", name: "name" },
+      { label: "Enter Phone", type: "text", name: "phone" },
+      { label: "Enter Age", type: "text", name: "age" },
+    ];
 
     const tests = useSelector(state => state.tests.tests)
 
@@ -38,7 +46,8 @@ const Tests = () => {
       setQuery("");
       if (buttonName == "Add New Tests") {
         // setNewCustomers(true);
-        setNewTests(true)
+        // setNewTests(true)
+        setNewPatient(true)
         // setButtonName("Go To Tests")
         return;
       } else if (buttonName == "Go To Tests") {
@@ -99,8 +108,8 @@ const Tests = () => {
         <Typography style={{ fontWeight: "600", fontSize: "25px" }}>
           {" "}
           {!testDetails
-            ? "Tests"
-            : "Test Details"}
+            ? "Patients"
+            : "Pateints Details"}
         </Typography>
         <Button
           variant="contained"
@@ -199,6 +208,23 @@ const Tests = () => {
       //  instance={updatedCustomer}
        />
       )}
+
+{newPatient && (
+          <Register
+            //   update={update}
+            //   instance={updatedCustomer}
+            //   reset={resetFomr}
+            hideModal={(data) => {
+              setNewPatient(false);
+              setDel(state => state + 1)
+            }}
+            fields={fields}
+            url="patients"
+            name="Patient"
+            //   change={() => changeHandler()}
+            //   addCus = {(customer) => addCus(customer)}
+          />
+        )}
 
       {testPrint && <TestPrint apiData = {apiData} patientInfo = {patientInfo}
       goBack = {() => {

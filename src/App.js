@@ -41,6 +41,8 @@ import { setPatients } from "./redux/actions/patientsActions";
 import { setTests } from "./redux/actions/testsActions";
 import Visits from "./Pages/Visits";
 import Laboratory from "./Pages/Laboratory";
+import TestsSetup from "./Pages/TestsSetup";
+import { setVisitors } from "./redux/actions/vistorsActions";
 
 const pages = [
      <Route path= "/dashboard" element = {<Dashboard/>} />,
@@ -51,6 +53,7 @@ const pages = [
      <Route path= "/service" element = {<Service/>} />,  
      <Route path= "/visits" element = {<Visits/>} />,  
      <Route path= "/laboratory" element = {<Laboratory/>} />,  
+     <Route path= "/tests-setup" element = {<TestsSetup/>} />,  
      <Route path= "/categories" element = {<Categories/>} />,  
      <Route path= "/customers" element = {<Customers/>} />,  
      <Route path= "/vendors" element = {<Vendors/>} />,  
@@ -83,7 +86,12 @@ function App() {
   );
   dispatch(
     setTests(
-      useFetch("tests", isLogin, "tests")
+      useFetch("test-items", isLogin, "testItems")
+    )
+  );
+  dispatch(
+    setVisitors(
+      useFetch("visitors", isLogin, "visitors")
     )
   );
 

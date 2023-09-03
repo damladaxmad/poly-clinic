@@ -111,7 +111,7 @@ const TestsSetup = () => {
     console.log(data)
     if (data?.length > 0) {
         return data.filter((std) =>
-            (std.name.toLowerCase().includes(query))
+            (std.name?.toLowerCase().includes(query))
         );
 
     } else {
@@ -121,7 +121,7 @@ const TestsSetup = () => {
 
   const updateHandler = (customer) => {
     setNewCustomers(true);
-    setButtonName("Go To Tests");
+    // setButtonName("Go To Tests");
     setUpdate(true);
     setUpdatedCustomer(customer);
   };
@@ -182,14 +182,7 @@ const TestsSetup = () => {
         }}
       >
         <Typography style={{ fontWeight: "600", fontSize: "25px" }}>
-          {" "}
-          {newCustomers
-            ? "Create New Tests"
-            : showVisitDetails
-            ? "Test Details"
-            : showTransactions
-            ? "Test Transactions"
-            : "Tests"}
+          Tests
         </Typography>
         <Button
           variant="contained"
@@ -205,19 +198,13 @@ const TestsSetup = () => {
             else alert("You have no access!");
           }}
           startIcon={
-            newCustomers || showVisitDetails ? (
-              <BiArrowBack
-                style={{
-                  color: "white",
-                }}
-              />
-            ) : (
+            
               <MdAdd
                 style={{
                   color: "white",
                 }}
               />
-            )
+         
           }
         >
           {buttonName}
@@ -300,12 +287,11 @@ const TestsSetup = () => {
           instance={updatedCustomer}
           reset={resetFomr}
           hideModal={(data) => {
+            setNewCustomers(false)
             setUpdate(false);
             !update && setNewCustomers(false);
-            update && dispatch(deleteCustomer(data))
-            update && dispatch(addCustomer(data))
             changeHandler();
-            setButtonName("Add New Tests");
+            // setButtonName("Add New Tests");
           }}
           fields={fields}
           url="test-items"

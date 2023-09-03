@@ -43,6 +43,7 @@ import Visits from "./Pages/Visits";
 import Laboratory from "./Pages/Laboratory";
 import TestsSetup from "./Pages/TestsSetup";
 import { setVisitors } from "./redux/actions/vistorsActions";
+import { setTableTestData } from "./redux/actions/tableTestDataActions";
 
 const pages = [
      <Route path= "/dashboard" element = {<Dashboard/>} />,
@@ -89,6 +90,7 @@ function App() {
       useFetch("test-items", isLogin, "testItems")
     )
   );
+
   dispatch(
     setVisitors(
       useFetch("visitors", isLogin, "visitors")

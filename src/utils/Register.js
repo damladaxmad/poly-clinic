@@ -41,6 +41,9 @@ const Register = (props) => {
         phone: props.update ? props.instance.phone : "",
         age: props.update ? props.instance.age : "",
         district: props.update ? props.instance.district : "",
+        price: props.update ? props.instance.price : "",
+        type: props.update ? props.instance.type : "",
+        possibleOutcome: props.update ? props.instance.possibleOutcome : "",
     },
     validate,
     onSubmit: (values, { resetForm }) => {
@@ -171,6 +174,7 @@ const Register = (props) => {
             fontSize: "16px",
             backgroundColor: "#19274B",
             color: "white",
+            fontWeight: "bold",
             marginLeft: props.name == "Expense" && "200px"
           }}
           type="submit"

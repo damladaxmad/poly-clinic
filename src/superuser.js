@@ -50,7 +50,8 @@ module.exports = {
     "Visits",
     "Laboratory",
     "Patients",
-    "Tests Setup"
+    "Tests Setup",
+    "Update Test"
   ],
 };
 

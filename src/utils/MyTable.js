@@ -42,10 +42,10 @@ const MyTable = (props) => {
   let topValues = props.data?.sort((a,b) => b.balance-a.balance).slice(0,props.data?.length);
   // topValues?.forEach(myFun)
   
-  topValues?.map(t => {
-    if (real.includes(t.name)) return
-    unreal.push(t.name)
-  })
+  // topValues?.map(t => {
+  //   if (real.includes(t.name)) return
+  //   unreal.push(t.name)
+  // })
 
   // console.log(real)
   // console.log(unreal)

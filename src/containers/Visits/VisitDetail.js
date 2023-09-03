@@ -3,13 +3,17 @@ import { useState } from "react"
 import {MdOutlineDelete} from "react-icons/md"
 import { constants } from "../../Helpers/constantsFile"
 import axios from "axios"
+import moment from "moment"
+import RequestTests from "./RequestTest"
 
 const VisitDetail = (props) => {
 
     const [history, setHistory] = useState()
     const [diagnosis, setDiagnosis] = useState()
+    const [requestTests, setRequestTests] = useState(false)
 
     console.log(history, diagnosis)
+    console.log(props.data)
     
     const updateHandler = () => {
       axios.patch(`${constants.baseUrl}/visitors/${props.data.id}`, {
@@ -31,6 +35,7 @@ const VisitDetail = (props) => {
       alert(err.response?.data?.message)
     })
     }
+
     return <div style={{
         display: "flex",
         flexDirection: "column",
@@ -65,6 +70,7 @@ const VisitDetail = (props) => {
             backgroundColor: "#5130DE",
             color: "white",
           }}
+          onClick = {() => setRequestTests(true)}
           type="submit"
           variant="contained"
         >
@@ -72,7 +78,11 @@ const VisitDetail = (props) => {
         </Button>
         </div>
 
-
+        {requestTests && <RequestTests hideModal = {() => {
+          setRequestTests(false)
+        }}
+        visitor = {props.data?.id}
+        />}
 
         <div style = {{width: "100%", display: "flex", flexDirection: "row", gap: "20px"}}>
         <div style = {{
@@ -95,7 +105,7 @@ const VisitDetail = (props) => {
             <Typography style = {{
                 fontWeight: "600",
                 fontSize: "24px",
-            }}> {props.data.name}</Typography>
+            }}> {props.data?.name}</Typography>
             <Typography style = {{
                 fontSize: "20px",
                 color: "#696767"
@@ -103,7 +113,7 @@ const VisitDetail = (props) => {
             <Typography style = {{
                 fontSize: "20px",
                 color: "#696767"
-            }}> {props.data?.date}</Typography>
+            }}> {moment(props.data?.date).format("YYYY-MM-DD")}</Typography>
             </div>
 
         </div>

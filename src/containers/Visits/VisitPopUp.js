@@ -3,6 +3,8 @@ import MyModal from "../../Modal/Modal";
 import { Box, Button, TextField, Typography } from "@material-ui/core";
 import { Autocomplete } from "@mui/material";
 import { useState } from "react";
+import { constants } from "../../Helpers/constantsFile";
+import axios from "axios";
 
 const VisitPopUp = (props) => {
 
@@ -10,7 +12,19 @@ const VisitPopUp = (props) => {
     const [data, setData] = useState()
 
     const createTest = () => {
-        props.hideModal()
+        axios.post(`${constants.baseUrl}/visitors`, {
+          patient: data
+        }, 
+        {
+          headers: {
+            "authorization": constants.token
+          }
+        }).then(res => {
+          alert("Succesfully created visitor")
+          props.hideModal()
+        }).catch(err => {
+          alert(err.response.data?.message)
+        })
     }
 
 

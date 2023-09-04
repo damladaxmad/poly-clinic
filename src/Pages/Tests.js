@@ -33,6 +33,7 @@ const Tests = () => {
       { label: "Enter Name", type: "text", name: "name" },
       { label: "Enter Phone", type: "text", name: "phone" },
       { label: "Enter Age", type: "text", name: "age" },
+      { label: "Enter Address", type: "text", name: "district" },
     ];
 
     const tests = useSelector(state => state.tests.tests)

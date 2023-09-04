@@ -93,7 +93,7 @@ function App() {
 
   dispatch(
     setVisitors(
-      useFetch("visitors", isLogin, "visitors")
+      useFetch("visitors/get-visitors-with-tests", isLogin, "visitors")
     )
   );
 

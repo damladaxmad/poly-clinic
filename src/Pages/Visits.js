@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useReducer } from "react";
-import { Button } from "@material-ui/core";
+import { Button, TextField } from "@material-ui/core";
 import { MdAdd } from "react-icons/md";
 import { BiArrowBack } from "react-icons/bi";
 import { FormControl, MenuItem, Menu } from "@material-ui/core";
@@ -41,13 +41,17 @@ const Visits = () => {
   const activeUser = useSelector((state) => state.activeUser.activeUser);
   const columns = [
     // { title: "ID", field: "customerId" },
-    { title: "Patient Name", field: "name", width: "24%" },
+    { title: "Patient Name", field: "name", width: "24%",
+  render: (data) => <p>{data?.patient?.name}</p> },
     { title: "Visit Date", field: "date", render: (data) => <p> 
       {moment(data?.date).format("YYYY-MM-DD")}
     </p> },
-    { title: "Phone Number", field: "phone" },
-    { title: "Age", field: "age" },
-    { title: "Address", field: "address" },
+    { title: "Phone Number", field: "phone",
+    render: (data) => <p>{data?.patient?.phone}</p> },
+    { title: "Age", field: "age",
+    render: (data) => <p>{data?.patient?.age}</p> },
+    { title: "Address", field: "district",
+    render: (data) => <p>{data?.patient?.district}</p> },
   ];
   const fields = [
     { label: "Enter Name", type: "text", name: "name" },
@@ -92,6 +96,8 @@ const Visits = () => {
   const [showVisitDetails, setShowVisitDetails] = useState(false)
   const [visitDetails, setVisitDetails] = useState()
   const [showPopUp, setShowPopUp] = useState(false)
+  const [startDate, setStartDate] = useState(moment(new Date()).format("MM-DD-YYYY"))
+  const [endDate, setEndDate] = useState(moment(new Date()).format("MM-DD-YYYY"))
 
   const addCustomerHandler = () => {
     setQuery("");
@@ -114,7 +120,7 @@ const Visits = () => {
     console.log(data)
     if (data?.length > 0) {
         return data.filter((std) =>
-            (std.date?.toString().toLowerCase().includes(query) )
+            (std.patient?.name?.toLowerCase().includes(query) )
         );
 
     } else {
@@ -255,21 +261,33 @@ const Visits = () => {
             }}
             onChange={(e) => setQuery(e.target.value)}
           />
-          <FormControl style={{ padding: "0px", margin: "0px" }}>
-            <Select
-              style={{ height: "40px", color: "#B9B9B9", width: "172px" }}
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={status}
-              onChange={statusHandler}
-            >
-              {statusArr.map((status, index) => (
-                <MenuItem value={status} key={index}>
-                  {status}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+          <div style = {{width: "40%", display: "flex", gap: "20px"}}>
+      <TextField
+            variant="outlined"
+            type="date"
+            label = "Start Date"
+            value= {moment(new Date(startDate)).format("YYYY-MM-DD")}
+            style={{ width: "50%", background: "white" }}
+            onChange={(e) => {
+                setStartDate(e.target.value)
+                // setView(state => state + 1)
+            }}
+          />
+          <TextField
+             variant="outlined"
+            type="date"
+            label = "End Date"
+            value= {moment(new Date(endDate)).format("YYYY-MM-DD")}
+            placeholder="Search"
+            style={{ width: "50%", background: "white" }}
+            onChange={(e) => {
+                setEndDate(e.target.value)
+                // setView(state => state + 1)
+            }}
+          />
+
+
+          </div>
         </div>
       )}
 

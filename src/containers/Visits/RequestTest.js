@@ -9,7 +9,7 @@ import TestItemTable from "./TestItemTable";
 import { addTableTestData } from "../../redux/actions/tableTestDataActions";
 
 const RequestTests = (props) => {
-  const testItems = useSelector((state) => state.tests.tests);
+  const testItems = props.data
   const [data, setData] = useState();
   const [ids, setIds] = useState({
     testItem: null,
@@ -79,14 +79,14 @@ const RequestTests = (props) => {
             }}
             options={testItems}
             autoHighlight
-            getOptionLabel={(option) => option.name}
+            getOptionLabel={(option) => option?.testItem.name}
             renderOption={(props, option) => (
               <Box
                 component="li"
                 sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
                 {...props}
               >
-                {option.name}
+                {option?.testItem.name}
                 {/* ({option.code}) +{option.phone} */}
               </Box>
             )}
@@ -117,6 +117,7 @@ const RequestTests = (props) => {
             variant="contained"
             onClick={() => {
                 setApiData([...apiData, ids])
+                if (!data) return
                 dispatch(addTableTestData(data))
             }}
           >

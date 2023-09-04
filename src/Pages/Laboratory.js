@@ -1,7 +1,35 @@
-import { Button, Typography } from "@material-ui/core";
+import { Button, FormControl, Select, TextField, Typography } from "@material-ui/core";
 import test from "../../src/assets/images/test.png"
+import { useSelector } from "react-redux";
+import { useState } from "react";
+import moment from "moment";
+import AddResults from "../containers/Laboratory/AddResults";
 
 const Laboratory = () => {
+
+  const tests = useSelector(state => state.visitors.visitors)
+  const [showResults, setShowResults] = useState(false)
+  const [query, setQuery] = useState("");
+  const [startDate, setStartDate] = useState(moment(new Date()).format("MM-DD-YYYY"))
+  const [endDate, setEndDate] = useState(moment(new Date()).format("MM-DD-YYYY"))
+  const [labTests, setLabTests] = useState()
+
+  const handler = (data) => {
+    console.log(data)
+    if (data?.length > 0) {
+        return data.filter((std) =>
+            (std.patient?.name?.toLowerCase().includes(query) )
+        );
+
+    } else {
+      return;
+    }
+  };
+
+  const AddResultHandler = () => {
+    setShowResults(true)
+  }
+
   return (
     <div
       style={{
@@ -20,7 +48,6 @@ const Laboratory = () => {
     gap: "20px"}}>
       <div
         style={{
-          cursor: "pointer",
           background: "white",
           padding: "20px",
           width: "50%",
@@ -32,7 +59,7 @@ const Laboratory = () => {
         }}
       >
         <div style = {{height: "100px", 
-        backgroundImage: `url(${test})`, backgroundSize: "cover", width: "90px",
+        backgroundImage: `url(${test})`, backgroundSize: "cover", width: "100px",
     borderRadius: "10px"}}> </div>
 
         <div style = {{display: "flex", flexDirection: "column"}}>
@@ -60,13 +87,21 @@ const Laboratory = () => {
 
       <div
         style={{
-          cursor: "pointer",
           background: "white",
           padding: "20px",
           width: "50%",
           borderRadius: "10px",
+          display: "flex",
+          gap: "15px",
+          flexDirection: "row",
+          alignItems: "center"
         }}
       >
+        <div style = {{height: "100px", 
+        backgroundImage: `url(${test})`, backgroundSize: "cover", width: "100px",
+    borderRadius: "10px"}}> </div>
+
+        <div style = {{display: "flex", flexDirection: "column"}}>
         <Typography
           style={{
             fontWeight: "600",
@@ -85,19 +120,90 @@ const Laboratory = () => {
           {" "}
           Ready Results
         </Typography>
-      </div>
+        </div>
       </div>
 
+      </div>
+        
+      <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "20px",
+            padding: "25px",
+            background: "white",
+            width: "100%",
+            margin: "auto",
+            marginTop: "0px",
+            border: "1px solid lightGrey",
+            borderRadius: "8px 8px 0px 0px",
+          }}
+        >
+          <input
+            type="text"
+            placeholder="Search"
+            style={{
+              width: "400px",
+              height: "45px",
+              padding: "10px",
+              fontSize: "16px",
+              borderRadius: "8px",
+              background: "#EFF0F6",
+              border: "none",
+            }}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+
+<div style = {{width: "40%", display: "flex", gap: "20px"}}>
+      <TextField
+            variant="outlined"
+            type="date"
+            label = "Start Date"
+            value= {moment(new Date(startDate)).format("YYYY-MM-DD")}
+            style={{ width: "50%", background: "white" }}
+            onChange={(e) => {
+                setStartDate(e.target.value)
+                // setView(state => state + 1)
+            }}
+          />
+          <TextField
+             variant="outlined"
+            type="date"
+            label = "End Date"
+            value= {moment(new Date(endDate)).format("YYYY-MM-DD")}
+            placeholder="Search"
+            style={{ width: "50%", background: "white" }}
+            onChange={(e) => {
+                setEndDate(e.target.value)
+                // setView(state => state + 1)
+            }}
+          />
+
+
+          </div>
+          
+        </div>
+
+        {showResults && <AddResults hideModal = {() => {
+          setShowResults(false)
+        }} data = {labTests}/>}
+
       <div style={{ display: "flex", gap: "20px", flexDirection: "column" }}>
-        <Sections />
-        <Sections />
-        <Sections />
+      {handler(tests)?.map(test => {
+        return <Sections data = {test} addResult = {(data) => {
+          AddResultHandler()
+          setLabTests(data)
+        }}/>
+      })}
       </div>
     </div>
   );
 };
 
-const Sections = () => {
+
+
+const Sections = (props) => {
   return (
     <div
       style={{
@@ -117,8 +223,8 @@ const Sections = () => {
             fontSize: "24px",
           }}
         >
-          {" "}
-          Mohamed Osman
+          {props.data?.patient?.name}
+      
         </Typography>
         <Typography
           style={{
@@ -127,7 +233,7 @@ const Sections = () => {
           }}
         >
           {" "}
-          96163783883 - 34 Jir
+          {props.data?.patient?.phone} - {props.data?.patient?.age} Jir
         </Typography>
         <Typography
           style={{
@@ -150,7 +256,7 @@ const Sections = () => {
             }}
           >
             {" "}
-            3
+            {props.data?.tests?.length}
           </Typography>
           <Typography
             style={{
@@ -162,8 +268,9 @@ const Sections = () => {
             Test(s)
           </Typography>
         </div>
-        <TestStatus />
-        <TestStatus />
+        {props.data?.tests?.map(test => {
+          return <TestStatus data = {test} />
+        })}
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
@@ -200,6 +307,7 @@ const Sections = () => {
             backgroundColor: "#5130DE",
             color: "white",
           }}
+          onClick = {() => props.addResult(props.data?.tests)}
           type="submit"
           variant="contained"
         >
@@ -210,7 +318,7 @@ const Sections = () => {
   );
 };
 
-const TestStatus = () => {
+const TestStatus = (props) => {
   return (
     <div style={{ display: "flex", gap: "5px" }}>
       <Typography
@@ -220,7 +328,7 @@ const TestStatus = () => {
         }}
       >
         {" "}
-        MALARIA -
+        {props.data?.testItem?.name} -
       </Typography>
       <Typography
         style={{

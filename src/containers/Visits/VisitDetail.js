@@ -5,18 +5,20 @@ import { constants } from "../../Helpers/constantsFile"
 import axios from "axios"
 import moment from "moment"
 import RequestTests from "./RequestTest"
+import PrintStuff from "./PrintStuff"
 
 const VisitDetail = (props) => {
 
     const [history, setHistory] = useState()
     const [diagnosis, setDiagnosis] = useState()
     const [requestTests, setRequestTests] = useState(false)
+    const [showPrinter, setShowPrinter] = useState(false)
 
     console.log(history, diagnosis)
     console.log(props.data)
     
     const updateHandler = () => {
-      axios.patch(`${constants.baseUrl}/visitors/${props.data.id}`, {
+      axios.patch(`${constants.baseUrl}/visitors/${props.data?._id}`, {
         history: history,
         diagnosis: diagnosis
       },
@@ -81,7 +83,8 @@ const VisitDetail = (props) => {
         {requestTests && <RequestTests hideModal = {() => {
           setRequestTests(false)
         }}
-        visitor = {props.data?.id}
+        visitor = {props.data?._id}
+        data = {props.data?.tests}
         />}
 
         <div style = {{width: "100%", display: "flex", flexDirection: "row", gap: "20px"}}>
@@ -105,11 +108,11 @@ const VisitDetail = (props) => {
             <Typography style = {{
                 fontWeight: "600",
                 fontSize: "24px",
-            }}> {props.data?.name}</Typography>
+            }}> {props.data?.patient?.name}</Typography>
             <Typography style = {{
                 fontSize: "20px",
                 color: "#696767"
-            }}> {props.data?.phone} - {props.data.age} Jir</Typography>
+            }}> {props.data?.patient?.phone} - {props.data.age} Jir</Typography>
             <Typography style = {{
                 fontSize: "20px",
                 color: "#696767"
@@ -201,10 +204,15 @@ const VisitDetail = (props) => {
     <div style = {{display: "flex", gap: "20px", width: "100%"}}>
         <div style = {{display: "flex", gap: "20px", width: "65%",
     flexWrap: "wrap"}}>
-    <RequestedTests/>
-    <RequestedTests/>
-    <RequestedTests/>
+    {props.data?.tests?.map(test => {
+      return <RequestedTests data = {test} 
+      printStuff = {() => setShowPrinter(true)} />
+    })}
     </div>
+
+    {showPrinter && <PrintStuff hideModal = {() => {
+        setShowPrinter(false)
+      }} data = {props.data}/>}
 
     <div style = {{height: "183px", width: "2px", background: "lightGray"}}> </div> 
 
@@ -245,7 +253,7 @@ gap: "20px"}}>
     </div>
 }
 
-const RequestedTests = () => {
+const RequestedTests = (props) => {
 
     return <div style = {{
         width: "45%",
@@ -267,7 +275,7 @@ const RequestedTests = () => {
             fontSize: "16px",
             fontWeight: "bold"
           }}>
-            HIV
+            {props.data?.testItem?.name}
           </Typography>
     
           {/* <Typography style = {{
@@ -277,17 +285,17 @@ const RequestedTests = () => {
             {moment(props.data?.date).format("YYYY-MM-DD")}
           </Typography> */}
     
-          <MdOutlineDelete style = {{color: "red", fontSize: "20px",
+          {/* <MdOutlineDelete style = {{color: "red", fontSize: "20px",
         cursor: "pointer"}} 
         // onClick = {() => deleteTestFun()}
-        />
+        /> */}
         </div>
     
         <div style = {{height: "1px", background: "lightGrey", width: "100%"}}> </div>
         </div>
     
         <Typography>
-          Negative
+          {props.data?.response ? props.data?.response : "no response"}
         </Typography>
     
         <div style = {{display: "flex", width: "100%",
@@ -304,7 +312,9 @@ const RequestedTests = () => {
                 fontWeight: "bold",
               }}
               variant="contained"
-            //   onClick={() => responseHandler()}
+              onClick={() => {
+                props.printStuff()
+              }}
             >
               Print
             </Button>

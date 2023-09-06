@@ -14,16 +14,23 @@ import kulmiyeLogo from "../../assets/images/kulmiyeLogo.jpg";
 import MyTable from "../../utils/MyTable"
 import PrintTable from "./printTable";
 
-const PrintStuff = (props) => {
+const PrintSingle = (props) => {
     const componentRef = useRef();
 
-    const columns = [
+    const columns = props.result ? [
         { title: "Test Name", field: "name", width: "50%",
       render: (data) => <p>{data?.testItem.name}</p> },
+        { title: "Test Result", field: "price", width: "50%",
+        render: (data) => <p>{data?.response}</p>}
+      ] : 
+      [
+        { title: "Test Name", field: "name", width: "50%"},
         { title: "Test Price", field: "price", width: "50%",
-        render: (data) => <p>${data?.testItem.price}</p>}
+    render: (data) => <p>${data?.price}</p>}
       ]
-    const data =  props.data?.tests
+    const data = props.result ? [props?.singlePrint] :  [props?.singlePrint]
+
+    console.log(props.result)
 
     return (
 
@@ -170,8 +177,11 @@ const PrintStuff = (props) => {
           
 
           <div style = {{width: "100%", display: "flex",
-        alignItems: "start", 
+        alignItems: "start", flexDirection: "column", gap: "10px",
         marginTop: "30px"}}>
+            {props.result && <Typography style = {{fontSize: "16px",
+        fontWeight: "bold"}}>
+                {props.singlePrint?.testItem?.category}</Typography>}
              <PrintTable columns = {columns} data = {data} 
             />
           </div>
@@ -210,4 +220,4 @@ const PrintStuff = (props) => {
     )
 }
 
-export default PrintStuff
+export default PrintSingle

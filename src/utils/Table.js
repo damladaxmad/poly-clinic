@@ -312,7 +312,7 @@ const Table = (props) => {
         )}
 
        {(props.name == "Product" || props.name == "Category"
-       || props.name == "Type" 
+       || props.name == "Type" || props.name == "Test"
        || props.name == "User") && (
           <MenuItem
             onClick={() => {

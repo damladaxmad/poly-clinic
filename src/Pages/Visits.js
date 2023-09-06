@@ -19,6 +19,7 @@ import VisitDetail from "../containers/Visits/VisitDetail";
 import VisitTable from "../containers/Visits/VisitTable";
 import VisitPopUp from "../containers/Visits/VisitPopUp";
 import moment from "moment";
+import { setVisitors } from "../redux/actions/vistorsActions";
 
 const Visits = () => {
 
@@ -58,13 +59,11 @@ const Visits = () => {
     { label: "Enter Phone", type: "text", name: "phone" },
     { label: "Enter Address", type: "text", name: "district" },
   ];
-  
 
-  // dispatch(
-  //   setCustomers(
-  //     useFetch("customers/customers-with-transactions", del, "customers")
-  //   )
-  // );
+
+  useEffect(() => {
+    setState("Loading...");
+  }, [del]);
 
 
   const handleClick = (
@@ -169,6 +168,12 @@ const Visits = () => {
     )
     setDel(state => state + 1)
   } 
+
+  dispatch(
+    setVisitors(
+      useFetch("visitors/get-visitors-with-tests", del, "visitors")
+    )
+  );
 
   return (
     <div
@@ -312,6 +317,7 @@ const Visits = () => {
         {showPopUp && <VisitPopUp 
           hideModal =  {() => {
             setShowPopUp(false)
+            setDel(state => state + 1)
           }}
         />}
    

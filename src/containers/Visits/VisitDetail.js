@@ -6,6 +6,8 @@ import axios from "axios"
 import moment from "moment"
 import RequestTests from "./RequestTest"
 import PrintStuff from "./PrintStuff"
+import PrintSingle from "./PrintSingle"
+import { deleteFunction } from "../../funcrions/deleteStuff"
 
 const VisitDetail = (props) => {
 
@@ -13,6 +15,9 @@ const VisitDetail = (props) => {
     const [diagnosis, setDiagnosis] = useState()
     const [requestTests, setRequestTests] = useState(false)
     const [showPrinter, setShowPrinter] = useState(false)
+    const [showPrintSingle, setShowPrintSingle] = useState(false)
+    const [singlePrint, setSinglePrint] = useState()
+    const [result, setResult] = useState(false)
 
     console.log(history, diagnosis)
     console.log(props.data)
@@ -77,6 +82,22 @@ const VisitDetail = (props) => {
           variant="contained"
         >
          Request Test
+        </Button>
+
+        <Button
+          style={{
+            width: "190px",
+            fontSize: "16px",
+            height: "50px",
+            backgroundColor: "black",
+            color: "white",
+            fontWeight: "bold",
+          }}
+          onClick={()=> alert("You have given a perscription.")}
+          type="submit"
+          variant="contained"
+        >
+        Prescribe
         </Button>
         </div>
 
@@ -206,13 +227,25 @@ const VisitDetail = (props) => {
     flexWrap: "wrap"}}>
     {props.data?.tests?.map(test => {
       return <RequestedTests data = {test} 
-      printStuff = {() => setShowPrinter(true)} />
+      printStuff = {(data, id) => {
+        console.log(data)
+        if (id == "result") setResult(true)
+        if (id == "result") setSinglePrint(data)
+        if (id == "print") setSinglePrint(data?.testItem)
+        console.log(data?.testItem)
+        setShowPrintSingle(true)}} />
     })}
     </div>
 
     {showPrinter && <PrintStuff hideModal = {() => {
         setShowPrinter(false)
-      }} data = {props.data}/>}
+      }} data = {props.data} singlePrint = {singlePrint}/>}
+
+    {showPrintSingle && <PrintSingle hideModal = {() => {
+        setShowPrintSingle(false)
+        setResult(false)
+      }} data = {props.data} singlePrint = {singlePrint}
+      result = {result}/>}
 
     <div style = {{height: "183px", width: "2px", background: "lightGray"}}> </div> 
 
@@ -227,6 +260,7 @@ gap: "20px"}}>
             backgroundColor: "#5130DE",
             color: "white",
           }}
+          onClick={() => setShowPrinter(true)}
           type="submit"
           variant="contained"
         >
@@ -254,6 +288,18 @@ gap: "20px"}}>
 }
 
 const RequestedTests = (props) => {
+
+  const deleteTestFun = () => {
+    deleteFunction(
+      "Delete Test", props.data?.testItem?.name, `${constants.baseUrl}/tests/${props.data._id}`,
+      () => {
+        
+      },
+      () => {
+        
+      }
+    )
+    }
 
     return <div style = {{
         width: "45%",
@@ -285,10 +331,10 @@ const RequestedTests = (props) => {
             {moment(props.data?.date).format("YYYY-MM-DD")}
           </Typography> */}
     
-          {/* <MdOutlineDelete style = {{color: "red", fontSize: "20px",
+          <MdOutlineDelete style = {{color: "red", fontSize: "20px",
         cursor: "pointer"}} 
-        // onClick = {() => deleteTestFun()}
-        /> */}
+        onClick = {() => deleteTestFun()}
+        />
         </div>
     
         <div style = {{height: "1px", background: "lightGrey", width: "100%"}}> </div>
@@ -313,7 +359,7 @@ const RequestedTests = (props) => {
               }}
               variant="contained"
               onClick={() => {
-                props.printStuff()
+                props.printStuff(props.data, "print")
               }}
             >
               Print
@@ -329,9 +375,11 @@ const RequestedTests = (props) => {
                 fontWeight: "bold",
               }}
               variant="contained"
-            //   onClick={() => responseHandler()}
+              onClick={() => {
+                props.printStuff(props.data, "result")
+              }}
             >
-             Delete
+             Result
             </Button>
     
             </div>

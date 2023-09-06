@@ -30,8 +30,10 @@ import {MdClose} from "react-icons/md"
 import axios from "axios";
 
 const columns = [
-    { title: "Test Name", field: "name", width: "50%",},
-    { title: "Test Result", field: "response", width: "50%"}
+    { title: "Test Name", field: "name", width: "33%", editable:'never'},
+    { title: "Type", field: "type", width: "20%", editable:'never'},
+    { title: "Result", field: "response", width: "25%"},
+    { title: "P.Outcomes", field: "possibleOutcome", width: "25%", editable:'never'}
   ]
 
   const tableIcons = {
@@ -58,6 +60,9 @@ const columns = [
 const LabItems = (props) => {
 
     const tableTestData = useSelector(state => state.tableTestData.tableTestData)
+    const [data, setData] = useState(props.data)
+
+    console.log(props.data)
 
     const handler = (data) => { 
         if (data?.length > 0) {
@@ -74,15 +79,15 @@ const LabItems = (props) => {
       }, [tableTestData])
 
     return (
-        <div style={{width: "100%", marginTop: "5px",
-        height: props.data?.length > 2 && "200px",
+        <div style={{width: "100%", marginTop: "5px", marginBottom: "10px",
+        height: props.data?.length > 2 && "210px",
         overflowY: props.data?.length > 3 && "scroll",
         overFlowX: "hidden",}}>
 
            <MaterialTable
       icons={tableIcons}
         columns={columns}
-        data={props.data}
+        data={data}
 
         editable={{
             onRowUpdate: (newData, oldData) => 
@@ -99,7 +104,11 @@ const LabItems = (props) => {
                       }
                     )
                     .then((res) => {
-                      alert("Succesfully created tests");
+                      // alert("Succesfully created tests");
+                      const dataUpdate = [...data];
+                      const index = oldData.tableData.id;
+                      dataUpdate[index] = newData;
+                      setData([...dataUpdate]);
                       resolve()
                     //   props.hideModal();
                     })

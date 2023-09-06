@@ -28,6 +28,9 @@ import { FiMenu } from "react-icons/fi";
 import { HiOutlineDocumentReport } from "react-icons/hi";
 import { FaClipboardList } from "react-icons/fa"; 
 import { MdBorderColor } from "react-icons/md"; 
+import { AiFillEdit } from "react-icons/ai"; 
+import { BiTestTube } from "react-icons/bi"; 
+import { ImLab } from "react-icons/im"; 
 import { MdPointOfSale } from "react-icons/md"; 
 import { MdMedicalServices } from "react-icons/md"; 
 import { HiDocumentReport } from "react-icons/hi"; 
@@ -179,17 +182,17 @@ const menuItems = [
     },
     {
       text: "Visits",
-      icon: <MdMedicalServices style={{fontSize: "20px", color: "#130F26" }} />,
+      icon: <AiFillEdit style={{fontSize: "20px", color: "#130F26" }} />,
       path: "/visits",
     },
     {
       text: "Laboratory",
-      icon: <MdMedicalServices style={{fontSize: "20px", color: "#130F26" }} />,
+      icon: <ImLab style={{fontSize: "20px", color: "#130F26" }} />,
       path: "/laboratory",
     },
     {
       text: "Tests Setup",
-      icon: <MdMedicalServices style={{fontSize: "20px", color: "#130F26" }} />,
+      icon: <BiTestTube style={{fontSize: "20px", color: "#130F26" }} />,
       path: "/tests-setup",
     },
     {

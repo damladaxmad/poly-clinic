@@ -15,6 +15,14 @@ const Register = (props) => {
   const typeHandler = (e) => {
     setType(e.target.value)
   }
+  const categories = useSelector(state => state.categories.categories)
+  const [category, setCategory] = useState("")
+
+  const categoryHandler = (e) => {
+    setCategory(e.target.value)
+  }
+
+  console.log(categories)
 
   const validate = (values) => {
     const errors = {};
@@ -48,6 +56,7 @@ const Register = (props) => {
     validate,
     onSubmit: (values, { resetForm }) => {
       if (props.name == "User" ) values.passwordConfirm = values.password
+      if (props.name == "Test" ) values.category = category
       if (props.update){
         axios.patch(`${constants.baseUrl}/${props.url}/${props.instance._id}`, values, {
           headers: {
@@ -160,6 +169,37 @@ const Register = (props) => {
                {types?.map((type, index) => (
                   <MenuItem value={type} key={index}>
                     {type}
+                  </MenuItem>
+                ))
+              }
+              </TextField>
+
+              
+            </FormControl>}
+
+            {props.name == "Test" && <FormControl
+              style={{
+                padding: "0px",
+                margin: "0px",
+                width: "290px",
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                gap: "8px",
+              }}
+            >
+              <TextField
+                select
+                style={{width: "100%", color: "black"}}
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={category}
+                label="Select category"
+                onChange={categoryHandler}
+              >
+               {categories?.map((category, index) => (
+                  <MenuItem value={category.categoryName} key={index}>
+                    {category.categoryName}
                   </MenuItem>
                 ))
               }

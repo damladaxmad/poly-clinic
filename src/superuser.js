@@ -51,7 +51,8 @@ module.exports = {
     "Laboratory",
     "Patients",
     "Tests Setup",
-    "Update Test"
+    "Update Test",
+    "Delete Test"
   ],
 };
 

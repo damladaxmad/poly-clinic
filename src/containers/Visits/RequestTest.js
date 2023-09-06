@@ -6,16 +6,18 @@ import { useState } from "react";
 import { constants } from "../../Helpers/constantsFile";
 import axios from "axios";
 import TestItemTable from "./TestItemTable";
-import { addTableTestData } from "../../redux/actions/tableTestDataActions";
+import { addTableTestData, deleteTableTestData, setTableTestData } from "../../redux/actions/tableTestDataActions";
 
 const RequestTests = (props) => {
-  const testItems = props.data
+  const testItems = useSelector(state => state.tests.tests)
+  console.log(testItems)
   const [data, setData] = useState();
   const [ids, setIds] = useState({
     testItem: null,
     visitor: null
   })
   const [apiData, setApiData] = useState([])
+  const dispach = useDispatch()
   console.log(apiData)
 
   const dispatch = useDispatch()
@@ -32,6 +34,7 @@ const RequestTests = (props) => {
       )
       .then((res) => {
         alert("Succesfully created tests");
+        dispach(setTableTestData([]))
         props.hideModal();
       })
       .catch((err) => {
@@ -39,9 +42,18 @@ const RequestTests = (props) => {
       });
   };
 
+  const removeItem = (item) => {
+    dispach(deleteTableTestData(item))
+    console.log(apiData)
+    setApiData((current) => current.filter((i) => i.testItem !== item._id));
+  };
+
   return (
     <MyModal
-      onClose={() => props.hideModal()}
+      onClose={() => {
+        props.hideModal()
+        dispach(setTableTestData([]))
+      }}
       pwidth="400px"
     //   pheight = "478px"
       top="25%"
@@ -79,14 +91,14 @@ const RequestTests = (props) => {
             }}
             options={testItems}
             autoHighlight
-            getOptionLabel={(option) => option?.testItem.name}
+            getOptionLabel={(option) => option?.name}
             renderOption={(props, option) => (
               <Box
                 component="li"
                 sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
                 {...props}
               >
-                {option?.testItem.name}
+                {option?.name}
                 {/* ({option.code}) +{option.phone} */}
               </Box>
             )}
@@ -125,7 +137,7 @@ const RequestTests = (props) => {
           </Button>
         </div>
 
-        <TestItemTable />
+        <TestItemTable removeItem = {(item)=> removeItem(item)} />
 
         <Button
           //   disabled = {disable}

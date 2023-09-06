@@ -22,7 +22,10 @@ const AddResults = (props) => {
 
   props.data?.map(d => {
     cleanArr.push({
-        id: d._id, name: d.testItem?.name
+        id: d._id, name: d.testItem?.name,
+        response: d.response,
+        type: d.testItem?.type,
+        possibleOutcome: d.testItem?.possibleOutcome
     })
   })
 
@@ -54,10 +57,10 @@ const AddResults = (props) => {
   return (
     <MyModal
       onClose={() => props.hideModal()}
-      pwidth="500px"
+      pwidth="620px"
     //   pheight = "478px"
-      top="22%"
-      left="35%"
+      top="20%"
+      left="32%"
     >
       <div
         style={{
@@ -66,7 +69,7 @@ const AddResults = (props) => {
           height: "100%",
           alignItems: "center",
           gap: "15px",
-          width: "480px",
+          width: "580px",
           overFlowX: "hidden",
           padding: "15px",
        
@@ -79,7 +82,7 @@ const AddResults = (props) => {
 
         <LabItems data = {cleanArr}/>
 
-        <Button
+        {/* <Button
           //   disabled = {disable}
           style={{
             width: "250px",
@@ -95,7 +98,7 @@ const AddResults = (props) => {
           onClick={() => createTest()}
         >
           Save result
-        </Button>
+        </Button> */}
       </div>
     </MyModal>
   );

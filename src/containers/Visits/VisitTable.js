@@ -38,7 +38,7 @@ const VisitTable = (props) => {
       <MaterialTable
       icons={tableIcons}
         columns={props.columns}
-        data={props.data}
+        data={props.data?.reverse()}
         localization={{
           body: {
             emptyDataSourceMessage: state,
@@ -49,7 +49,7 @@ const VisitTable = (props) => {
           showTitle: false,
           paging: true,
           exportButton: true,
-          sorting: true,
+          sorting: false,
           showTextRowsSelected: false,
           toolbar: false,
           pageSizeOptions: [2, 5, 8, 10, 20, 25, 50, 100],

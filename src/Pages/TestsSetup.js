@@ -18,6 +18,7 @@ import Payment from "../containers/CustomerContainers/Payment";
 import VisitDetail from "../containers/Visits/VisitDetail";
 import VisitTable from "../containers/Visits/VisitTable";
 import VisitPopUp from "../containers/Visits/VisitPopUp";
+import { setTests } from "../redux/actions/testsActions";
 
 const TestsSetup = () => {
 
@@ -54,11 +55,11 @@ const TestsSetup = () => {
   ];
   
 
-  // dispatch(
-  //   setCustomers(
-  //     useFetch("customers/customers-with-transactions", del, "customers")
-  //   )
-  // );
+  dispatch(
+    setTests(
+      useFetch("test-items", del, "testItems")
+    )
+  );
 
 
   const handleClick = (
@@ -73,7 +74,7 @@ const TestsSetup = () => {
   };
 
   const changeHandler = () => {
-    // setDel((state) => state + 1);
+    setDel((state) => state + 1);
   };
 
   const statusHandler = (e) => {

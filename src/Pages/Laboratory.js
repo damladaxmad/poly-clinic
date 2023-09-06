@@ -1,13 +1,17 @@
 import { Button, FormControl, Select, TextField, Typography } from "@material-ui/core";
 import test from "../../src/assets/images/test.png"
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import moment from "moment";
 import AddResults from "../containers/Laboratory/AddResults";
+import { setVisitors } from "../redux/actions/vistorsActions";
+import useFetch from "../funcrions/DataFetchers";
 
 const Laboratory = () => {
 
   const tests = useSelector(state => state.visitors.visitors)
+  const [del, setDel] = useState(1)
+  const dispatch = useDispatch()
   const [showResults, setShowResults] = useState(false)
   const [query, setQuery] = useState("");
   const [startDate, setStartDate] = useState(moment(new Date()).format("MM-DD-YYYY"))
@@ -30,6 +34,26 @@ const Laboratory = () => {
     setShowResults(true)
   }
 
+  dispatch(
+    setVisitors(
+      useFetch("visitors/get-visitors-with-tests", del, "visitors")
+    )
+  );
+  
+  let readyTests = 0
+  let waitingTests = 0
+  let visitorTests = []
+  tests?.map(test => {
+    visitorTests.push(test.tests)
+  })
+
+  visitorTests?.flat().map(v => {
+    if (v.response) readyTests += 1
+    if (!v.response) waitingTests += 1
+  })
+
+  console.log(visitorTests)
+  console.log(readyTests, waitingTests)
   return (
     <div
       style={{
@@ -71,7 +95,7 @@ const Laboratory = () => {
           }}
         >
           {" "}
-          24
+          {waitingTests}
         </Typography>
         <Typography
           style={{
@@ -109,7 +133,7 @@ const Laboratory = () => {
           }}
         >
           {" "}
-          24
+          {readyTests}
         </Typography>
         <Typography
           style={{
@@ -187,10 +211,11 @@ const Laboratory = () => {
 
         {showResults && <AddResults hideModal = {() => {
           setShowResults(false)
+          setDel(state => state + 1)
         }} data = {labTests}/>}
 
       <div style={{ display: "flex", gap: "20px", flexDirection: "column" }}>
-      {handler(tests)?.map(test => {
+      {handler(tests)?.reverse().map(test => {
         return <Sections data = {test} addResult = {(data) => {
           AddResultHandler()
           setLabTests(data)
@@ -332,11 +357,11 @@ const TestStatus = (props) => {
       </Typography>
       <Typography
         style={{
-          color: "green",
+          color: props.data?.response ? "green" : "red",
           fontSize: "20px",
         }}
       >
-        ready
+        {props.data?.response ? "ready" : "waiting"}
       </Typography>
     </div>
   );

@@ -6,6 +6,7 @@ import moment from "moment";
 import AddResults from "../containers/Laboratory/AddResults";
 import { setVisitors } from "../redux/actions/vistorsActions";
 import useFetch from "../funcrions/DataFetchers";
+import ResultsPrint from "../containers/Visits/ResultsPrint";
 
 const Laboratory = () => {
 
@@ -230,6 +231,8 @@ const Laboratory = () => {
 
 
 const Sections = (props) => {
+
+  const [showPrintResults, setShowPrintResults] = useState(false)
   return (
     <div
       style={{
@@ -311,6 +314,7 @@ const Sections = (props) => {
               cursor: "pointer",
               color: "grey"
             }}
+            onClick = {() => setShowPrintResults(true)}
           >
             {" "}
             Print Test Results
@@ -327,6 +331,9 @@ const Sections = (props) => {
             View All
           </div> */}
         </div>
+        {showPrintResults && <ResultsPrint data = {props.data} hideModal = {() => {
+        setShowPrintResults(false)
+      }}/>}
         <Button
           style={{
             width: "180px",

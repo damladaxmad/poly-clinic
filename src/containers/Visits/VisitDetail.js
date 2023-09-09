@@ -11,6 +11,7 @@ import { deleteFunction } from "../../funcrions/deleteStuff"
 import Perscription from "./Form/Perscription"
 import UpdataPerscription from "./UpdatePerscription"
 import PrintPerscription from "./PrintPerscription"
+import ResultsPrint from "./ResultsPrint"
 
 const VisitDetail = (props) => {
 
@@ -24,6 +25,7 @@ const VisitDetail = (props) => {
     const [result, setResult] = useState(false)
     const [showPerscription, setShowPerscription] = useState(false)
     const [showUpdatePerscription, setShowUpdatePerscription] = useState(false)
+    const [showResultsPrint, setShowResultsPrint] = useState(false)
 
 
     console.log(history, diagnosis)
@@ -118,8 +120,8 @@ const VisitDetail = (props) => {
         }}
         visitor = {props.data?._id}
         data = {props.data?.tests}
-        newChange = {() => {
-          props.newChange()
+        newChange = {(data) => {
+          props.newChange(data)
         }}
         />}
 
@@ -268,7 +270,13 @@ const VisitDetail = (props) => {
 
     {showPrinter && <PrintStuff hideModal = {() => {
         setShowPrinter(false)
-      }} data = {props.data} singlePrint = {singlePrint}/>}
+        setResult(false)
+      }} data = {props.data} singlePrint = {singlePrint}
+      />}
+
+      {showResultsPrint && <ResultsPrint hideModal = {() => {
+        setShowResultsPrint(false)
+      }} data = {props.data}/>}
 
     {showPrintPerscription && <PrintPerscription hideModal = {() => {
         setShowPrintPerscription(false)
@@ -308,6 +316,9 @@ gap: "20px"}}>
             height: "50px",
             backgroundColor: "#5130DE",
             color: "white",
+          }}
+          onClick={() => {
+            setShowResultsPrint(true)
           }}
           type="submit"
           variant="contained"

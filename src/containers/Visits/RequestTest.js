@@ -21,8 +21,8 @@ const RequestTests = (props) => {
   console.log(apiData)
 
   const dispatch = useDispatch()
-  const createTest = () => {
-    axios
+  const createTest = async () => {
+   await axios
       .post(
         `${constants.baseUrl}/tests`,
         apiData ,
@@ -36,7 +36,25 @@ const RequestTests = (props) => {
         alert("Succesfully created tests");
         dispach(setTableTestData([]))
         props.hideModal();
-        props.newChange()
+      })
+      .catch((err) => {
+        alert(err.response?.data?.message);
+      });
+
+      await axios
+      .get(
+        `${constants.baseUrl}/visitors/${props?.visitor}`,
+        {
+          headers: {
+            authorization: constants.token,
+          },
+        }
+      )
+      .then((res) => {
+        alert("Succesfully read visitor");
+        dispach(setTableTestData([]))
+        props.hideModal();
+        props.newChange(res?.data?.data)
       })
       .catch((err) => {
         alert(err.response.data?.message);

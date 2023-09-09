@@ -14,16 +14,21 @@ import kulmiyeLogo from "../../assets/images/kulmiyeLogo.jpg";
 import MyTable from "../../utils/MyTable"
 import PrintTable from "./printTable";
 
-const PrintPerscription = (props) => {
+const ResultsPrint = (props) => {
     const componentRef = useRef();
 
-    const columns = [
-        { title: "Medication", field: "medication", width: "30%" },
-        { title: "Qty", field: "quantity" , width: "20%" },
-        { title: "Frequency", field: "frequency", width: "20%"  },
-        { title: "Instruction", field: "instruction", width: "30%"   }, 
-      ]
-    const data =  props.data?.prescription
+    const columns =  [
+      { title: "Test Name", field: "name", width: "33%",
+    render: (data) => <p>{data?.testItem.name}</p> },
+      { title: "Test Result", field: "price", width: "33%",
+      render: (data) => <p>{data?.response}</p>},
+      { title: "Possible Oucome", field: "price", width: "33%",
+      render: (data) => <div style = {{}}>{data?.testItem.pOutcome?.map(d => {
+        return <p style = {{margin: "0px"}}>{d}</p>
+      })}</div>},
+      
+    ] 
+    const data =  props.data?.tests
 
     return (
 
@@ -168,16 +173,17 @@ const PrintPerscription = (props) => {
           </div>
 
           
-
-          <div style = {{width: "100%", display: "flex",
-        alignItems: "start", flexDirection: "column", gap: "12px",
-        marginTop: "30px"}}>
-           <Typography style = {{fontSize: "20px",
-        fontWeight: "bold"}}>
-              Doctor Perscription</Typography>
-             <PrintTable columns = {columns} data = {data} 
-            />
-          </div>
+            {data?.map(d => {
+                return <div style = {{width: "100%", display: "flex",
+                alignItems: "start", flexDirection: "column", gap: "12px",
+                marginTop: "30px"}}>
+                    <Typography style = {{fontSize: "16px",
+                fontWeight: "bold"}}>{d.testItem?.category}</Typography>
+                     <PrintTable columns = {columns} data = {[d]} 
+                    />
+                  </div>
+            })}  
+          
 
        
 {/* 
@@ -198,15 +204,13 @@ const PrintPerscription = (props) => {
     
   
           </div>
-          <Typography style = {{
-                fontSize: "16px",
-                fontWeight: "500",
-                marginTop: "15px",
-                alignSelf: "center",
-                marginTop: "25px"
+          {/* <Typography style = {{
+                fontSize: "20px",
+                fontWeight: "bold",
+                marginTop: "15px"
               }}>
                 Doctor Signature:   _________________
-              </Typography>
+              </Typography> */}
         </div>
         
 
@@ -215,4 +219,4 @@ const PrintPerscription = (props) => {
     )
 }
 
-export default PrintPerscription
+export default ResultsPrint

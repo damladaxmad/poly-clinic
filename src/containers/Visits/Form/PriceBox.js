@@ -23,12 +23,12 @@ const PriceBox = (props) => {
   useEffect(() => {
     setUnitPrice(props.salePriceP);
     // props.unitPrice(props.salePriceP);
-    setItem(props.itemD)
+    // setItem(props.itemD)
     if (props.salePriceP || props.salePriceP == 0) {
       setQuantity(1);
       props.quantity(1);
     }
-  }, [props.unitPriceD, props.item]);
+  }, [props.unitPriceD]);
 
   return (
     <div

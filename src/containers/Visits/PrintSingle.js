@@ -23,7 +23,9 @@ const PrintSingle = (props) => {
         { title: "Test Result", field: "price", width: "33%",
         render: (data) => <p>{data?.response}</p>},
         { title: "Possible Oucome", field: "price", width: "33%",
-        render: (data) => <p>{data?.testItem.pOutcome}</p>},
+        render: (data) => <div style = {{}}>{data?.testItem.pOutcome?.map(d => {
+          return <p style = {{margin: "0px"}}>{d}</p>
+        })}</div>},
         
       ] : 
       [

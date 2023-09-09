@@ -35,7 +35,7 @@ const PrintTable = (props) => {
     margin: "auto" }}>
 
       <div style = {{height: "40px", border: "1px solid black", width: "100%",
-    borderRadius: "10px", display: "flex", flexDirection: "row",
+    borderRadius: "10px", display: "flex", flexDirection: "row", gap: '15px',
      padding: "8px 15px"}}>
         {props.columns?.map(column => {
           return <p style = {{width: column.width, fontWeight: 'bold'}}> {column.title}</p>
@@ -64,7 +64,7 @@ const PrintTable = (props) => {
       },
         }}
       
-        style={{ borderRadius: "10px", boxShadow: "none",
+        style={{ borderRadius: "10px", boxShadow: "none", widht: "100%",
          border: props.page == "New Purchase" ? "1px solid black" : "none",}}
        
       />

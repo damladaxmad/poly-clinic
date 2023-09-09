@@ -97,6 +97,8 @@ const Perscription = (props) => {
   })
   }
 
+  console.log(saleData.medication, reset)
+
 
   return (
 
@@ -132,6 +134,7 @@ const Perscription = (props) => {
                 medication: data,
               };
             });
+            setReset(false)
           }} 
           
           type = {(data) => {
@@ -184,7 +187,9 @@ const Perscription = (props) => {
               medication: data,
             };
           });
+          setReset(false)
         }} 
+
          instruction = {(data) => {
           setSaleData((prevState) => {
             return {
@@ -192,6 +197,7 @@ const Perscription = (props) => {
               instruction: data,
             };
           });
+          setReset(false)
         }} 
         
         frequency = {(data) => {
@@ -214,7 +220,7 @@ const Perscription = (props) => {
             });
             setReset(false)
           }}
-          item = {saleData.medication}/>
+          item = {reset ? "" : saleData.medication}/>
 
         <Button
           disabled = {disable}
@@ -231,6 +237,7 @@ const Perscription = (props) => {
           variant="contained"
           onClick = {()=>  {
             if (!saleData.medication  || !saleData.quantity 
+              || !saleData.frequency || !saleData.instruction
              ) {
                return setError(true)
               }
@@ -248,6 +255,12 @@ const Perscription = (props) => {
             setProducts([...products, saleData])
             // alert("Item Added To The List!")
             setReset(true)
+            setSaleData((prevState) => {
+              return {
+                ...prevState,
+                medication: null,
+              };
+            });
             setAutoReset(state => state + 1)
             setSaleData((prevState) => {
               return {
@@ -267,10 +280,7 @@ const Perscription = (props) => {
     </div>
 
     {error && <p style = {{color: "red", marginLeft: "50px",
-    fontSize: "16px", alignSelf: "center"}}> Please, enter 
-    {!saleData.item && " item,"}
-    {!saleData.quantity && " quantiy,"}
-    {!saleData.unitPrice && " unitPrice,"} </p>}
+    fontSize: "16px", alignSelf: "center"}}> Fadlan buuxi meelaha bannaan</p>}
         
         {tableData?.length > 0 && <TheTable data = {tableData} 
         removeItem = {(item) => removeItem(item)}/>}

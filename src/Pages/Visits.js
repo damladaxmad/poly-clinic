@@ -317,8 +317,9 @@ const Visits = () => {
           setDel(state => state + 1)
           setVisitDetails(data)
         }}
-        newChange = {() => {
+        newChange = {(data) => {
           setDel(state => state + 1)
+          setVisitDetails(data?.visitor)
         }}/>}
 
         {showPopUp && <VisitPopUp 

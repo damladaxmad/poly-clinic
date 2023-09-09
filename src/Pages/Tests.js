@@ -20,7 +20,7 @@ const Tests = () => {
     const [query, setQuery] = useState("");
     const [details, setDetails] = useState(false)
     const [newTests, setNewTests] = useState(false)
-    const [buttonName, setButtonName] = useState("Add New Tests");
+    const [buttonName, setButtonName] = useState("Add New Patients");
     const activeUser = useSelector(state => state.activeUser.activeUser)
     const [testPrint, setTestPrint] = useState(false)
     const [apiData, setApiData] = useState()
@@ -45,15 +45,15 @@ const Tests = () => {
 
     const addTestHandler = () => {
       setQuery("");
-      if (buttonName == "Add New Tests") {
+      if (buttonName == "Add New Patients") {
         // setNewCustomers(true);
         // setNewTests(true)
         setNewPatient(true)
         // setButtonName("Go To Tests")
         return;
-      } else if (buttonName == "Go To Tests") {
+      } else if (buttonName == "Go To Patients") {
         setTestDetails(false)
-        setButtonName("Add New Tests");
+        setButtonName("Add New Patients");
       }
     };
 
@@ -75,11 +75,11 @@ const Tests = () => {
         useFetch("patients", del, "patients")
       )
     );
-    dispatch(
-      setTests(
-        useFetch("tests", del, "tests")
-      )
-    );
+    // dispatch(
+    //   setTests(
+    //     useFetch("tests", del, "tests")
+    //   )
+    // );
 
     useEffect(() => {
 
@@ -180,16 +180,17 @@ const Tests = () => {
         {(!testDetails && !testPrint ) && <TestComponanats  
         data = {handler(patients)} divClick = {(data)=> {
           setTestDetails(true)
-          setButtonName("Go To Tests")
+          setButtonName("Go To Patients")
           setPatientData(data)
         }}
         change = {() => {
           setDel(state => state + 1)
         }}/> }
         {testDetails && <TestDetails data = {patientData} 
-        change = {(stuff) => {
-          if (stuff == "update") setTestDetails(false)
+        change = {(data) => {
+          // if (stuff == "update") setTestDetails(false)
           setDel(state => state + 1)
+          setPatientData(data)
         }}/> }
 
         {newTests && (

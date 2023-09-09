@@ -34,6 +34,14 @@ const PrintTable = (props) => {
     <div style={{ width: "100%", 
     margin: "auto" }}>
 
+      <div style = {{height: "40px", border: "1px solid black", width: "100%",
+    borderRadius: "10px", display: "flex", flexDirection: "row",
+     padding: "8px 15px"}}>
+        {props.columns?.map(column => {
+          return <p style = {{width: column.width, fontWeight: 'bold'}}> {column.title}</p>
+        })}
+      </div>
+
       <MaterialTable
       icons={tableIcons}
         columns={props.columns}
@@ -52,7 +60,7 @@ const PrintTable = (props) => {
           draggable: false,
           actionsColumnIndex: -1,
           headerStyle: { background: "", border: "1px solid black", fontSize: "13px",
-          fontWeight: "bold", 
+          fontWeight: "bold", display: "none"
       },
         }}
       

@@ -23,6 +23,8 @@ const TestDetails = (props) => {
    const tests = useSelector(state => state.tests.tests)
    const [updatePatient, setUpdatePatient] = useState(false)
    const [del, setDel] = useState(1)
+   
+   const dispatch = useDispatch()
 
    let myTests = []
 
@@ -99,13 +101,14 @@ const TestDetails = (props) => {
           }}
           hideModal={(data) => {
             setUpdatePatient(false);
-            props.change("update")
           //   !update && setNewCustomers(false);
-          //  dispatch(deleteCustomer(data))
-          //  dispatch(addCustomer(data))
-          //   changeHandler();
-          //   setButtonName("Add New Customers");
+         
           }}
+          dataBack = {(data)=> {
+            props.change(data)
+            dispatch(updateTest(data))
+            setDel(state => state + 1)
+            }}
           fields={fields}
           url="patients"
           name="Patient"

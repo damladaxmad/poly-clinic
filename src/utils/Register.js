@@ -16,7 +16,7 @@ const Register = (props) => {
     setType(e.target.value)
   }
   const categories = useSelector(state => state.categories.categories)
-  const [category, setCategory] = useState("")
+  const [category, setCategory] = useState(props?.update ? props.instance.category : "")
 
   const categoryHandler = (e) => {
     setCategory(e.target.value)
@@ -66,6 +66,7 @@ const Register = (props) => {
           alert("Successfully Updated")
           resetForm();
           props.name != "Patient" && props.reset()
+          props.name == "Patient" && props.dataBack(res?.data?.data?.patient)
           props.hideModal(res.data?.data.customer)
           props.name == "Employee" && props.change()
         }).catch((err) => {

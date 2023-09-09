@@ -36,6 +36,7 @@ const RequestTests = (props) => {
         alert("Succesfully created tests");
         dispach(setTableTestData([]))
         props.hideModal();
+        props.newChange()
       })
       .catch((err) => {
         alert(err.response.data?.message);

@@ -171,7 +171,7 @@ const Visits = () => {
 
   dispatch(
     setVisitors(
-      useFetch("visitors/get-visitors-with-tests", del, "visitors")
+      useFetch(`visitors/get-visitors-with-tests/${startDate}/${endDate}`, del, "visitors")
     )
   );
 
@@ -312,7 +312,14 @@ const Visits = () => {
           columns={columns}
         /> }
 
-        {showVisitDetails && <VisitDetail data = {visitDetails}/>}
+        {showVisitDetails && <VisitDetail data = {visitDetails}
+        change = {(data) => {
+          setDel(state => state + 1)
+          setVisitDetails(data)
+        }}
+        newChange = {() => {
+          setDel(state => state + 1)
+        }}/>}
 
         {showPopUp && <VisitPopUp 
           hideModal =  {() => {

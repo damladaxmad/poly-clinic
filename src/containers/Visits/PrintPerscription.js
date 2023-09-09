@@ -14,26 +14,16 @@ import kulmiyeLogo from "../../assets/images/kulmiyeLogo.jpg";
 import MyTable from "../../utils/MyTable"
 import PrintTable from "./printTable";
 
-const PrintSingle = (props) => {
+const PrintPerscription = (props) => {
     const componentRef = useRef();
 
-    const columns = props.result ? [
-        { title: "Test Name", field: "name", width: "33%",
-      render: (data) => <p>{data?.testItem.name}</p> },
-        { title: "Test Result", field: "price", width: "33%",
-        render: (data) => <p>{data?.response}</p>},
-        { title: "Possible Oucome", field: "price", width: "33%",
-        render: (data) => <p>{data?.testItem.pOutcome}</p>},
-        
-      ] : 
-      [
-        { title: "Test Name", field: "name", width: "50%"},
-        { title: "Test Price", field: "price", width: "50%",
-    render: (data) => <p>${data?.price}</p>}
+    const columns = [
+        { title: "Medication", field: "medication", width: "30%" },
+        { title: "Qty", field: "quantity" , width: "20%" },
+        { title: "Frequency", field: "frequency", width: "20%"  },
+        { title: "Instruction", field: "instruction", width: "30%"   }, 
       ]
-    const data = props.result ? [props?.singlePrint] :  [props?.singlePrint]
-
-    console.log(props.result)
+    const data =  props.data?.prescription
 
     return (
 
@@ -180,11 +170,11 @@ const PrintSingle = (props) => {
           
 
           <div style = {{width: "100%", display: "flex",
-        alignItems: "start", flexDirection: "column", gap: "10px",
+        alignItems: "start", flexDirection: "column", gap: "12px",
         marginTop: "30px"}}>
-            {props.result && <Typography style = {{fontSize: "16px",
+           <Typography style = {{fontSize: "20px",
         fontWeight: "bold"}}>
-                {props.singlePrint?.testItem?.category}</Typography>}
+              Doctor Perscription</Typography>
              <PrintTable columns = {columns} data = {data} 
             />
           </div>
@@ -208,13 +198,15 @@ const PrintSingle = (props) => {
     
   
           </div>
-          {/* <Typography style = {{
-                fontSize: "20px",
-                fontWeight: "bold",
-                marginTop: "15px"
+          <Typography style = {{
+                fontSize: "18px",
+                fontWeight: "500",
+                marginTop: "15px",
+                alignSelf: "center",
+                marginTop: "25px"
               }}>
                 Doctor Signature:   _________________
-              </Typography> */}
+              </Typography>
         </div>
         
 
@@ -223,4 +215,4 @@ const PrintSingle = (props) => {
     )
 }
 
-export default PrintSingle
+export default PrintPerscription

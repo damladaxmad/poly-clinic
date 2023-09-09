@@ -91,11 +91,11 @@ function App() {
     )
   );
 
-  dispatch(
-    setVisitors(
-      useFetch("visitors/get-visitors-with-tests", isLogin, "visitors")
-    )
-  );
+  // dispatch(
+  //   setVisitors(
+  //     useFetch("visitors/get-visitors-with-tests/2023-09-8/2023-09-08", isLogin, "visitors")
+  //   )
+  // );
 
   dispatch(
     setAvailable(

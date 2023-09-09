@@ -21,9 +21,10 @@ const Laboratory = () => {
   const handler = (data) => {
     console.log(data)
     if (data?.length > 0) {
-        return data.filter((std) =>
-            (std.patient?.name?.toLowerCase().includes(query) )
-        );
+        return data.filter((std) => {
+           if (std.tests?.length < 1) return
+           return (std.patient?.name?.toLowerCase().includes(query) )
+    });
 
     } else {
       return;
@@ -36,7 +37,7 @@ const Laboratory = () => {
 
   dispatch(
     setVisitors(
-      useFetch("visitors/get-visitors-with-tests", del, "visitors")
+      useFetch(`visitors/get-visitors-with-tests/${startDate}/${endDate}`, del, "visitors")
     )
   );
   
@@ -306,12 +307,15 @@ const Sections = (props) => {
               background: "white",
               border: "1px solid lightgray",
               borderRadius: "10px",
+              fontSize: "18px",
+              cursor: "pointer",
+              color: "grey"
             }}
           >
             {" "}
-            Print
+            Print Test Results
           </div>
-          <div
+          {/* <div
             style={{
               padding: "8px 15px",
               background: "white",
@@ -321,7 +325,7 @@ const Sections = (props) => {
           >
             {" "}
             View All
-          </div>
+          </div> */}
         </div>
         <Button
           style={{

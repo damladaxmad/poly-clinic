@@ -8,6 +8,9 @@ import RequestTests from "./RequestTest"
 import PrintStuff from "./PrintStuff"
 import PrintSingle from "./PrintSingle"
 import { deleteFunction } from "../../funcrions/deleteStuff"
+import Perscription from "./Form/Perscription"
+import UpdataPerscription from "./UpdatePerscription"
+import PrintPerscription from "./PrintPerscription"
 
 const VisitDetail = (props) => {
 
@@ -15,9 +18,13 @@ const VisitDetail = (props) => {
     const [diagnosis, setDiagnosis] = useState()
     const [requestTests, setRequestTests] = useState(false)
     const [showPrinter, setShowPrinter] = useState(false)
+    const [showPrintPerscription, setShowPrintPerscription] = useState(false)
     const [showPrintSingle, setShowPrintSingle] = useState(false)
     const [singlePrint, setSinglePrint] = useState()
     const [result, setResult] = useState(false)
+    const [showPerscription, setShowPerscription] = useState(false)
+    const [showUpdatePerscription, setShowUpdatePerscription] = useState(false)
+
 
     console.log(history, diagnosis)
     console.log(props.data)
@@ -34,6 +41,7 @@ const VisitDetail = (props) => {
     }
     ).then((res) => {
       alert("Succesfully Updated!")
+      props.change(res?.data?.data?.visitor)
       // dispach(addTest(res.data?.data?.test))
       // props.togglePrint(tableTestData)
       // dispach(setTableTestData([]))
@@ -86,18 +94,22 @@ const VisitDetail = (props) => {
 
         <Button
           style={{
-            width: "190px",
+            width: props.data?.prescription?.length > 0  ? "250px" : "190px",
             fontSize: "16px",
             height: "50px",
             backgroundColor: "black",
             color: "white",
             fontWeight: "bold",
           }}
-          onClick={()=> alert("You have given a perscription.")}
+          onClick={()=> {
+            if (props.data?.prescription?.length > 0)
+            return setShowUpdatePerscription(true)
+            setShowPerscription(true)
+          }}
           type="submit"
           variant="contained"
         >
-        Prescribe
+       {props.data?.prescription?.length > 0 ? "Update Perscription" : "Perscribe"}
         </Button>
         </div>
 
@@ -106,7 +118,24 @@ const VisitDetail = (props) => {
         }}
         visitor = {props.data?._id}
         data = {props.data?.tests}
+        newChange = {() => {
+          props.newChange()
+        }}
         />}
+
+        {showPerscription && <Perscription hideModal = {() => {
+          setShowPerscription(false)
+        }} visitor = {props.data?._id}
+        change = {(data) => {
+          props.change(data)
+        }}/>}
+
+        {showUpdatePerscription && <UpdataPerscription hideModal = {() => {
+          setShowUpdatePerscription(false)
+        }} visitor = {props.data?._id} data = {props.data?.prescription}
+        change = {(data) => {
+          props.change(data)
+        }}/>}
 
         <div style = {{width: "100%", display: "flex", flexDirection: "row", gap: "20px"}}>
         <div style = {{
@@ -241,6 +270,10 @@ const VisitDetail = (props) => {
         setShowPrinter(false)
       }} data = {props.data} singlePrint = {singlePrint}/>}
 
+    {showPrintPerscription && <PrintPerscription hideModal = {() => {
+        setShowPrintPerscription(false)
+      }} data = {props.data} />}
+
     {showPrintSingle && <PrintSingle hideModal = {() => {
         setShowPrintSingle(false)
         setResult(false)
@@ -280,6 +313,21 @@ gap: "20px"}}>
           variant="contained"
         >
          Print Tests Result
+        </Button>
+        <Button
+          style={{
+            width: "80%",
+            fontSize: "16px",
+            fontWeight: "bold",
+            height: "50px",
+            backgroundColor: "black",
+            color: "white",
+          }}
+          onClick={()=> setShowPrintPerscription(true)}
+          type="submit"
+          variant="contained"
+        >
+         Print Perscription
         </Button>
         </div>
     </div> 

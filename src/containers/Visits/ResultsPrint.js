@@ -8,7 +8,7 @@ import moment from "moment";
 import ReactToPrint from "react-to-print";
 import React, { useRef } from "react";
 import { AiFillPrinter } from "react-icons/ai";
-import printHeader from "../../assets/images/printHeader.jpg";
+import printHeader from "../../assets/images/greenB.png";
 import secondHeader from "../../assets/images/secondHeader.png";
 import kulmiyeLogo from "../../assets/images/kulmiyeLogo.jpg";
 import MyTable from "../../utils/MyTable"
@@ -47,8 +47,9 @@ const ResultsPrint = (props) => {
             display: "flex",
             alignItems: "start",
             flexDirection: "column",
-            width: "100%",
+            width: "101%",
             height: "100%",
+            padding: "15px",
             marginBottom: "30px",
             background: "white",
             borderRadius: '8px',
@@ -160,14 +161,14 @@ const ResultsPrint = (props) => {
               <Typography style = {{
                 fontSize: "20px",
               }}>
-                ID:
+                Date:
               </Typography>
               <Typography style = {{
                 fontSize: "20px",
                 fontWeight: "bold"
               }}>
-                {props.data?.patient?.patientId >= 10 ? "0" : "00"}{props.data?.patient?.patientId}
-              </Typography>
+                {moment(props.data?.date).format("YYYY-MM-DD")}
+                 </Typography>
             </div>
             </div>
           </div>

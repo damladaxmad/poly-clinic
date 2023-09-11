@@ -7,6 +7,7 @@ import AddResults from "../containers/Laboratory/AddResults";
 import { setVisitors } from "../redux/actions/vistorsActions";
 import useFetch from "../funcrions/DataFetchers";
 import ResultsPrint from "../containers/Visits/ResultsPrint";
+import Urine from "../containers/Laboratory/Urine";
 
 const Laboratory = () => {
 
@@ -233,6 +234,9 @@ const Laboratory = () => {
 const Sections = (props) => {
 
   const [showPrintResults, setShowPrintResults] = useState(false)
+  const [showUrine, setShowUrine] = useState(false)
+  const [testId, setTestId] = useState()
+
   return (
     <div
       style={{
@@ -349,6 +353,21 @@ const Sections = (props) => {
         >
           Add Result
         </Button>
+        <div style={{ display: "flex", gap: "10px" }}>
+        {props.data?.tests.map(t => {
+          if (t.testItem?.type == "urine") return <p style = {{
+            padding: "5px 16px", border: "1px solid grey", borderRadius: "5px",
+            margin: "0px", cursor: "pointer"
+          }}
+          onClick={() => {
+            setTestId(t?._id)
+            setShowUrine(true)
+          }}> URINE</p>
+        })}
+        {showUrine && <Urine testId = {testId} hideModal = {() => {
+          setShowUrine(false)
+        }} />}
+        </div>
       </div>
     </div>
   );

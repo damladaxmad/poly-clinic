@@ -8,7 +8,7 @@ import moment from "moment";
 import ReactToPrint from "react-to-print";
 import React, { useRef } from "react";
 import { AiFillPrinter } from "react-icons/ai";
-import printHeader from "../../assets/images/printHeader.jpg";
+import printHeader from "../../assets/images/banner.png";
 import secondHeader from "../../assets/images/secondHeader.png";
 import kulmiyeLogo from "../../assets/images/kulmiyeLogo.jpg";
 import MyTable from "../../utils/MyTable"
@@ -54,7 +54,7 @@ const PrintSingle = (props) => {
             display: "flex",
             alignItems: "start",
             flexDirection: "column",
-            width: "100%",
+            width: "101%",
             height: "100%",
             marginBottom: "30px",
             background: "white",

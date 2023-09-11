@@ -51,7 +51,7 @@ const RequestTests = (props) => {
         }
       )
       .then((res) => {
-        alert("Succesfully read visitor");
+        // alert("Succesfully read visitor");
         dispach(setTableTestData([]))
         props.hideModal();
         props.newChange(res?.data?.data)

@@ -58,14 +58,14 @@ const VisitPopUp = (props) => {
           }}
           options={patients}
           autoHighlight
-          getOptionLabel={(option) => option.name}
+          getOptionLabel={(option) => option?.name}
           renderOption={(props, option) => (
             <Box
               component="li"
               sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
               {...props}
             >
-              {option.name}
+              {option?.name}
               {/* ({option.code}) +{option.phone} */}
             </Box>
           )}

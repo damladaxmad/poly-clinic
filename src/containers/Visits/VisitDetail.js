@@ -42,6 +42,7 @@ const VisitDetail = (props) => {
       }
     }
     ).then((res) => {
+      console.log(res.data?.data?.visitor)
       alert("Succesfully Updated!")
       props.change(res?.data?.data?.visitor)
       // dispach(addTest(res.data?.data?.test))

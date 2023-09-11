@@ -29,10 +29,15 @@ const PrintTable = (props) => {
   const dispatch = useDispatch()
 
   const columns = props.columns;
+  console.log(props.data)
 
     return (
     <div style={{ width: "100%", 
     margin: "auto" }}>
+
+<Typography style = {{fontSize: "16px",
+                fontWeight: "bold",
+                marginBottom: "10px"}}>{props.data[0]?.testItem?.category}</Typography>
 
       <div style = {{height: "40px", border: "1px solid black", width: "100%",
     borderRadius: "10px", display: "flex", flexDirection: "row", gap: '15px',

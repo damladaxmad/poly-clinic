@@ -275,7 +275,7 @@ const Sections = (props) => {
           }}
         >
           {" "}
-          2022/8/30
+          {moment(props.data?.data).format("YYYY-MM-DD")}
         </Typography>
       </div>
 

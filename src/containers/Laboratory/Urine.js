@@ -105,10 +105,7 @@ const Urine = (props) => {
         >
           Save All
         </Button>
-         </div>
-
-         
-       
+         </div>    
 
         </div>
 

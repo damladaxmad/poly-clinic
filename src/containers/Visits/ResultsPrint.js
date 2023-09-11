@@ -29,7 +29,30 @@ const ResultsPrint = (props) => {
       
     ] 
     const data =  props.data?.tests
+    
+    function groupBy(items) {
+      return items.reduce((acc, curr) => {
+        if (curr?.testItem?.category) {
+          const { category } = curr?.testItem;
+          const currentItems = acc[category];
+      
+          return { 
+            ...acc,
+            [category]: currentItems ? [...currentItems, curr] : [curr]
+          };
+        }
+        return acc;
+      }, {});
+    }
+    
+    let singleObject = groupBy(props.data?.tests)
 
+    var outputData = [];
+for (var i in singleObject) {
+    // i is the property name
+    outputData.push(singleObject[i]);
+}
+  console.log(outputData)
     return (
 
         <MyModal
@@ -174,13 +197,13 @@ const ResultsPrint = (props) => {
           </div>
 
           
-            {data?.map(d => {
+            {outputData?.map(d => {
                 return <div style = {{width: "100%", display: "flex",
                 alignItems: "start", flexDirection: "column", gap: "12px",
                 marginTop: "30px"}}>
-                    <Typography style = {{fontSize: "16px",
-                fontWeight: "bold"}}>{d.testItem?.category}</Typography>
-                     <PrintTable columns = {columns} data = {[d]} 
+                    {/* <Typography style = {{fontSize: "16px",
+                fontWeight: "bold"}}>{d.testItem?.category}</Typography> */}
+                     <PrintTable columns = {columns} data = {d} 
                     />
                   </div>
             })}  

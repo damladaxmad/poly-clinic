@@ -14,7 +14,6 @@ import PrintPerscription from "./PrintPerscription"
 import ResultsPrint from "./ResultsPrint"
 
 const VisitDetail = (props) => {
-
     const [history, setHistory] = useState()
     const [diagnosis, setDiagnosis] = useState()
     const [requestTests, setRequestTests] = useState(false)

@@ -33,6 +33,11 @@ const VisitDetail = (props) => {
 
     console.log(history, diagnosis)
     console.log(props.data)
+
+    let takenTests = 0
+    props.data?.tests?.map(t => {
+      takenTests += 1
+    })
     
     const updateHandler = () => {
       axios.patch(`${constants.baseUrl}/visitors/${props.data?._id}`, {
@@ -169,7 +174,7 @@ const VisitDetail = (props) => {
             <Typography style = {{
                 fontSize: "20px",
                 color: "#696767"
-            }}> {props.data?.patient?.phone} - {props.data.age} Jir</Typography>
+            }}> {props.data?.patient?.phone} - {props.data?.patient?.age} Jir</Typography>
             <Typography style = {{
                 fontSize: "20px",
                 color: "#696767"
@@ -197,11 +202,11 @@ const VisitDetail = (props) => {
             <Typography style = {{
                 fontWeight: "600",
                 fontSize: "26px",
-            }}> 24</Typography>
+            }}> {takenTests}</Typography>
             <Typography style = {{
                 fontSize: "20px",
                 color: "#696767"
-            }}> Tests Waiting</Typography>
+            }}> Tests taken</Typography>
            
             </div>
 

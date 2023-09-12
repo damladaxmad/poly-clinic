@@ -15,6 +15,7 @@ import MyTable from "../../utils/MyTable"
 import PrintTable from "./printTable";
 
 const UrinePrint = (props) => {
+    console.log(props.data)
     const componentRef = useRef();
 
     const columns = [

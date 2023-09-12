@@ -188,7 +188,7 @@ const Laboratory = () => {
             onChange={(e) => setQuery(e.target.value)}
           />
 
-<div style = {{width: "50%", display: "flex", gap: "20px"}}>
+<div style = {{width: "40%", display: "flex", gap: "20px"}}>
       <TextField
             variant="outlined"
             type="date"
@@ -212,7 +212,7 @@ const Laboratory = () => {
                 // setView(state => state + 1)
             }}
           />
-
+{/* 
         <Button
           style={{
             width: "28%",
@@ -226,7 +226,7 @@ const Laboratory = () => {
           variant="contained"
         >
           View
-        </Button>
+        </Button> */}
 
           </div>
           
@@ -242,6 +242,9 @@ const Laboratory = () => {
         return <Sections data = {test} addResult = {(data) => {
           AddResultHandler()
           setLabTests(data)
+        }}
+        refresh = {() => {
+          setDel(state => state + 1)
         }}/>
       })}
       </div>
@@ -402,6 +405,7 @@ const Sections = (props) => {
         })}
         {showUrine && <Urine testId = {testId} hideModal = {() => {
           setShowUrine(false)
+          props.refresh()
         }} />}
         {showUrinePrint && <UrinePrint data = {props.data} hideModal = {() => {
           setShowUrinePrint(false)
@@ -432,6 +436,7 @@ const Sections = (props) => {
         })}
         {showStool && <Stool testId = {testId} hideModal = {() => {
           setShowStool(false)
+          props.refresh()
         }} />}
         {showStoolPrint && <StoolPrint data = {props.data} hideModal = {() => {
           setShowStoolPrint(false)

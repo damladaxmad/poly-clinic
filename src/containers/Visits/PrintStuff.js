@@ -183,8 +183,8 @@ const PrintStuff = (props) => {
           </div>
           
           <div style = {{display: "flex", gap: "16px", marginTop: "30PX", 
-        fontSize: "20px"}}>
-          <Typography style = {{fontSize: "16px"}}>Total:</Typography>
+        fontSize: "20px", width: "100%"}}>
+          <Typography style = {{fontSize: "16px",}}>Total:</Typography>
           <Typography style = {{
             fontWeight: "bold", fontSize: "18px"
           }}> ${total}</Typography>

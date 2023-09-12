@@ -6,23 +6,18 @@ import axios from "axios";
 import { constants } from "../../Helpers/constantsFile";
 
 
-const Urine = (props) => {
+const Stool = (props) => {
 
     const [physicalData, setPhysicalData] = useState()
-    const [chemicalData, setChemicalData] = useState()
     const [microscopicalData, setMicroscopicalData] = useState()
 
     const handleSave = () => {
         axios.patch(`${constants.baseUrl}/tests/${props.testId}`, {
-            urineResult: {
+            stoolResult: {
                 response: [
                     {
                         name: "Physical Examination",
                         result: physicalData
-                    },
-                    {
-                        name: "Chemical Examination",
-                        result: chemicalData
                     },
                     {
                         name: "Microscopical Examination",
@@ -37,7 +32,7 @@ const Urine = (props) => {
                 },
               }
         ).then(res => {
-            alert("Succesfully added urine")
+            alert("Succesfully added stool")
             props.hideModal()
         }).catch(err => {
             alert(err.response.data?.message);
@@ -47,10 +42,10 @@ const Urine = (props) => {
     return ( 
         <MyModal
     onClose={() => props.hideModal()}
-    pwidth="720px"
+    pwidth="760px"
   //   pheight = "478px"
     top="15%"
-    left="30%"
+    left="28%"
   >
     <div
       style={{
@@ -60,7 +55,7 @@ const Urine = (props) => {
         // overflowY:  "none",
         alignItems: "center",
         gap: "15px",
-        width: "700px",
+        width: "740px",
         overFlowX: "hidden",
         padding: "15px",
      
@@ -73,22 +68,12 @@ const Urine = (props) => {
     justifyContent: "start", gap: "20px", flexWrap: "wrap"}}>
 
 
-         <div style = {{width: "47%", display: "flex",
+         <div style = {{width: "40%", display: "flex",
         flexDirection: "column", gap: "20px"}}> 
          <Physical data = {(data) => {
            setPhysicalData(data)
          }} />
-         <Microscopical data = {(data) => {
-           setMicroscopicalData(data)
-         }}/>
-         </div>
-
-         <div style = {{width: "47%",  display: "flex",
-        flexDirection: "column", gap: "20px"}}> 
-         <Chemical data = {(data) => {
-           setChemicalData(data)
-         }}/>
-          <Button
+           <Button
           //   disabled = {disable}
           style={{
             width: "200px",
@@ -105,6 +90,15 @@ const Urine = (props) => {
         >
           Save All
         </Button>
+       
+         </div>
+
+         <div style = {{width: "57%",  display: "flex",
+        flexDirection: "column", gap: "20px"}}> 
+          <Microscopical data = {(data) => {
+           setMicroscopicalData(data)
+         }}/>
+        
          </div>    
 
         </div>
@@ -118,14 +112,14 @@ const Urine = (props) => {
 const Physical = (props) => {
 
     const [inputStates, setInputStates] = useState({
-        appearance: null,
+        consistency: null,
         color: null,
         grossBlood: null
     })  
 
     const inputs = [
-        {name: "appearance", placeholder: "Appearance", },
         {name: "color", placeholder: "Color"},
+        {name: "consistency", placeholder: "Consistency", },
         {name: "grossBlood",placeholder: "Gross Blood"},
     ]
 
@@ -133,8 +127,8 @@ const Physical = (props) => {
 
     useEffect(() => {
         setResults([
-            {key: "Appearance", value: inputStates.appearance},
             {key: "Color", value: inputStates.color},
+            {key: "Consistency", value: inputStates.consistency},
             {key: "Gross Blood", value: inputStates.grossBlood},
         ])
     }, [inputStates])
@@ -155,7 +149,7 @@ const Physical = (props) => {
             value = {input?.value}
             type="text"
             style={{
-              width: "125px",
+              width: "100px",
               height: "35px",
               padding: "8px",
               fontSize: "14px",
@@ -180,126 +174,56 @@ const Physical = (props) => {
         </div>
     )
 }
-const Chemical = (props) => {
 
-    const [inputStates, setInputStates] = useState({
-        Leukocytes:  null,
-        Nitrite: null,
-        Urobilinogen: null,
-        Protein: null,
-        PH: null,
-        OccultBlood: null,
-        SpGravity: null,
-        Keton: null,
-        Glucose: null,
-        Bilirubin: null
-    })  
-
-    const inputs = [
-        {name: "Leukocytes", placeholder: "Leukocytes", },
-        {name: "Nitrite", placeholder: "Nitrite"},
-        {name: "Urobilinogen",placeholder: "Urobilinogen"},
-        {name: "Protein", placeholder: "Protein", },
-        {name: "PH", placeholder: "PH"},
-        {name: "OccultBlood",placeholder: "Occult Blood"},
-        {name: "SpGravity",placeholder: "Sp. Gravity"},
-        {name: "Keton", placeholder: "Keton", },
-        {name: "Glucose", placeholder: "Glucose"},
-        {name: "Bilirubin",placeholder: "Bilirubin"},
-    ]
-
-    const [results, setResults] = useState([])
-
-    useEffect(() => {
-        setResults([
-            {key: "Leukocytes", value: inputStates.Leukocytes },
-            {key:  "Nitrite", value: inputStates.Nitrite},
-            {key: "Urobilinogen", value: inputStates.Urobilinogen},
-            {key: "Protein", value: inputStates.Protein },
-            {key: "PH", value: inputStates.PH},
-            {key:  "Occult Blood", value: inputStates.OccultBlood},
-            {key:  "Sp. Gravity", value: inputStates.SpGravity},
-            {key: "Keton", value: inputStates.Keton },
-            {key: "Glucose", value: inputStates.Glucose},
-            {key: "Bilirubin", value: inputStates.Bilirubin},
-        ])
-    }, [inputStates])
-
-    props.data(results)
-
-    return (
-        <div style = {{width: "98%", display: "flex",
-        flexDirection: "row", gap: "10px", flexWrap: "wrap", 
-        border: "1px solid grey", padding: "15px", borderRadius: "10px",
-        background: "#F0F2FA",  alignSelf: "flex-start"
-        }}>
-            <Typography style = {{fontWeight: "bold",
-        fontSize: "16px"}}> Chemical Examination:</Typography>
-        {inputs?.map((input, index) => {
-            return    <input key = {index}
-            name = {input.name}
-            value = {input?.value}
-            type="text"
-            style={{
-              width: "125px",
-              height: "35px",
-              padding: "8px",
-              fontSize: "14px",
-              borderRadius: "8px",
-              background: "white",
-              border: "1px solid #6E6E6E",
-            }}
-            placeholder= {input.placeholder}
-            onChange={(e) => {
-                const value = e?.target?.value
-                setInputStates((prevState) => {
-                    return {
-                      ...prevState,
-                      [input.name]: value
-                    };
-                  });
-
-            }}
-          />
-        })}
-     
-        </div>
-    )
-}
 const Microscopical = (props) => {
 
     const [inputStates, setInputStates] = useState({
+        AncylostomaDuodenale: null,
+        AscarisLumbricoides: null,
+        EnterobiusVermicularis: null,
+        HymenolepisNana: null,
+        SchistosomaHaematobium: null,
+        TrichurisTrichiura: null,
+        EntamoebaHistolyticaCyst: null,
+        EHistolyticaTrophozoite: null,
+        GiardialambliaCyst: null,
+        GiardialambliaTrophozoite: null,
         WBC: null,
         RBC: null,
-        EpithelialCells: null,
-        Fungi: null,
-        Casts: null,
-        CrystAls: null,
-        CrystAls: null,
-        Parasite: null
     })  
 
     const inputs = [
-        {name: "WBC", placeholder: "WBC", },
-        {name: "RBC", placeholder: "RBC"},
-        {name: "EpithelialCells",placeholder: "Epithelial Cells"},
-        {name: "Fungi", placeholder: "Fungi", },
-        {name: "Casts", placeholder: "Casts"},
-        {name: "Crystals",placeholder: "Cryst als"},
-        {name: "Parasite",placeholder: "Parasite"},
+        {name: "AncylostomaDuodenale", placeholder: "Ancylostoma duodenale", },
+        {name: "AscarisLumbricoides", placeholder: "Ascaris lumbricoides"},
+        {name: "EnterobiusVermicularis",placeholder: "Enterobius vermicularis"},
+        {name: "HymenolepisNana", placeholder: "Hymenolepis nana", },
+        {name: "SchistosomaHaematobium", placeholder: "Schistosoma haematobium"},
+        {name: "TrichurisTrichiura",placeholder: "Trichuris trichiura"},
+        {name: "EntamoebaHistolyticaCyst",placeholder: "Entamoeba histolytica Cyst"},
+        {name: "EHistolyticaTrophozoite", placeholder: "E.histolytica Trophozoite"},
+        {name: "GiardialambliaCyst",placeholder: "GiardialambliaCyst"},
+        {name: "GiardialambliaTrophozoite", placeholder: "Giardialamblia Trophozoite", },
+        {name: "WBC", placeholder: "WBC"},
+        {name: "RBC",placeholder: "RBC"},
     ]
+       
 
     const [results, setResults] = useState([])
 
     useEffect(() => {
         setResults([
-            {key: "WBC", value: inputStates.WBC },
+            {key: "Ancylostoma duodenale", value: inputStates.AncylostomaDuodenale },
+            {key:  "Ascaris lumbricoides", value: inputStates.AscarisLumbricoides},
+            {key: "Enterobius vermicularis", value: inputStates.EnterobiusVermicularis},
+            {key: "Hymenolepis Nana", value: inputStates.HymenolepisNana },
+            {key: "Schistosoma haematobium", value: inputStates.SchistosomaHaematobium},
+            {key:  "Trichuris trichiura", value: inputStates.TrichurisTrichiura},
+            {key:  "Entamoeba histolytica Cyst", value: inputStates.EntamoebaHistolyticaCyst},
+            {key:  "E.histolytica Trophozoite", value: inputStates.EHistolyticaTrophozoite},
+            {key:  "GiardialambliaCyst", value: inputStates.GiardialambliaCyst},
+            {key:  "Giardialamblia Trophozoite", value: inputStates.GiardialambliaTrophozoite},
+            {key:  "WBC", value: inputStates.WBC},
             {key:  "RBC", value: inputStates.RBC},
-            {key: "Epithelial Cells", value: inputStates.EpithelialCells},
-            {key: "Fungi", value: inputStates.Fungi },
-            {key: "Casts", value: inputStates.Casts},
-            {key:  "Cryst als", value: inputStates.CrystAls},
-            {key:  "Parasite", value: inputStates.Parasite}
         ])
     }, [inputStates])
 
@@ -321,7 +245,7 @@ const Microscopical = (props) => {
             value = {input?.value}
             type="text"
             style={{
-              width: "125px",
+              width: "170px",
               height: "35px",
               padding: "8px",
               fontSize: "14px",
@@ -348,4 +272,4 @@ const Microscopical = (props) => {
 }
 
 
-export default Urine
+export default Stool

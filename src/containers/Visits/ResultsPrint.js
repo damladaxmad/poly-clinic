@@ -46,6 +46,11 @@ const ResultsPrint = (props) => {
     }
     
     let singleObject = groupBy(props.data?.tests)
+    console.log(singleObject)
+    delete singleObject?.urine
+    delete singleObject?.stool
+    delete singleObject?.URINE
+    delete singleObject?.STOOL
 
     var outputData = [];
 for (var i in singleObject) {
@@ -190,7 +195,7 @@ for (var i in singleObject) {
                 fontSize: "20px",
                 fontWeight: "bold"
               }}>
-                {moment(props.data?.date).format("YYYY-MM-DD")}
+                {moment(props.data?.date).format("YYYY/MM/DD")}
                  </Typography>
             </div>
             </div>
@@ -201,8 +206,6 @@ for (var i in singleObject) {
                 return <div style = {{width: "100%", display: "flex",
                 alignItems: "start", flexDirection: "column", gap: "12px",
                 marginTop: "30px"}}>
-                    {/* <Typography style = {{fontSize: "16px",
-                fontWeight: "bold"}}>{d.testItem?.category}</Typography> */}
                      <PrintTable columns = {columns} data = {d} 
                     />
                   </div>

@@ -8,7 +8,7 @@ import moment from "moment";
 import ReactToPrint from "react-to-print";
 import React, { useRef } from "react";
 import { AiFillPrinter } from "react-icons/ai";
-import printHeader from "../../assets/images/banner.png";
+import printHeader from "../../assets/images/greenB.png";
 import secondHeader from "../../assets/images/secondHeader.png";
 import kulmiyeLogo from "../../assets/images/kulmiyeLogo.jpg";
 import MyTable from "../../utils/MyTable"
@@ -24,6 +24,11 @@ const PrintStuff = (props) => {
         render: (data) => <p>${data?.testItem.price}</p>}
       ]
     const data =  props.data?.tests
+
+    let total = 0
+    props.data?.tests?.map(d => {
+      total += d.testItem?.price
+    })
 
     return (
 
@@ -162,7 +167,7 @@ const PrintStuff = (props) => {
                 fontSize: "20px",
                 fontWeight: "bold"
               }}>
-                {moment(props.data?.date).format("YYYY-MM-DD")}
+                {moment(props.data?.date).format("YYYY/MM/DD")}
                  </Typography>
             </div>
             </div>
@@ -174,7 +179,15 @@ const PrintStuff = (props) => {
         alignItems: "start", 
         marginTop: "30px"}}>
              <PrintTable columns = {columns} data = {data} 
-            />
+            invoice = {"invoice"}/>
+          </div>
+          
+          <div style = {{display: "flex", gap: "16px", marginTop: "30PX", 
+        fontSize: "20px"}}>
+          <Typography style = {{fontSize: "16px"}}>Total:</Typography>
+          <Typography style = {{
+            fontWeight: "bold", fontSize: "18px"
+          }}> ${total}</Typography>
           </div>
 
        

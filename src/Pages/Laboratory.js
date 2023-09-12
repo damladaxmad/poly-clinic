@@ -8,6 +8,9 @@ import { setVisitors } from "../redux/actions/vistorsActions";
 import useFetch from "../funcrions/DataFetchers";
 import ResultsPrint from "../containers/Visits/ResultsPrint";
 import Urine from "../containers/Laboratory/Urine";
+import UrinePrint from "../containers/Visits/UrinePrint";
+import Stool from "../containers/Laboratory/Stool";
+import StoolPrint from "../containers/Visits/StoolPrint";
 
 const Laboratory = () => {
 
@@ -19,6 +22,7 @@ const Laboratory = () => {
   const [startDate, setStartDate] = useState(moment(new Date()).format("MM-DD-YYYY"))
   const [endDate, setEndDate] = useState(moment(new Date()).format("MM-DD-YYYY"))
   const [labTests, setLabTests] = useState()
+  
 
   const handler = (data) => {
     console.log(data)
@@ -51,12 +55,14 @@ const Laboratory = () => {
   })
 
   visitorTests?.flat().map(v => {
+    if (v.testItem?.type.toLowerCase() == "urine" || v.testItem?.type.toLowerCase() == "stool") return
     if (v.response) readyTests += 1
     if (!v.response) waitingTests += 1
-  })
+    })
 
   console.log(visitorTests)
   console.log(readyTests, waitingTests)
+
   return (
     <div
       style={{
@@ -182,7 +188,7 @@ const Laboratory = () => {
             onChange={(e) => setQuery(e.target.value)}
           />
 
-<div style = {{width: "40%", display: "flex", gap: "20px"}}>
+<div style = {{width: "50%", display: "flex", gap: "20px"}}>
       <TextField
             variant="outlined"
             type="date"
@@ -207,6 +213,20 @@ const Laboratory = () => {
             }}
           />
 
+        <Button
+          style={{
+            width: "28%",
+            fontSize: "16px",
+            fontWeight: "bold",
+            height: "40px",
+            backgroundColor: "#5130DE",
+            color: "white",
+          }}
+          onClick = {() => alert("View your stuff")}
+          variant="contained"
+        >
+          View
+        </Button>
 
           </div>
           
@@ -235,6 +255,9 @@ const Sections = (props) => {
 
   const [showPrintResults, setShowPrintResults] = useState(false)
   const [showUrine, setShowUrine] = useState(false)
+  const [showUrinePrint, setShowUrinePrint] = useState(false)
+  const [showStool, setShowStool] = useState(false)
+  const [showStoolPrint, setShowStoolPrint] = useState(false)
   const [testId, setTestId] = useState()
 
   return (
@@ -275,7 +298,7 @@ const Sections = (props) => {
           }}
         >
           {" "}
-          {moment(props.data?.data).format("YYYY-MM-DD")}
+          {moment(props.data?.date).format("YYYY-MM-DD")}
         </Typography>
       </div>
 
@@ -302,6 +325,7 @@ const Sections = (props) => {
           </Typography>
         </div>
         {props.data?.tests?.map(test => {
+          if (test.testItem?.type.toLowerCase() == "urine" || test.testItem?.type.toLowerCase() == "stool" ) return
           return <TestStatus data = {test} />
         })}
       </div>
@@ -353,9 +377,11 @@ const Sections = (props) => {
         >
           Add Result
         </Button>
-        <div style={{ display: "flex", gap: "10px" }}>
+        <div style={{ display: "flex", gap: "10px",  width: "180px", }}>
         {props.data?.tests.map(t => {
-          if (t.testItem?.type == "urine") return <p style = {{
+          if (t.testItem?.type == "urine") return ( 
+          <><p style = {{
+            width: "48%", textAlign: "center",
             padding: "5px 16px", border: "1px solid grey", borderRadius: "5px",
             margin: "0px", cursor: "pointer"
           }}
@@ -363,9 +389,52 @@ const Sections = (props) => {
             setTestId(t?._id)
             setShowUrine(true)
           }}> URINE</p>
+          
+          <p style = {{
+            width: "48%", textAlign: "center",
+            padding: "5px 16px", border: "1px solid grey", borderRadius: "5px",
+            margin: "0px", cursor: "pointer"
+          }}
+          onClick={() => {
+            setTestId(t?._id)
+            setShowUrinePrint(true)
+          }}> Print</p></>)
         })}
         {showUrine && <Urine testId = {testId} hideModal = {() => {
           setShowUrine(false)
+        }} />}
+        {showUrinePrint && <UrinePrint data = {props.data} hideModal = {() => {
+          setShowUrinePrint(false)
+        }} />}
+        </div>
+        <div style={{ display: "flex", gap: "10px",  width: "180px", }}>
+        {props.data?.tests.map(t => {
+          if (t.testItem?.type == "stool") return ( 
+          <><p style = {{
+            width: "48%", textAlign: "center",
+            padding: "5px 16px", border: "1px solid grey", borderRadius: "5px",
+            margin: "0px", cursor: "pointer"
+          }}
+          onClick={() => {
+            setTestId(t?._id)
+            setShowStool(true)
+          }}> STOOL</p>
+          
+          <p style = {{
+            width: "48%", textAlign: "center",
+            padding: "5px 16px", border: "1px solid grey", borderRadius: "5px",
+            margin: "0px", cursor: "pointer"
+          }}
+          onClick={() => {
+            setTestId(t?._id)
+            setShowStoolPrint(true)
+          }}> Print</p></>)
+        })}
+        {showStool && <Stool testId = {testId} hideModal = {() => {
+          setShowStool(false)
+        }} />}
+        {showStoolPrint && <StoolPrint data = {props.data} hideModal = {() => {
+          setShowStoolPrint(false)
         }} />}
         </div>
       </div>

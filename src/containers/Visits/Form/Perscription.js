@@ -237,7 +237,7 @@ const Perscription = (props) => {
           variant="contained"
           onClick = {()=>  {
             if (!saleData.medication  || !saleData.quantity 
-              || !saleData.frequency || !saleData.instruction
+              || !saleData.frequency 
              ) {
                return setError(true)
               }

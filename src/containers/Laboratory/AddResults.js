@@ -21,6 +21,7 @@ const AddResults = (props) => {
   let cleanArr = []
 
   props.data?.map(d => {
+    if (d.testItem?.type.toLowerCase() == "urine" || d.testItem?.type.toLowerCase() == "stool") return
     cleanArr.push({
         id: d._id, name: d.testItem?.name,
         response: d.response,

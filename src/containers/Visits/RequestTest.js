@@ -67,6 +67,20 @@ const RequestTests = (props) => {
     setApiData((current) => current.filter((i) => i.testItem !== item._id));
   };
 
+  const handler = (data) => {
+    if(data) {
+    if (data?.length > 0) {
+        return data.filter((std) => {
+           return (std )
+    });
+
+    } 
+  }
+  else {
+      return;
+    }
+  };
+
   return (
     <MyModal
       onClose={() => {
@@ -108,7 +122,7 @@ const RequestTests = (props) => {
                     };
                   });
             }}
-            options={testItems}
+            options={handler(testItems)}
             autoHighlight
             getOptionLabel={(option) => option?.name}
             renderOption={(props, option) => (

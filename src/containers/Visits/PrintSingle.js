@@ -8,7 +8,7 @@ import moment from "moment";
 import ReactToPrint from "react-to-print";
 import React, { useRef } from "react";
 import { AiFillPrinter } from "react-icons/ai";
-import printHeader from "../../assets/images/banner.png";
+import printHeader from "../../assets/images/greenB.png";
 import secondHeader from "../../assets/images/secondHeader.png";
 import kulmiyeLogo from "../../assets/images/kulmiyeLogo.jpg";
 import MyTable from "../../utils/MyTable"
@@ -56,6 +56,7 @@ const PrintSingle = (props) => {
             flexDirection: "column",
             width: "101%",
             height: "100%",
+            padding: "15px",
             marginBottom: "30px",
             background: "white",
             borderRadius: '8px',
@@ -167,14 +168,13 @@ const PrintSingle = (props) => {
               <Typography style = {{
                 fontSize: "20px",
               }}>
-                ID:
+             Date:
               </Typography>
               <Typography style = {{
                 fontSize: "20px",
                 fontWeight: "bold"
               }}>
-                {props.data?.patient?.patientId >= 10 ? "0" : "00"}{props.data?.patient?.patientId}
-              </Typography>
+                {moment(props.data?.date).format("YYYY/MM/DD")} </Typography>
             </div>
             </div>
           </div>
@@ -184,9 +184,7 @@ const PrintSingle = (props) => {
           <div style = {{width: "100%", display: "flex",
         alignItems: "start", flexDirection: "column", gap: "10px",
         marginTop: "30px"}}>
-            {props.result && <Typography style = {{fontSize: "16px",
-        fontWeight: "bold"}}>
-                {props.singlePrint?.testItem?.category}</Typography>}
+        
              <PrintTable columns = {columns} data = {data} 
             />
           </div>

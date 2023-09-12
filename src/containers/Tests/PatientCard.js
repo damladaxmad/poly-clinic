@@ -37,23 +37,22 @@ const PatientCard = (props) => {
             <div style = {{display: "flex", width: "100%",
         justifyContent: "space-between", alignItems: "center"}}>
             <Typography style = {{
-                fontWeight: "700",
-                fontSize: "20px",
-                color: "#4421DE",
-                cursor:"pointer"
+                fontSize: "14px",
+                color: "#696767",
+                cursor: "pointer"
             }}
             onClick = {()=> props.divClick(props.data)}> 
-            {props.data?.patientId >= 10 ? "0" : "00"}{props.data?.patientId}
+            {props.data?.district}
             </Typography>
             <MdOutlineDelete style = {{color: "#F22417", fontSize: "24px",
-                cursor: "pointer"}} onClick = {() => deleteTestFun()}/>
+                cursor: "pointer", flex: "end"}} onClick = {() => deleteTestFun()}/>
             </div>
             <div style = {{cursor: "pointer"}}
             onClick = {()=> props.divClick(props.data)}>
 
             <Typography style = {{
                 fontWeight: "600",
-                fontSize: "18px",
+                fontSize: "20px",
             }}> {props.data.name}</Typography>
             <Typography style = {{
                 fontSize: "18px",

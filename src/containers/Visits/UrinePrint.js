@@ -14,7 +14,7 @@ import kulmiyeLogo from "../../assets/images/kulmiyeLogo.jpg";
 import MyTable from "../../utils/MyTable"
 import PrintTable from "./printTable";
 
-const PrintPerscription = (props) => {
+const UrinePrint = (props) => {
     const componentRef = useRef();
 
     const columns = [
@@ -23,7 +23,11 @@ const PrintPerscription = (props) => {
         { title: "Frequency", field: "frequency", width: "20%"  },
         { title: "Instruction", field: "instruction", width: "30%"   }, 
       ]
-    const data =  props.data?.prescription
+
+    let data;
+    props.data?.tests?.map(t => {
+        if (t.urineResult?.response.length > 0) data = t?.urineResult?.response
+    })
 
     return (
 
@@ -156,47 +160,28 @@ const PrintPerscription = (props) => {
               <Typography style = {{
                 fontSize: "20px",
               }}>
-                Date:
+               Date:
               </Typography>
               <Typography style = {{
                 fontSize: "20px",
                 fontWeight: "bold"
               }}>
-                {moment(props.data?.date).format("YYYY/MM/DD")}</Typography>
+                {moment(props.data?.date).format("YYYY/MM/DD")}
+                 </Typography>
             </div>
             </div>
           </div>
 
-          
-
-          <div style = {{width: "100%", display: "flex",
-        alignItems: "start", flexDirection: "column", gap: "12px",
-        marginTop: "30px"}}>
-           <Typography style = {{fontSize: "20px",
-        fontWeight: "bold"}}>
-              Doctor Perscription</Typography>
-             <PrintTable columns = {columns} data = {data} 
-            />
-          </div>
-
-       
-{/* 
-          <div style = {{ height: "500px",
-          display: "flex", justifyContent: "center"
-          }}>
-          <img
-              src={kulmiyeLogo}
-              style={{
-                width: "70%",
-                height: "100%",
-                opacity: "0.1"
-                
-              }}
-            />
-          </div> */}
-
-    
+          {/* <Typography style = {{fontSize: "18px", fontWeight: "bold",
+        marginTop: "30px",}}> 
+          Urine Examination Result</Typography> */}
   
+       {data?.map(d => {
+        return (
+            <Physical name = {d.name} result = {d.result}/>
+        )
+       })}
+
           </div>
           <Typography style = {{
                 fontSize: "16px",
@@ -215,4 +200,43 @@ const PrintPerscription = (props) => {
     )
 }
 
-export default PrintPerscription
+const Physical = (props) => {
+    console.log(props.result)
+    return (
+        <div style = {{width: "100%",
+         borderLeft: "1px solid black", marginTop: "30px",
+         borderTop: "1px solid black", alignSelf: "center",
+         }}>
+
+            <div style={{width: "100%", borderBottom: '1px solid black',
+        padding: "6px",  borderRight: '1px solid black',}}>
+                <Typography style = {{
+                    fontWeight: "bold", fontSize: "16px"
+                }}> {props.name}</Typography>
+            </div>
+
+            <div style = {{width: "100%", display: "flex", flexWrap: "wrap"}}>  
+           {props.result?.map(r => {
+            return <KeyValue title = {r.key} value = {r.value}/>
+})}
+            </div>  
+
+        </div>
+    )
+}
+
+const KeyValue = (props) => {
+    return (
+        <div style = {{width: "50%", borderBottom: "1px solid black",
+    display: "flex",
+        padding: "0px"}}>
+            <Typography style = {{width: "50%", borderRight: "1px solid black",
+        padding: "4px 10px"}}>  {props.title} </Typography>
+            <Typography style = {{width: "50%", fontWeight: "bold",
+        borderRight: "1px solid black",
+        padding: "4px 10px"}}>  {props.value} </Typography>
+        </div>
+    )
+}
+
+export default UrinePrint

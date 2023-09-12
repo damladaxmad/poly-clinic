@@ -12,6 +12,8 @@ import Perscription from "./Form/Perscription"
 import UpdataPerscription from "./UpdatePerscription"
 import PrintPerscription from "./PrintPerscription"
 import ResultsPrint from "./ResultsPrint"
+import UrinePrint from "./UrinePrint"
+import StoolPrint from "./StoolPrint"
 
 const VisitDetail = (props) => {
     const [history, setHistory] = useState()
@@ -25,6 +27,8 @@ const VisitDetail = (props) => {
     const [showPerscription, setShowPerscription] = useState(false)
     const [showUpdatePerscription, setShowUpdatePerscription] = useState(false)
     const [showResultsPrint, setShowResultsPrint] = useState(false)
+    const [showUrinePrint, setShowUrinePrint] = useState(false)
+    const [showStoolPrint, setShowStoolPrint] = useState(false)
 
 
     console.log(history, diagnosis)
@@ -117,6 +121,7 @@ const VisitDetail = (props) => {
 
         {requestTests && <RequestTests hideModal = {() => {
           setRequestTests(false)
+          setShowPrinter(true)
         }}
         visitor = {props.data?._id}
         data = {props.data?.tests}
@@ -263,8 +268,14 @@ const VisitDetail = (props) => {
         if (id == "result") setResult(true)
         if (id == "result") setSinglePrint(data)
         if (id == "print") setSinglePrint(data?.testItem)
+        if (id == "urine") return setShowUrinePrint(true)
+        if (id == "stool") return setShowStoolPrint(true)
         console.log(data?.testItem)
-        setShowPrintSingle(true)}} />
+        setShowPrintSingle(true)}}
+        newChange = {(data) => {
+          props.newChange(data)
+        }} 
+        visitor = {props.data?._id}/>
     })}
     </div>
 
@@ -288,6 +299,12 @@ const VisitDetail = (props) => {
       }} data = {props.data} singlePrint = {singlePrint}
       result = {result}/>}
 
+      {showUrinePrint && <UrinePrint data = {props.data} hideModal = {() => {
+        setShowUrinePrint(false)
+      }}/>}
+      {showStoolPrint && <StoolPrint data = {props.data} hideModal = {() => {
+        setShowStoolPrint(false)
+      }}/>}
     <div style = {{height: "183px", width: "2px", background: "lightGray"}}> </div> 
 
     <div style = {{display: "flex", flexDirection: "column", width: "30%",
@@ -351,8 +368,22 @@ const RequestedTests = (props) => {
   const deleteTestFun = () => {
     deleteFunction(
       "Delete Test", props.data?.testItem?.name, `${constants.baseUrl}/tests/${props.data._id}`,
-      () => {
-        
+      async () => {
+        await axios
+      .get(
+        `${constants.baseUrl}/visitors/${props?.visitor}`,
+        {
+          headers: {
+            authorization: constants.token,
+          },
+        }
+      )
+      .then((res) => {
+        props.newChange(res?.data?.data)
+      })
+      .catch((err) => {
+        alert(err.response.data?.message);
+      });
       },
       () => {
         
@@ -435,6 +466,8 @@ const RequestedTests = (props) => {
               }}
               variant="contained"
               onClick={() => {
+                if (props.data?.testItem?.type?.toLowerCase() == "urine" || props.data?.testItem?.type?.toLowerCase() == "stool" )
+                return props.printStuff(props.data, props.data?.testItem?.type?.toLowerCase())
                 props.printStuff(props.data, "result")
               }}
             >

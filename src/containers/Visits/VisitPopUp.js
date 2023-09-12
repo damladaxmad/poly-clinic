@@ -8,7 +8,7 @@ import axios from "axios";
 
 const VisitPopUp = (props) => {
 
-    const patients = useSelector(state => state.patients.patients)
+    const patients = useSelector(state => state.patients.patients?.reverse())
     const [data, setData] = useState()
 
     const createTest = () => {

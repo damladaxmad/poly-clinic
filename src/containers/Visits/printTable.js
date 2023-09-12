@@ -31,13 +31,26 @@ const PrintTable = (props) => {
   const columns = props.columns;
   console.log(props.data)
 
+  const handler = (data) => {
+    console.log(data)
+    if (data?.length > 0) {
+        return data.filter((std) => {
+          //  if (std.testItem?.type == "urine") return
+           return (std)
+    });
+
+    } else {
+      return;
+    }
+  };
+
     return (
     <div style={{ width: "100%", 
     margin: "auto" }}>
 
-<Typography style = {{fontSize: "16px",
+{props.invoice != "invoice" && <Typography style = {{fontSize: "16px",
                 fontWeight: "bold",
-                marginBottom: "10px"}}>{props.data[0]?.testItem?.category}</Typography>
+                marginBottom: "10px"}}>{props.data[0]?.testItem?.category}</Typography>}
 
       <div style = {{height: "40px", border: "1px solid black", width: "100%",
     borderRadius: "10px", display: "flex", flexDirection: "row", gap: '15px',
@@ -50,7 +63,7 @@ const PrintTable = (props) => {
       <MaterialTable
       icons={tableIcons}
         columns={props.columns}
-        data={props.data}
+        data={handler(props.data)}
      
         options={{
           rowStyle: {border: "none"},

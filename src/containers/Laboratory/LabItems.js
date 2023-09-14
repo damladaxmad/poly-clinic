@@ -31,7 +31,7 @@ import axios from "axios";
 
 const columns = [
     { title: "Test Name", field: "name", width: "33%", editable:'never'},
-    { title: "Type", field: "type", width: "20%", editable:'never'},
+    // { title: "Type", field: "type", width: "20%", editable:'never'},
     { title: "Result", field: "response", width: "25%"},
     { title: "P.Outcomes", field: "possibleOutcome", width: "25%", editable:'never'}
   ]

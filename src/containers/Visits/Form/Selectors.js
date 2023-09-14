@@ -10,9 +10,9 @@ import { DateRangeRounded } from "@material-ui/icons";
 const Selectors = (props) => {
   const medicine = useSelector((state) => state.products.products);
   const productTypes = ["INJECTION", "TAB", "SYRUP", "DROP", "CREAM", "SOLUTION", "SOUP", "GESAC", "INVENTORY", "GEL", "MALAP", "SUMPOSTRY", "HERBAL", "SHAMPOO", "LIPIN",]
+  const [productType, setProductType] = useState(null);
   const customers = useSelector((state) => state.customers.customers);
   const [date, setDate] = useState(moment(new Date()).format("MM-DD-YYYY"));
-  const [productType, setProductType] = useState(null);
   const [disable, setDisable] = useState(true)
 
 

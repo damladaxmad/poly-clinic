@@ -92,6 +92,7 @@ const Perscription = (props) => {
     props.change(res?.data?.data?.visitor)
     console.log(res?.data?.data?.visitor)
     props.hideModal()
+    props.showPrinter()
   }).catch((err) => {
     alert(err.response?.data?.message)
   })

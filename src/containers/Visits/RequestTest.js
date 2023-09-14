@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import MyModal from "../../Modal/Modal";
 import { Box, Button, TextField, Typography } from "@material-ui/core";
 import { Autocomplete } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { constants } from "../../Helpers/constantsFile";
 import axios from "axios";
 import TestItemTable from "./TestItemTable";
@@ -10,6 +10,9 @@ import { addTableTestData, deleteTableTestData, setTableTestData } from "../../r
 
 const RequestTests = (props) => {
   const testItems = useSelector(state => state.tests.tests)
+  const productTypes = useSelector(state => state.categories.categories)
+  const [productType, setProductType] = useState(null);
+  const [reset, setReset] = useState(1)
   console.log(testItems)
   const [data, setData] = useState();
   const [ids, setIds] = useState({
@@ -19,6 +22,16 @@ const RequestTests = (props) => {
   const [apiData, setApiData] = useState([])
   const dispach = useDispatch()
   console.log(apiData)
+
+  useEffect(() => {
+
+  }, [reset])
+  
+  let newTests = []
+
+    testItems?.map(test => {
+      if (test.category == productType || productType == null) newTests.push(test)
+    }) 
 
   const dispatch = useDispatch()
   const createTest = async () => {
@@ -35,6 +48,7 @@ const RequestTests = (props) => {
       .then((res) => {
         alert("Succesfully created tests");
         dispach(setTableTestData([]))
+        props.showPrinter(apiData)
         props.hideModal();
       })
       .catch((err) => {
@@ -54,6 +68,7 @@ const RequestTests = (props) => {
         // alert("Succesfully read visitor");
         dispach(setTableTestData([]))
         props.hideModal();
+        props.showPrinter(apiData)
         props.newChange(res?.data?.data)
       })
       .catch((err) => {
@@ -87,7 +102,7 @@ const RequestTests = (props) => {
         props.hideModal()
         dispach(setTableTestData([]))
       }}
-      pwidth="400px"
+      pwidth="500px"
     //   pheight = "478px"
       top="25%"
       left="40%"
@@ -99,19 +114,19 @@ const RequestTests = (props) => {
           height: "100%",
           alignItems: "center",
           gap: "15px",
-          width: "380px",
+          width: "480px",
           overFlowX: "hidden",
           padding: "15px",
        
         }}
       >
-        <div style = {{display: "flex", width: "100%",
+        <div style = {{display: "flex", width: "100%", gap: "10px",
         justifyContent: "space-between"}}>
           <Autocomplete
             id="country-select-demo"
-            // key={props.autoReset}
+            key={reset}
             // disabled={disable}
-            sx={{ width: 210 }}
+            sx={{ width: 180 }}
             onChange={(event, value) => {
                 setData(value)
                 setIds((prevState) => {
@@ -122,7 +137,7 @@ const RequestTests = (props) => {
                     };
                   });
             }}
-            options={handler(testItems)}
+            options={handler(newTests)}
             autoHighlight
             getOptionLabel={(option) => option?.name}
             renderOption={(props, option) => (
@@ -148,6 +163,36 @@ const RequestTests = (props) => {
               />
             )}
           />
+          <Autocomplete
+          id="country-select-demo"
+          key={`${props.autoReset}t`}
+          onChange={(event, value) => setProductType(value?.categoryName)}
+          sx={{ width: 180 }}
+          options={productTypes}
+          autoHighlight
+          getOptionLabel={(option) => option?.categoryName}
+          renderOption={(props, option) => (
+            <Box
+              component="li"
+              sx={{ "& > img": { mr: 2, flexShrink: 0 } }}
+              {...props}
+            >
+              {option?.categoryName}
+            </Box>
+          )}
+          renderInput={(params) => (
+            <TextField
+              variant="outlined"
+              placeholder="Category"
+              style={{ border: "1.5px solid #6E6E6E", borderRadius: "8px" }}
+              {...params}
+              // label="Choose a country"
+              inputProps={{
+                ...params.inputProps,
+              }}
+            />
+          )}
+        />
           <Button
             //   disabled = {disable}
             style={{
@@ -164,6 +209,7 @@ const RequestTests = (props) => {
                 setApiData([...apiData, ids])
                 if (!data) return
                 dispatch(addTableTestData(data))
+                setReset(state => state + 1)
             }}
           >
             Add

@@ -77,6 +77,7 @@ const UpdatePerscription = (props) => {
     alert("Succesfully Updated!")
     props.change(res?.data?.data?.visitor)
     props.hideModal()
+    props.showPrinter()
   }).catch((err) => {
     alert(err.response?.data?.message)
   })

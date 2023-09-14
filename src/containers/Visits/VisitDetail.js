@@ -30,9 +30,12 @@ const VisitDetail = (props) => {
     const [showUrinePrint, setShowUrinePrint] = useState(false)
     const [showStoolPrint, setShowStoolPrint] = useState(false)
 
+    const [lastTests, setLastTests] = useState()
+
 
     console.log(history, diagnosis)
     console.log(props.data)
+
 
     let takenTests = 0
     props.data?.tests?.map(t => {
@@ -126,10 +129,14 @@ const VisitDetail = (props) => {
 
         {requestTests && <RequestTests hideModal = {() => {
           setRequestTests(false)
-          setShowPrinter(true)
         }}
         visitor = {props.data?._id}
         data = {props.data?.tests}
+        showPrinter = {(data) => {
+          setLastTests(data)
+          console.log(props.data)
+          setShowPrinter(true)
+        }}
         newChange = {(data) => {
           props.newChange(data)
         }}
@@ -138,13 +145,20 @@ const VisitDetail = (props) => {
         {showPerscription && <Perscription hideModal = {() => {
           setShowPerscription(false)
         }} visitor = {props.data?._id}
+        showPrinter = {() => {
+          setShowPrintPerscription(true)
+        }}
         change = {(data) => {
           props.change(data)
         }}/>}
 
         {showUpdatePerscription && <UpdataPerscription hideModal = {() => {
           setShowUpdatePerscription(false)
-        }} visitor = {props.data?._id} data = {props.data?.prescription}
+        }} 
+        showPrinter = {() => {
+          setShowPrintPerscription(true)
+        }}
+        visitor = {props.data?._id} data = {props.data?.prescription}
         change = {(data) => {
           props.change(data)
         }}/>}
@@ -287,7 +301,9 @@ const VisitDetail = (props) => {
     {showPrinter && <PrintStuff hideModal = {() => {
         setShowPrinter(false)
         setResult(false)
+        setLastTests()
       }} data = {props.data} singlePrint = {singlePrint}
+      lastTests = {lastTests}
       />}
 
       {showResultsPrint && <ResultsPrint hideModal = {() => {

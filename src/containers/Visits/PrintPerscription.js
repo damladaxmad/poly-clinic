@@ -194,10 +194,16 @@ const PrintPerscription = (props) => {
               }}
             />
           </div> */}
-
-    
-  
-          </div>
+ <div
+            style={{
+              display: "flex",
+              justifyContent: 'flex-end',
+              gap: "16px",
+              marginTop: "30PX",
+              fontSize: "20px",
+              width: "100%",
+            }}
+          >
           <Typography style = {{
                 fontSize: "16px",
                 fontWeight: "500",
@@ -207,6 +213,11 @@ const PrintPerscription = (props) => {
               }}>
                 Doctor Signature:   _________________
               </Typography>
+            </div>
+    
+  
+          </div>
+         
         </div>
         
 

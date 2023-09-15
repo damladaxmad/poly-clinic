@@ -84,7 +84,7 @@ const Register = (props) => {
           alert("Successfully Created")
           resetForm();
           // (props.name == "Customer" || props.name == "Vendor")&&props.reset()
-          props.hideModal()
+          props.hideModal(res?.data?.data)
           props.name != "Patient" && props.change()
           console.log(res.data?.data?.customer)
           props.name == "Customer" && props.addCus(res.data?.data?.customer)

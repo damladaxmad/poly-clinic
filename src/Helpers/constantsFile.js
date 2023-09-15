@@ -1,9 +1,9 @@
 
 export const constants = {
-    baseUrl: 'https://polyclinic-api.onrender.com/api/v1',
+    baseUrl: 'https://interesting-goldberg.45-90-223-247.plesk.page/api/v1',
     // baseUrl: 'https://casriware-inventory-api.herokuapp.com/api/v1',
     moneySign: "$",
-    token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYTJmYzY1ZTg0ZjliYzJmYWIyMTc1NyIsImlhdCI6MTY5MzY2ODA0NiwiZXhwIjoxNjk2MjYwMDQ2fQ.eZxK__MJPRslGuAIn43yG-Vl_wj5INVIzKhDFcFMTIA"
+    token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYTJmYzY1ZTg0ZjliYzJmYWIyMTc1NyIsImlhdCI6MTY5NDc2NTc0OSwiZXhwIjoxNzAyNTQxNzQ5fQ.D7nXjM35uxFmZt_CpTAQXUsg25VuWaWD1Ugyu48XKuI"
 }
 
 // https://deentire-api.onrender.com/api/v1

@@ -5,13 +5,22 @@ import { Autocomplete } from "@mui/material";
 import { useState } from "react";
 import { constants } from "../../Helpers/constantsFile";
 import axios from "axios";
+import Register from "../../utils/Register";
 
 const VisitPopUp = (props) => {
 
     const patients = useSelector(state => state.patients.patients?.reverse())
     const [data, setData] = useState()
+    const [showPatient, setShowPatient] = useState(false)
 
-    const createTest = () => {
+    const fields = [
+      { label: "Enter Name", type: "text", name: "name" },
+      { label: "Enter Phone", type: "text", name: "phone" },
+      { label: "Enter Age", type: "text", name: "age" },
+      { label: "Enter Address", type: "text", name: "district" },
+    ];
+
+    const createTest = (data) => {
         axios.post(`${constants.baseUrl}/visitors`, {
           patient: data
         }, 
@@ -30,10 +39,10 @@ const VisitPopUp = (props) => {
 
     return  ( <MyModal
     onClose={() => props.hideModal()}
-    // pwidth="650px"
+    // pwidth="50px"
     // pheight = "478px"
     top="30%"
-    left="45%"
+    left="42%"
   >
     <div
       style={{
@@ -52,7 +61,7 @@ const VisitPopUp = (props) => {
           id="country-select-demo"
           // key={props.autoReset}
           // disabled={disable}
-          sx={{ width: 250 }}
+          sx={{ width: 300 }}
           onChange={(event, value) => {
             setData(value);
           }}
@@ -82,11 +91,44 @@ const VisitPopUp = (props) => {
             />
           )}
         />
-
+        
+        <div style = {{display: "flex", flexDirection: "row",
+      gap: "10px", alignSelf: "center",
+      cursor: "pointer"}}>
+          <Typography style = {{
+            fontSize: "15px"
+          }}>
+            patient does not exist?
+          </Typography>
+          <Typography style = {{
+            fontSize: "15px",
+            color: "#5130DE",
+            fontWeight: "bold"
+          }}
+          onClick = {() => {
+            setShowPatient(true)
+          }}>
+            Create
+          </Typography>
+        </div>
+        {showPatient && (
+          <Register
+            //   update={update}
+            //   instance={updatedCustomer}
+            //   reset={resetFomr}
+            hideModal={(data) => {
+              setShowPatient(false);
+              createTest(data?.createdPatient?._id)
+            }}
+            fields={fields}
+            url="patients"
+            name="Patient"
+          />
+        )}
         <Button
           //   disabled = {disable}
           style={{
-            width: "250px",
+            width: "300px",
             fontSize: "16px",
             backgroundColor: "#5130DE",
             color: "white",
@@ -95,7 +137,7 @@ const VisitPopUp = (props) => {
           }}
           type="submit"
           variant="contained"
-          onClick={() => createTest()}
+          onClick={() => createTest(data)}
         >
           Create Visit
         </Button>
